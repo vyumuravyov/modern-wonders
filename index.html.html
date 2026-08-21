@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modern Wonders</title>
+<style>
+:root{
+ --bg:#07101c;--panel:#121b2a;--panel2:#0a121e;--text:#f5f7fb;--muted:#93a2b7;--gold:#ffd166;
+ --line:rgba(255,255,255,.08);--shadow:0 24px 70px rgba(0,0,0,.34)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:#07101c;color:var(--text)}
+body{overflow-x:hidden}
+button{font:inherit}
+.screen{display:none;min-height:100vh}
+.screen.active{display:block}
+.app{width:min(1510px,96vw);margin:auto;padding:20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.brand{font-weight:950;letter-spacing:.14em}.brand span{color:var(--gold)}
+.location{color:var(--muted);font-size:13px}
+.panel{background:linear-gradient(180deg,rgba(26,38,58,.98),rgba(13,21,34,.99));border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#e2c4a1}
+.primary{border:0;background:linear-gradient(135deg,#ffd166,#ff9f1c);color:#271700;font-weight:950;padding:13px 18px;border-radius:14px;cursor:pointer}
+.secondary{border:1px solid var(--line);background:#101a29;color:white;border-radius:12px;padding:9px 12px;cursor:pointer}
+.map-bg{min-height:100vh;background:
+ radial-gradient(circle at 75% 10%,rgba(60,94,143,.52),transparent 28%),
+ linear-gradient(160deg,#07101c,#0d1a2d 58%,#08111d)}
+.map-wrap{width:min(1280px,94vw);margin:auto;padding:26px 0 50px}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:24px;margin:18px 0 26px}
+.hero h1{font-size:clamp(46px,7vw,88px);line-height:.86;margin:0}
+.hero p{max-width:560px;color:#a9b5c5}
+.world{position:relative;height:650px;border-radius:32px;overflow:hidden;border:1px solid var(--line);
+ background:
+ radial-gradient(circle at 25% 42%,rgba(91,122,84,.32) 0 9%,transparent 10%),
+ radial-gradient(circle at 38% 47%,rgba(91,122,84,.28) 0 11%,transparent 12%),
+ radial-gradient(circle at 57% 42%,rgba(91,122,84,.3) 0 10%,transparent 11%),
+ radial-gradient(circle at 72% 58%,rgba(91,122,84,.25) 0 9%,transparent 10%),
+ linear-gradient(#132740,#0b1829)}
+.world:after{content:"";position:absolute;inset:0;background-image:
+ linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px}
+.city-pin{position:absolute;z-index:3;transform:translate(-50%,-50%);border:0;background:transparent;color:#fff;text-align:center;cursor:pointer}
+.city-pin .dot{width:24px;height:24px;border-radius:50%;margin:auto;background:#52667c;border:5px solid rgba(255,255,255,.14)}
+.city-pin.open .dot{background:#ffd166;box-shadow:0 0 0 7px rgba(255,209,102,.12),0 0 30px rgba(255,209,102,.58)}
+.city-pin.locked{opacity:.38;cursor:not-allowed}
+.city-pin b{display:block;margin-top:7px}
+.city-pin small{color:#9eacbe}
+.play-card{position:absolute;z-index:4;left:5%;bottom:6%;width:min(430px,88%);background:rgba(7,13,23,.82);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:18px}
+.play-card h2{margin:4px 0 6px;font-size:30px}
+.play-card p{color:#aab6c5;font-size:14px}
+.chapter-progress{margin:12px 0}
+.chapter-progress .bar{height:10px;background:#151d2a;border-radius:999px;overflow:hidden}
+.chapter-progress .bar span{display:block;height:100%;background:linear-gradient(90deg,#ffd166,#ff9f1c)}
+.chapter-progress small{color:#9eacbe}
+.levels-wrap{width:min(1000px,94vw);margin:auto;padding:28px 0 50px}
+.levels-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px}
+.level-card{background:linear-gradient(180deg,#152034,#0d1522);border:1px solid var(--line);border-radius:22px;padding:16px;min-height:220px;position:relative}
+.level-card.locked{opacity:.42}
+.level-num{font-size:11px;color:#9cabc0;letter-spacing:.14em}
+.level-card h3{font-size:20px;margin:9px 0 7px}
+.level-card p{font-size:13px;color:#a7b3c3;min-height:58px}
+.level-stars{color:var(--gold);letter-spacing:4px;margin:12px 0;font-size:20px}
+.level-card button{width:100%;margin-top:6px}
+.chapter-tower{height:180px;position:relative;margin:10px 0 8px}
+.mini-stage{position:absolute;left:50%;transform:translateX(-50%);opacity:.08}
+.mini-stage.on{opacity:1}
+.mf{bottom:0;width:120px;height:12px;background:#5a5f65;border-radius:4px}
+.ml{bottom:10px;width:105px;height:90px}
+.ml:before,.ml:after{content:"";position:absolute;bottom:0;width:16px;height:100px;background:#73777c}
+.ml:before{left:18px;transform:skew(-17deg)}.ml:after{right:18px;transform:skew(17deg)}
+.mm{bottom:88px;width:65px;height:66px;background:#696e74;clip-path:polygon(15% 100%,85% 100%,62% 0,38% 0)}
+.mt{bottom:144px;width:25px;height:35px;background:#747980;clip-path:polygon(20% 100%,80% 100%,60% 0,40% 0)}
+.ms{bottom:175px;width:3px;height:15px;background:#777c82}
+.game{display:grid;grid-template-columns:minmax(590px,760px) minmax(410px,1fr);gap:18px}
+.left{padding:17px}
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+.stat{background:#0a1320;border:1px solid var(--line);border-radius:15px;padding:10px 12px}
+.label{font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.value{font-weight:950;font-size:21px;margin-top:3px}
+.goals{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+.goal{display:flex;align-items:center;gap:7px;background:#09111c;border:1px solid var(--line);padding:7px 9px;border-radius:999px;font-size:12px}
+.goal.done{opacity:.48}
+.goal .mini-icon{width:17px;height:17px}
+.board-wrap{background:#07101a;border-radius:22px;padding:10px;border:1px solid var(--line);position:relative}
+.board{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;aspect-ratio:1}
+.tile{border:0;border-radius:16px;cursor:pointer;position:relative;display:grid;place-items:center;
+ box-shadow:inset 0 1px rgba(255,255,255,.28),0 5px 13px rgba(0,0,0,.28);
+ transition:transform .14s ease,filter .14s ease,opacity .16s ease;animation:spawn .22s ease}
+.tile:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.tile.selected{outline:4px solid white;outline-offset:-4px;transform:scale(.9)}
+.tile.pop{animation:pop .18s ease forwards}
+.tile .res-icon{width:62%;height:62%;filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+@keyframes spawn{from{transform:translateY(-24px);opacity:.15}to{transform:translateY(0);opacity:1}}
+@keyframes pop{to{transform:scale(.12) rotate(16deg);opacity:0;filter:brightness(2)}}
+.c0{background:linear-gradient(145deg,#d5524a,#8e2f2b)}
+.c1{background:linear-gradient(145deg,#d9a735,#9c6c13)}
+.c2{background:linear-gradient(145deg,#4ebfba,#1c716e)}
+.c3{background:linear-gradient(145deg,#4d9ce8,#25569d)}
+.c4{background:linear-gradient(145deg,#9b76d9,#5d3b96)}
+.c5{background:linear-gradient(145deg,#cf7898,#8d405e)}
+.tile.striped::after,.tile.bomb::after,.tile.rainbow::after{position:absolute;right:7px;top:5px;font-size:18px;color:white;text-shadow:0 2px 5px #000}
+.tile.striped::after{content:"↔"}.tile.bomb::after{content:"✹"}
+.tile.rainbow{background:conic-gradient(#d5524a,#d9a735,#4ebfba,#4d9ce8,#9b76d9,#cf7898,#d5524a)}
+.tile.rainbow::after{content:"✦"}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;color:var(--muted);font-size:12px}
+.icon-brick,.icon-metal,.icon-glass,.icon-energy,.icon-stone,.icon-composite{position:relative}
+.icon-brick:before{content:"";position:absolute;inset:14% 8%;background:
+ linear-gradient(#6f241e 0 0) 0 0/45% 44%,
+ linear-gradient(#6f241e 0 0) 100% 0/45% 44%,
+ linear-gradient(#6f241e 0 0) 18% 100%/45% 44%,
+ linear-gradient(#6f241e 0 0) 100% 100%/34% 44%;background-repeat:no-repeat;border-radius:3px}
+.icon-metal:before{content:"";position:absolute;left:20%;right:20%;top:7%;bottom:7%;border:7px solid #dfe5eb;border-top-color:#a9b1ba;border-bottom-color:#8c969f;border-radius:4px;transform:skew(-8deg)}
+.icon-glass:before{content:"";position:absolute;inset:9%;background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(181,242,255,.22));border:3px solid rgba(225,251,255,.75);clip-path:polygon(50% 0,100% 25%,86% 100%,14% 100%,0 25%)}
+.icon-energy:before{content:"";position:absolute;left:33%;top:4%;width:35%;height:90%;background:#f4f7ff;clip-path:polygon(55% 0,0 56%,40% 56%,25% 100%,100% 39%,59% 39%)}
+.icon-stone:before{content:"";position:absolute;inset:14% 8%;background:linear-gradient(145deg,#d8d5de,#8f8b99);clip-path:polygon(15% 0,88% 8%,100% 72%,65% 100%,8% 86%,0 25%)}
+.icon-composite:before{content:"";position:absolute;inset:12%;border:6px solid #f4d3df;border-radius:50%;box-shadow:inset 0 0 0 6px rgba(255,255,255,.14)}
+.icon-composite:after{content:"";position:absolute;left:44%;top:6%;width:12%;height:88%;background:#f4d3df;transform:rotate(45deg);border-radius:6px}
+.right{min-height:755px;padding:22px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.paris-sky{position:absolute;inset:0;background:
+ radial-gradient(circle at 50% 20%,rgba(255,224,160,.5),transparent 15%),
+ linear-gradient(#5a7290 0 33%,#bb806b 43%,#d29b72 52%,#26364c 70%,#0b121e 100%)}
+.moon{position:absolute;right:10%;top:8%;width:54px;height:54px;border-radius:50%;background:rgba(255,239,197,.92);box-shadow:0 0 38px rgba(255,224,160,.35)}
+.river{position:absolute;left:-15%;right:-15%;bottom:0;height:19%;background:linear-gradient(#17293a,#0c1725);transform:skewY(-2deg)}
+.buildings{position:absolute;left:0;right:0;bottom:15%;height:170px;background:
+ linear-gradient(90deg,transparent 0 2%,#1a2534 2% 8%,transparent 8% 10%,#1b2636 10% 18%,transparent 18% 20%,#172332 20% 28%,transparent 28% 31%,#182433 31% 40%,transparent 40% 42%,#1c2838 42% 50%,transparent 50% 53%,#172332 53% 61%,transparent 61% 64%,#1b2636 64% 73%,transparent 73% 76%,#182433 76% 84%,transparent 84% 87%,#1a2534 87% 97%,transparent 97%)}
+.lights{position:absolute;left:0;right:0;bottom:16%;height:140px;opacity:.8;background-image:radial-gradient(circle,#ffd166 0 2px,transparent 3px);background-size:47px 32px}
+.right-content{position:relative;z-index:3;height:100%;display:flex;flex-direction:column}
+.right h1{margin:5px 0 3px;font-size:38px}
+.subtitle{color:#d5dbe5;font-size:14px}
+.tower-area{flex:1;display:grid;place-items:end center;min-height:505px}
+.tower{position:relative;width:255px;height:485px;filter:drop-shadow(0 22px 15px rgba(0,0,0,.4))}
+.stage{position:absolute;left:50%;transform:translateX(-50%) translateY(12px);opacity:.035;transition:.5s}
+.stage.on{opacity:1;transform:translateX(-50%) translateY(0);filter:drop-shadow(0 0 8px rgba(255,210,126,.28))}
+.foundation{bottom:0;width:240px;height:24px;background:#545a61;border-radius:8px}
+.legs{bottom:18px;width:216px;height:205px}
+.legs:before,.legs:after{content:"";position:absolute;bottom:0;width:32px;height:220px;background:repeating-linear-gradient(90deg,#43484f 0 4px,#8c9096 4px 7px,#4c5157 7px 11px);transform-origin:bottom}
+.legs:before{left:26px;transform:skew(-18deg)}.legs:after{right:26px;transform:skew(18deg)}
+.arch{bottom:103px;width:153px;height:88px;border:19px solid #62676d;border-bottom:0;border-radius:85px 85px 0 0}
+.deck1{bottom:190px;width:187px;height:18px;background:#71767c;border-radius:4px}
+.mid{bottom:205px;width:108px;height:150px;background:repeating-linear-gradient(90deg,transparent 0 12px,#5c6167 12px 19px,transparent 19px 27px);clip-path:polygon(10% 100%,90% 100%,65% 0,35% 0)}
+.deck2{bottom:340px;width:94px;height:14px;background:#71767c;border-radius:4px}
+.top{bottom:353px;width:53px;height:88px;background:repeating-linear-gradient(90deg,transparent 0 8px,#666b71 8px 15px,transparent 15px 23px);clip-path:polygon(15% 100%,85% 100%,60% 0,40% 0)}
+.spire{bottom:438px;width:7px;height:38px;background:#777d83;border-radius:4px}
+.progress-card{background:rgba(7,12,20,.77);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:18px;padding:14px}
+.progress-row{display:flex;justify-content:space-between;font-size:13px}.bar{height:10px;background:#151d2a;border-radius:999px;overflow:hidden;margin-top:10px}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd166,#ff9f1c);transition:.35s}.stage-name{margin-top:8px;font-size:13px}
+.toast{position:fixed;z-index:90;left:50%;top:26px;transform:translate(-50%,-18px);background:#09111c;border:1px solid var(--line);padding:11px 17px;border-radius:14px;opacity:0;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.overlay{position:fixed;inset:0;background:rgba(4,7,11,.77);backdrop-filter:blur(9px);display:none;place-items:center;z-index:100;padding:20px}.overlay.show{display:grid}
+.modal{width:min(540px,94vw);background:#121b2a;border:1px solid var(--line);border-radius:26px;padding:28px;text-align:center}.modal h2{font-size:38px;margin:8px 0}.stars{font-size:34px;color:var(--gold);letter-spacing:6px}
+@media(max-width:1000px){.levels-grid{grid-template-columns:repeat(2,1fr)}.game{grid-template-columns:1fr}.right{min-height:650px}.left{order:2}.right{order:1}}
+@media(max-width:640px){.app{padding:10px}.hud{grid-template-columns:repeat(2,1fr)}.board{gap:4px}.tile{border-radius:10px}.right{min-height:580px}.tower{transform:scale(.82);transform-origin:bottom center}.world{height:570px}.levels-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section id="mapScreen" class="screen active map-bg">
+<div class="map-wrap">
+ <div class="topbar"><div class="brand">MODERN <span>WONDERS</span></div><div class="location">Карта мира</div></div>
+ <div class="hero">
+   <div><div class="kicker">Построй новый мир</div><h1>Современные<br>чудеса</h1></div>
+   <p>Проходи главы по городам, зарабатывай звёзды и возводи сооружения по частям. Прогресс сохраняется прямо в браузере.</p>
+ </div>
+ <div class="world">
+   <button class="city-pin open" style="left:29%;top:34%" id="parisPin"><div class="dot"></div><b>Париж</b><small>Эйфелева башня</small></button>
+   <button class="city-pin locked" style="left:47%;top:43%"><div class="dot"></div><b>Торонто</b><small>CN Tower</small></button>
+   <button class="city-pin locked" style="left:64%;top:39%"><div class="dot"></div><b>Москва</b><small>Собор Василия</small></button>
+   <button class="city-pin locked" style="left:73%;top:58%"><div class="dot"></div><b>Дубай</b><small>Burj Khalifa</small></button>
+   <button class="city-pin locked" style="left:83%;top:73%"><div class="dot"></div><b>Сидней</b><small>Opera House</small></button>
+   <div class="play-card">
+     <div class="kicker">Глава 1</div><h2>Париж</h2>
+     <p>Пять уровней, пять этапов строительства. Заверши главу и подготовься к открытию Торонто.</p>
+     <div class="chapter-progress">
+       <div class="bar"><span id="mapChapterBar" style="width:0%"></span></div>
+       <small id="mapChapterText">0 из 5 уровней</small>
+     </div>
+     <button class="primary" id="openParis">Открыть Париж</button>
+   </div>
+ </div>
+</div>
+</section>
+
+<section id="levelsScreen" class="screen map-bg">
+<div class="levels-wrap">
+ <div class="topbar"><div class="brand">MODERN <span>WONDERS</span></div><button class="secondary" id="levelsBack">← Карта</button></div>
+ <div class="hero" style="align-items:center;margin-top:8px">
+   <div><div class="kicker">Глава 1 · Париж</div><h1 style="font-size:64px">Эйфелева башня</h1></div>
+   <div class="chapter-tower">
+     <div class="mini-stage mf"></div><div class="mini-stage ml"></div><div class="mini-stage mm"></div><div class="mini-stage mt"></div><div class="mini-stage ms"></div>
+   </div>
+ </div>
+ <div class="levels-grid" id="levelsGrid"></div>
+</div>
+</section>
+
+<section id="gameScreen" class="screen">
+<div class="app">
+ <div class="topbar">
+   <div class="brand">MODERN <span>WONDERS</span></div>
+   <div class="location" id="levelLocation">Париж · Уровень 1</div>
+ </div>
+ <main class="game">
+  <section class="panel left">
+   <div class="hud">
+    <div class="stat"><div class="label">Очки</div><div class="value" id="score">0</div></div>
+    <div class="stat"><div class="label">Ходы</div><div class="value" id="moves">30</div></div>
+    <div class="stat"><div class="label">Комбо</div><div class="value" id="combo">x1</div></div>
+    <div class="stat"><div class="label">Уровень</div><div class="value" id="levelNo">1/5</div></div>
+   </div>
+   <div class="goals" id="goals"></div>
+   <div class="board-wrap"><div id="board" class="board"></div></div>
+   <div class="controls">
+    <span id="levelHint">Собери материалы для фундамента</span>
+    <div><button class="secondary" id="backLevels">Уровни</button> <button class="secondary" id="reset">Заново</button></div>
+   </div>
+  </section>
+
+  <section class="panel right">
+   <div class="paris-sky"></div><div class="moon"></div><div class="buildings"></div><div class="lights"></div><div class="river"></div>
+   <div class="right-content">
+    <div class="kicker" id="stageKicker">Этап строительства 1 из 5</div>
+    <h1>Эйфелева башня</h1><div class="subtitle" id="stageSubtitle">Закладываем основание башни.</div>
+    <div class="tower-area">
+      <div class="tower" id="tower">
+       <div class="stage foundation"></div><div class="stage legs"></div><div class="stage arch"></div><div class="stage deck1"></div>
+       <div class="stage mid"></div><div class="stage deck2"></div><div class="stage top"></div><div class="stage spire"></div>
+      </div>
+    </div>
+    <div class="progress-card">
+      <div class="progress-row"><b>Прогресс уровня</b><span id="progressText">0%</span></div>
+      <div class="bar"><span id="progressBar"></span></div>
+      <div class="stage-name" id="stageName">Подготовка материалов</div>
+    </div>
+   </div>
+  </section>
+ </main>
+</div>
+</section>
+
+<div class="toast" id="toast"></div>
+<div class="overlay" id="overlay">
+ <div class="modal">
+  <div class="kicker" id="resultKicker">Париж · Уровень 1</div><h2 id="resultTitle">Уровень завершён!</h2>
+  <div class="stars" id="stars">★★★</div><p id="finalScore"></p>
+  <button class="primary" id="nextLevel">Следующий уровень</button>
+  <button class="secondary" id="toLevels" style="margin-left:8px">К уровням</button>
+ </div>
+</div>
+
+<script>
+const W=8,H=8,TYPES=6;
+const names=['Кирпич','Металл','Стекло','Энергия','Камень','Композит'];
+const iconClasses=['icon-brick','icon-metal','icon-glass','icon-energy','icon-stone','icon-composite'];
+
+const LEVELS=[
+ {title:'Фундамент',moves:28,target:[14,12,0,0,10,0],hint:'Собери кирпич, металл и камень.',subtitle:'Подготавливаем основание и опоры.'},
+ {title:'Нижние опоры',moves:30,target:[10,16,8,0,10,0],hint:'Металл теперь важнее всего.',subtitle:'Возводим четыре массивные опоры.'},
+ {title:'Первый уровень',moves:31,target:[8,14,12,6,8,0],hint:'Добавляется стекло и энергия.',subtitle:'Строим арки и первый ярус.'},
+ {title:'Центральная секция',moves:32,target:[0,16,14,10,8,8],hint:'Композит нужен для облегчённых секций.',subtitle:'Башня вытягивается вверх.'},
+ {title:'Шпиль и подсветка',moves:34,target:[0,14,16,14,0,12],hint:'Финал: металл, стекло, энергия и композит.',subtitle:'Завершаем шпиль и вечернюю подсветку.'}
+];
+
+let save=JSON.parse(localStorage.getItem('modernWondersSave')||'{"paris":{"unlocked":1,"stars":[0,0,0,0,0]}}');
+if(!save.paris) save.paris={unlocked:1,stars:[0,0,0,0,0]};
+function persist(){localStorage.setItem('modernWondersSave',JSON.stringify(save))}
+function completedCount(){return save.paris.stars.filter(x=>x>0).length}
+
+let board=[],specials=[],selected=null,score=0,moves=30,combo=1,collected=[0,0,0,0,0,0],busy=false,currentLevel=0;
+const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms)),idx=(r,c)=>r*W+c,rc=i=>[Math.floor(i/W),i%W],rnd=()=>Math.floor(Math.random()*TYPES);
+const adjacent=(a,b)=>{const [r1,c1]=rc(a),[r2,c2]=rc(b);return Math.abs(r1-r2)+Math.abs(c1-c2)===1};
+function iconHTML(v,mini=false){return `<div class="${mini?'mini-icon':'res-icon'} ${iconClasses[v]}"></div>`}
+function setScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active')}
+
+function updateMapProgress(){
+ const done=completedCount();
+ $('#mapChapterBar').style.width=(done/5*100)+'%';
+ $('#mapChapterText').textContent=`${done} из 5 уровней`;
+}
+function renderLevels(){
+ const grid=$('#levelsGrid');grid.innerHTML='';
+ LEVELS.forEach((lv,i)=>{
+   const unlocked=i<save.paris.unlocked;
+   const stars=save.paris.stars[i]||0;
+   const card=document.createElement('div');
+   card.className='level-card'+(unlocked?'':' locked');
+   card.innerHTML=`
+     <div class="level-num">УРОВЕНЬ ${i+1}</div>
+     <h3>${lv.title}</h3>
+     <p>${lv.hint}</p>
+     <div class="level-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+     <button class="${unlocked?'primary':'secondary'}" ${unlocked?'':'disabled'}>${unlocked?(stars?'Играть снова':'Играть'):'Закрыто'}</button>`;
+   if(unlocked) card.querySelector('button').onclick=()=>startLevel(i);
+   grid.appendChild(card);
+ });
+ const done=completedCount();
+ document.querySelectorAll('.mini-stage').forEach((s,i)=>s.classList.toggle('on',i<done || done===5));
+}
+
+function freshBoard(){
+ board=Array(W*H).fill(0);specials=Array(W*H).fill(null);
+ for(let r=0;r<H;r++)for(let c=0;c<W;c++){
+  let v;do{v=rnd()}while((c>=2&&board[idx(r,c-1)]===v&&board[idx(r,c-2)]===v)||(r>=2&&board[idx(r-1,c)]===v&&board[idx(r-2,c)]===v));
+  board[idx(r,c)]=v;
+ }
+}
+function render(){
+ const el=$('#board');el.innerHTML='';
+ board.forEach((v,i)=>{
+  const b=document.createElement('button'),sp=specials[i];
+  b.className='tile c'+v+(selected===i?' selected':'')+(sp?' '+sp:'');
+  b.innerHTML=iconHTML(v);b.onclick=()=>pick(i);el.appendChild(b);
+ });
+ $('#score').textContent=score.toLocaleString('ru-RU');$('#moves').textContent=moves;$('#combo').textContent='x'+combo;$('#levelNo').textContent=(currentLevel+1)+'/5';
+ renderGoals();renderConstruction();
+}
+function renderGoals(){
+ const g=$('#goals');g.innerHTML='';
+ LEVELS[currentLevel].target.forEach((t,i)=>{
+  if(!t)return;
+  const d=document.createElement('div');d.className='goal'+(collected[i]>=t?' done':'');
+  d.innerHTML=iconHTML(i,true)+`${names[i]} <b>${Math.min(collected[i],t)}/${t}</b>`;g.appendChild(d);
+ })
+}
+function runs(){
+ const out=[];
+ for(let r=0;r<H;r++){let s=0;for(let c=1;c<=W;c++){if(c<W&&board[idx(r,c)]===board[idx(r,s)])continue;if(c-s>=3)out.push(Array.from({length:c-s},(_,k)=>idx(r,s+k)));s=c}}
+ for(let c=0;c<W;c++){let s=0;for(let r=1;r<=H;r++){if(r<H&&board[idx(r,c)]===board[idx(s,c)])continue;if(r-s>=3)out.push(Array.from({length:r-s},(_,k)=>idx(s+k,c)));s=r}}
+ return out
+}
+function matches(){return [...new Set(runs().flat())]}
+
+async function pick(i){
+ if(busy||moves<=0)return;
+ if(selected===null){selected=i;render();return}
+ if(selected===i){selected=null;render();return}
+ if(!adjacent(selected,i)){selected=i;render();return}
+ const a=selected,b=i;selected=null;
+ if(specials[a]==='rainbow'||specials[b]==='rainbow'){
+  moves--;busy=true;combo=1;const rainbow=specials[a]==='rainbow'?a:b,other=rainbow===a?b:a,target=board[other];
+  await blastRainbow(rainbow,target);await settleLoop();busy=false;endCheck();return
+ }
+ [board[a],board[b]]=[board[b],board[a]];[specials[a],specials[b]]=[specials[b],specials[a]];render();
+ if(!matches().length){
+  await sleep(110);[board[a],board[b]]=[board[b],board[a]];[specials[a],specials[b]]=[specials[b],specials[a]];
+  toast('Нужна комбинация из 3 или больше');render();return
+ }
+ moves--;busy=true;combo=1;await resolve(b);busy=false;endCheck()
+}
+async function resolve(preferred){
+ while(true){
+  const rs=runs();if(!rs.length)break;
+  const clear=new Set(rs.flat()),create=[];
+  rs.forEach(run=>{
+   if(run.length>=5){const p=run.includes(preferred)?preferred:run[Math.floor(run.length/2)];create.push([p,'rainbow'])}
+   else if(run.length===4){const p=run.includes(preferred)?preferred:run[Math.floor(run.length/2)];create.push([p,'striped'])}
+  });
+  create.forEach(([p])=>clear.delete(p));
+  await clearCells([...clear]);
+  create.forEach(([p,sp])=>{specials[p]=sp;if(sp==='rainbow')board[p]=0});
+  render();await sleep(100);collapse();render();await sleep(150);combo++;preferred=null
+ }
+}
+async function clearCells(cells){
+ const expanded=new Set(cells);
+ let changed=true;
+ while(changed){
+  changed=false;
+  [...expanded].forEach(i=>{
+   if(specials[i]==='striped'){
+    const [r]=rc(i);for(let c=0;c<W;c++){const n=idx(r,c);if(!expanded.has(n)){expanded.add(n);changed=true}}
+   }else if(specials[i]==='bomb'){
+    const [r,c]=rc(i);for(let rr=Math.max(0,r-1);rr<=Math.min(H-1,r+1);rr++)for(let cc=Math.max(0,c-1);cc<=Math.min(W-1,c+1);cc++){const n=idx(rr,cc);if(!expanded.has(n)){expanded.add(n);changed=true}}
+   }
+  })
+ }
+ document.querySelectorAll('.tile').forEach((t,i)=>{if(expanded.has(i))t.classList.add('pop')});
+ await sleep(150);
+ expanded.forEach(i=>{
+  if(board[i]!=null){const v=board[i];collected[v]++;score+=100*combo;board[i]=null;specials[i]=null}
+ });
+ render()
+}
+async function blastRainbow(pos,target){
+ const cells=[pos];board.forEach((v,i)=>{if(v===target)cells.push(i)});toast('Универсальная плитка!');await clearCells(cells);collapse();render();await sleep(150)
+}
+async function settleLoop(){while(matches().length)await resolve(null)}
+function collapse(){
+ for(let c=0;c<W;c++){
+  const vals=[];for(let r=H-1;r>=0;r--){const i=idx(r,c);if(board[i]!=null)vals.push([board[i],specials[i]])}
+  for(let r=H-1,k=0;r>=0;r--,k++){const i=idx(r,c);if(k<vals.length){board[i]=vals[k][0];specials[i]=vals[k][1]}else{board[i]=rnd();specials[i]=Math.random()<.012?'bomb':null}}
+ }
+}
+function levelProgress(){
+ const target=LEVELS[currentLevel].target;
+ let total=0,got=0;
+ target.forEach((t,i)=>{if(t){total+=t;got+=Math.min(t,collected[i])}});
+ return total?Math.min(1,got/total):1
+}
+function renderConstruction(){
+ const p=levelProgress(),pct=Math.floor(p*100);$('#progressBar').style.width=pct+'%';$('#progressText').textContent=pct+'%';
+ const completedBefore=currentLevel;
+ const stages=[...document.querySelectorAll('.stage')];
+ const overall=(completedBefore+p)/5;
+ const active=Math.floor(overall*stages.length+(overall>0?.15:0));
+ stages.forEach((s,i)=>s.classList.toggle('on',i<active || overall>=1));
+ $('#stageName').textContent=p<.33?'Подготовка материалов':p<.7?'Основные работы':'Завершаем этап';
+}
+function isWin(){
+ return LEVELS[currentLevel].target.every((t,i)=>!t||collected[i]>=t)
+}
+function calcStars(){
+ if(!isWin())return 0;
+ const start=LEVELS[currentLevel].moves;
+ const used=start-moves;
+ const ratio=used/start;
+ return ratio<=.55?3:ratio<=.8?2:1;
+}
+function endCheck(){
+ if(isWin())finish(true);else if(moves<=0)finish(false)
+}
+function finish(win){
+ const stars=win?calcStars():0;
+ if(win){
+   if(stars>(save.paris.stars[currentLevel]||0))save.paris.stars[currentLevel]=stars;
+   if(currentLevel+1<5)save.paris.unlocked=Math.max(save.paris.unlocked,currentLevel+2);
+   persist();updateMapProgress();
+ }
+ $('#resultKicker').textContent=`Париж · Уровень ${currentLevel+1}`;
+ $('#stars').textContent='★'.repeat(stars)+'☆'.repeat(3-stars);
+ $('#resultTitle').textContent=win?(currentLevel===4?'Париж завершён!':'Уровень завершён!'):'Ходы закончились';
+ $('#finalScore').textContent=win?`Счёт: ${score.toLocaleString('ru-RU')} · осталось ходов: ${moves}`:`Прогресс уровня: ${Math.floor(levelProgress()*100)}%`;
+ $('#nextLevel').style.display=win&&currentLevel<4?'inline-block':'none';
+ $('#overlay').classList.add('show')
+}
+function startLevel(i){
+ currentLevel=i;selected=null;score=0;combo=1;collected=[0,0,0,0,0,0];busy=false;moves=LEVELS[i].moves;freshBoard();
+ $('#levelLocation').textContent=`Париж · Уровень ${i+1}`;
+ $('#levelHint').textContent=LEVELS[i].hint;
+ $('#stageKicker').textContent=`Этап строительства ${i+1} из 5`;
+ $('#stageSubtitle').textContent=LEVELS[i].subtitle;
+ $('#overlay').classList.remove('show');setScreen('#gameScreen');render()
+}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),900)}
+
+$('#openParis').onclick=$('#parisPin').onclick=()=>{renderLevels();setScreen('#levelsScreen')};
+$('#levelsBack').onclick=()=>{updateMapProgress();setScreen('#mapScreen')};
+$('#backLevels').onclick=()=>{renderLevels();setScreen('#levelsScreen')};
+$('#reset').onclick=()=>startLevel(currentLevel);
+$('#toLevels').onclick=()=>{$('#overlay').classList.remove('show');renderLevels();setScreen('#levelsScreen')};
+$('#nextLevel').onclick=()=>{startLevel(currentLevel+1)};
+
+updateMapProgress();renderLevels();freshBoard();render();
+</script>
+</body>
+</html>
