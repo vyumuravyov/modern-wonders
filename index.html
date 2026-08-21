@@ -7,13 +7,12 @@
 
 <style>
 :root{
-  --bg:#07101c;
-  --panel:#111b2b;
-  --panel2:#09121e;
-  --text:#f5f7fb;
-  --muted:#98a6b9;
-  --gold:#f3b83f;
-  --gold2:#ffd36a;
+  --bg:#07101b;
+  --panel:#101a28;
+  --text:#f6f7fb;
+  --muted:#9ba9ba;
+  --gold:#f4b942;
+  --gold2:#ffd872;
   --line:rgba(255,255,255,.09);
 }
 
@@ -25,16 +24,12 @@ html,body{
   margin:0;
   min-height:100%;
   font-family:Inter,Segoe UI,Arial,sans-serif;
-  background:#07101c;
+  background:var(--bg);
   color:var(--text);
 }
 
 button{
   font:inherit;
-}
-
-button:disabled{
-  cursor:default;
 }
 
 .screen{
@@ -47,16 +42,16 @@ button:disabled{
 }
 
 .wrap{
-  width:min(1500px,96vw);
+  width:min(1480px,96vw);
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
 .topbar{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:16px;
+  align-items:center;
+  margin-bottom:14px;
 }
 
 .brand{
@@ -74,69 +69,71 @@ button:disabled{
 }
 
 .kicker{
-  color:#e4bd72;
-  text-transform:uppercase;
-  letter-spacing:.16em;
   font-size:11px;
-  font-weight:800;
+  font-weight:850;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#e6bd70;
 }
 
 .panel{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(23,35,55,.98),
-      rgba(12,20,33,.98)
-    );
-
   border:1px solid var(--line);
   border-radius:26px;
 
+  background:
+    linear-gradient(
+      180deg,
+      #172337,
+      #0d1623
+    );
+
   box-shadow:
-    0 24px 65px rgba(0,0,0,.35);
+    0 24px 70px rgba(0,0,0,.34);
 }
 
 .primary,
 .secondary{
-  border:0;
   border-radius:13px;
   padding:11px 15px;
-  cursor:pointer;
   font-weight:850;
+  cursor:pointer;
 }
 
 .primary{
-  color:#271700;
+  border:0;
+
   background:
     linear-gradient(
       135deg,
-      #ffd36a,
+      var(--gold2),
       #f0a51f
     );
+
+  color:#281900;
 }
 
 .secondary{
-  color:white;
-  background:#111b2a;
   border:1px solid var(--line);
+  background:#111b29;
+  color:white;
 }
 
-/* =========================================================
-   WORLD
-========================================================= */
+/* =====================================================
+   WORLD MAP
+===================================================== */
 
 .mapbg{
   background:
     radial-gradient(
-      circle at 70% 10%,
-      #203855 0,
+      circle at 76% 8%,
+      #203a59 0,
       transparent 28%
     ),
     linear-gradient(
-      150deg,
-      #07101c,
-      #0d1b2f 58%,
-      #07101c
+      155deg,
+      #07101b,
+      #0d1b2f 60%,
+      #07101b
     );
 }
 
@@ -144,133 +141,156 @@ button:disabled{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
-  gap:30px;
-  margin:22px 0;
+  gap:28px;
+  margin:20px 0 24px;
 }
 
 .hero h1{
-  margin:3px 0;
-  font-size:clamp(48px,7vw,88px);
-  line-height:.86;
+  font-size:clamp(46px,7vw,86px);
+  line-height:.87;
+  margin:4px 0;
 }
 
 .hero p{
-  max-width:560px;
-  color:#aab7c8;
+  max-width:570px;
+  color:#aab7c7;
 }
 
 .world{
-  height:640px;
   position:relative;
+  height:630px;
   overflow:hidden;
 
   border-radius:30px;
   border:1px solid var(--line);
 
   background:
-    radial-gradient(
-      circle at 30% 38%,
-      rgba(87,123,82,.35) 0 10%,
-      transparent 11%
-    ),
-    radial-gradient(
-      circle at 53% 43%,
-      rgba(87,123,82,.25) 0 10%,
-      transparent 11%
-    ),
-    radial-gradient(
-      circle at 72% 57%,
-      rgba(87,123,82,.22) 0 8%,
-      transparent 9%
-    ),
     linear-gradient(
-      #142942,
-      #0b1828
+      #18304c,
+      #0c1b2d
     );
 }
 
-.city{
+.world::before{
+  content:"";
   position:absolute;
-  transform:translate(-50%,-50%);
-  background:transparent;
+  inset:0;
+
+  opacity:.55;
+
+  background:
+    radial-gradient(
+      ellipse at 28% 38%,
+      #506e56 0 12%,
+      transparent 13%
+    ),
+    radial-gradient(
+      ellipse at 48% 46%,
+      #4b6851 0 12%,
+      transparent 13%
+    ),
+    radial-gradient(
+      ellipse at 70% 57%,
+      #4c6750 0 10%,
+      transparent 11%
+    );
+}
+
+.citypin{
+  position:absolute;
+  z-index:3;
+
+  transform:
+    translate(-50%,-50%);
+
   border:0;
+  background:transparent;
   color:white;
   text-align:center;
 }
 
-.city .dot{
-  width:24px;
-  height:24px;
-  margin:auto;
-  border-radius:50%;
-
-  background:#4e6175;
-
-  border:
-    5px solid rgba(255,255,255,.13);
-}
-
-.city.open{
+.citypin.open{
   cursor:pointer;
 }
 
-.city.open .dot{
-  background:#ffc64d;
+.citypin .dot{
+  width:24px;
+  height:24px;
+  margin:auto;
+
+  border-radius:50%;
+
+  background:#52667b;
+
+  border:
+    5px solid rgba(255,255,255,.14);
+}
+
+.citypin.open .dot{
+  background:var(--gold);
 
   box-shadow:
-    0 0 0 8px rgba(255,198,77,.1),
-    0 0 30px rgba(255,198,77,.5);
+    0 0 0 8px rgba(244,185,66,.12),
+    0 0 30px rgba(244,185,66,.5);
 }
 
-.city.locked{
-  opacity:.32;
+.citypin.locked{
+  opacity:.34;
 }
 
-.city b,
-.city small{
+.citypin b,
+.citypin small{
   display:block;
 }
 
-.city b{
+.citypin b{
   margin-top:7px;
 }
 
-.city small{
-  color:#9eacbc;
+.citypin small{
+  color:#9caabc;
 }
 
-.city-card{
+.citycard{
   position:absolute;
+
+  z-index:4;
+
   left:5%;
   bottom:6%;
-  z-index:5;
 
-  width:min(420px,88%);
+  width:min(425px,88%);
 
   padding:18px;
 
+  border:
+    1px solid var(--line);
+
   border-radius:21px;
-  border:1px solid var(--line);
 
   background:
-    rgba(7,13,22,.84);
+    rgba(6,12,21,.84);
 
-  backdrop-filter:blur(14px);
+  backdrop-filter:
+    blur(14px);
 }
 
-.city-card h2{
+.citycard h2{
   margin:4px 0;
   font-size:30px;
 }
 
-.city-card p{
-  color:#aab7c7;
+.citycard p{
+  color:#aab6c5;
 }
 
 .bar{
   height:10px;
-  overflow:hidden;
+
   border-radius:999px;
+
+  overflow:hidden;
+
   background:#172333;
 }
 
@@ -282,69 +302,78 @@ button:disabled{
   background:
     linear-gradient(
       90deg,
-      #f5b72f,
-      #ffd766
+      var(--gold),
+      var(--gold2)
     );
 
-  transition:width .35s ease;
+  transition:
+    width .35s ease;
 }
 
-/* =========================================================
+/* =====================================================
    LEVEL SELECT
-========================================================= */
+===================================================== */
 
-.level-wrap{
-  width:min(1050px,94vw);
+.levelwrap{
+  width:min(1060px,94vw);
   margin:auto;
-  padding:28px 0;
+  padding:26px 0;
 }
 
-.level-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-}
-
-.level-card{
-  padding:17px;
-  min-height:215px;
-}
-
-.level-card.locked{
-  opacity:.38;
-}
-
-.level-card h3{
-  margin:8px 0;
-}
-
-.level-card p{
-  min-height:55px;
-  color:#aab6c6;
-  font-size:13px;
-}
-
-.level-stars{
-  margin:10px 0;
-  color:#ffd35f;
-  font-size:20px;
-  letter-spacing:4px;
-}
-
-.level-card button{
-  width:100%;
-}
-
-/* =========================================================
-   GAME GRID
-========================================================= */
-
-.game-grid{
+.levels{
   display:grid;
 
   grid-template-columns:
-    minmax(590px,750px)
-    minmax(450px,1fr);
+    repeat(5,1fr);
+
+  gap:14px;
+}
+
+.levelcard{
+  padding:17px;
+  min-height:214px;
+}
+
+.levelcard.locked{
+  opacity:.38;
+}
+
+.levelcard h3{
+  margin:8px 0;
+}
+
+.levelcard p{
+  min-height:56px;
+
+  font-size:13px;
+
+  color:#aab6c6;
+}
+
+.stars{
+  margin:10px 0;
+
+  color:var(--gold2);
+
+  letter-spacing:4px;
+
+  font-size:20px;
+}
+
+.levelcard button{
+  width:100%;
+}
+
+/* =====================================================
+   GAME LAYOUT
+===================================================== */
+
+.gamegrid{
+  display:grid;
+
+  grid-template-columns:
+    minmax(590px,740px)
+    minmax(455px,1fr);
 
   gap:18px;
 }
@@ -355,55 +384,67 @@ button:disabled{
 
 .hud{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:9px;
+
   margin-bottom:11px;
 }
 
 .stat{
   padding:10px 12px;
 
+  border:
+    1px solid rgba(255,255,255,.07);
+
   border-radius:14px;
 
   background:#09131f;
-
-  border:
-    1px solid rgba(255,255,255,.07);
 }
 
 .label{
   font-size:10px;
-  text-transform:uppercase;
+
   letter-spacing:.12em;
-  color:#92a1b6;
+
+  text-transform:uppercase;
+
+  color:#91a1b5;
 }
 
 .value{
   margin-top:3px;
+
   font-size:21px;
+
   font-weight:950;
 }
 
 .goals{
   display:flex;
   flex-wrap:wrap;
+
   gap:7px;
+
   margin-bottom:11px;
 }
 
 .goal{
   display:flex;
   align-items:center;
+
   gap:7px;
 
   padding:7px 10px;
 
+  border:
+    1px solid rgba(255,255,255,.08);
+
   border-radius:999px;
 
   background:#08111c;
-
-  border:
-    1px solid rgba(255,255,255,.08);
 
   font-size:12px;
 }
@@ -412,26 +453,29 @@ button:disabled{
   opacity:.42;
 }
 
-/* =========================================================
-   BOARD
-========================================================= */
+/* =====================================================
+   MATCH-3
+===================================================== */
 
-.board-box{
+.boardbox{
   padding:10px;
+
+  border:
+    1px solid rgba(255,255,255,.08);
 
   border-radius:21px;
 
   background:#06101a;
-
-  border:
-    1px solid rgba(255,255,255,.08);
 }
 
 .board{
   display:grid;
-  grid-template-columns:repeat(8,1fr);
+
+  grid-template-columns:
+    repeat(8,1fr);
 
   gap:7px;
+
   aspect-ratio:1;
 }
 
@@ -443,10 +487,10 @@ button:disabled{
 
   cursor:pointer;
 
+  overflow:hidden;
+
   display:grid;
   place-items:center;
-
-  overflow:hidden;
 
   will-change:
     transform,
@@ -463,6 +507,8 @@ button:disabled{
   position:absolute;
   inset:0;
 
+  pointer-events:none;
+
   background:
     linear-gradient(
       145deg,
@@ -477,7 +523,9 @@ button:disabled{
 }
 
 .tile.selected{
-  outline:4px solid white;
+  outline:
+    4px solid white;
+
   outline-offset:-4px;
 }
 
@@ -487,20 +535,27 @@ button:disabled{
 }
 
 @keyframes pop{
+
   to{
     opacity:0;
+
     transform:
       scale(.12)
       rotate(16deg);
 
-    filter:brightness(2.2);
+    filter:
+      brightness(2.2);
   }
+
 }
 
 .ico{
   width:62%;
   height:62%;
+
   position:relative;
+
+  pointer-events:none;
 
   filter:
     drop-shadow(
@@ -566,10 +621,12 @@ button:disabled{
 .tile.bomb::after,
 .tile.rainbow::after{
   position:absolute;
+
   right:7px;
   top:5px;
 
   color:white;
+
   font-size:19px;
 
   text-shadow:
@@ -601,7 +658,9 @@ button:disabled{
   content:"✦";
 }
 
-/* resources */
+/* =====================================================
+   TILE ICONS
+===================================================== */
 
 .brick::before{
   content:"";
@@ -622,27 +681,31 @@ button:disabled{
   content:"";
 
   position:absolute;
+
   inset:8% 23%;
 
   border:
     7px solid #dfe5eb;
 
   border-top-color:#a9b1ba;
+
   border-bottom-color:#838d97;
 
-  transform:skew(-8deg);
+  transform:
+    skew(-8deg);
 }
 
 .glass::before{
   content:"";
 
   position:absolute;
+
   inset:8%;
 
   background:
     linear-gradient(
       135deg,
-      rgba(255,255,255,.75),
+      rgba(255,255,255,.78),
       rgba(181,242,255,.18)
     );
 
@@ -670,7 +733,7 @@ button:disabled{
   width:35%;
   height:90%;
 
-  background:white;
+  background:#fff;
 
   clip-path:
     polygon(
@@ -687,6 +750,7 @@ button:disabled{
   content:"";
 
   position:absolute;
+
   inset:13% 8%;
 
   background:
@@ -711,6 +775,7 @@ button:disabled{
   content:"";
 
   position:absolute;
+
   inset:12%;
 
   border:
@@ -723,6 +788,7 @@ button:disabled{
   content:"";
 
   position:absolute;
+
   left:44%;
   top:6%;
 
@@ -733,29 +799,36 @@ button:disabled{
 
   background:#f4d3df;
 
-  transform:rotate(45deg);
+  transform:
+    rotate(45deg);
 }
 
 .controls{
-  margin-top:10px;
-
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   align-items:center;
+
   gap:10px;
 
+  margin-top:10px;
+
   color:#93a1b5;
+
   font-size:12px;
 }
 
-/* =========================================================
-   CONSTRUCTION CARD
-========================================================= */
+/* =====================================================
+   CONSTRUCTION SCENE
+===================================================== */
 
 .construction{
   min-height:760px;
 
   position:relative;
+
   overflow:hidden;
 
   padding:0;
@@ -763,571 +836,121 @@ button:disabled{
   background:#101925;
 }
 
-.construction-scene{
+.sceneVisual{
   position:absolute;
   inset:0;
 
-  overflow:hidden;
+  z-index:0;
+
+  pointer-events:none;
 }
 
-/* sky */
-
-.scene-sky{
-  position:absolute;
-  inset:0;
-
-  background:
-    radial-gradient(
-      circle at 83% 32%,
-      rgba(255,227,164,.95) 0 3%,
-      rgba(255,200,120,.23) 8%,
-      transparent 20%
-    ),
-    linear-gradient(
-      180deg,
-      #496580 0%,
-      #6c8298 28%,
-      #d09a76 62%,
-      #81624f 78%,
-      #182334 100%
-    );
-}
-
-.cloud{
-  position:absolute;
-
-  width:190px;
-  height:45px;
-
-  border-radius:50%;
-
-  filter:blur(10px);
-
-  background:
-    rgba(255,255,255,.11);
-
-  animation:
-    cloudMove 28s linear infinite;
-}
-
-.cloud.c1{
-  top:18%;
-  left:-25%;
-}
-
-.cloud.c2{
-  top:28%;
-  left:-35%;
-  animation-delay:9s;
-  animation-duration:36s;
-}
-
-@keyframes cloudMove{
-  to{
-    left:120%;
-  }
-}
-
-/* Paris */
-
-.paris{
-  position:absolute;
-
-  left:0;
-  right:0;
-
-  bottom:18%;
-
-  height:190px;
-
-  background:
-    linear-gradient(
-      90deg,
-
-      transparent 0 2%,
-      #25313b 2% 9%,
-
-      transparent 9% 11%,
-      #1f2d38 11% 19%,
-
-      transparent 19% 21%,
-      #29333d 21% 31%,
-
-      transparent 31% 33%,
-      #202c37 33% 43%,
-
-      transparent 43% 46%,
-      #26323c 46% 56%,
-
-      transparent 56% 59%,
-      #1f2d38 59% 70%,
-
-      transparent 70% 73%,
-      #27333d 73% 82%,
-
-      transparent 82% 85%,
-      #202d38 85% 97%,
-
-      transparent 97%
-    );
-}
-
-.paris::after{
-  content:"";
-
-  position:absolute;
-  inset:15% 0 0;
-
-  opacity:.5;
-
-  background-image:
-    radial-gradient(
-      circle,
-      #f4c66c 0 2px,
-      transparent 2.5px
-    );
-
-  background-size:
-    46px 31px;
-}
-
-/* ground */
-
-.site-ground{
-  position:absolute;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  height:24%;
-
-  background:
-    linear-gradient(
-      180deg,
-      #332c26,
-      #18181a
-    );
-}
-
-.site-ground::before{
-  content:"";
-
-  position:absolute;
-  inset:15% 4%;
-
-  background:
-    repeating-linear-gradient(
-      165deg,
-      transparent 0 26px,
-      rgba(255,255,255,.025) 27px 29px
-    );
-}
-
-/* timber stacks */
-
-.materials{
-  position:absolute;
-  z-index:4;
-
-  bottom:11%;
-
-  width:100px;
-  height:43px;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #665541 0 7px,
-      #342b22 8px 11px
-    );
-
-  box-shadow:
-    0 10px 16px rgba(0,0,0,.3);
-}
-
-.materials.left{
-  left:8%;
-}
-
-.materials.right{
-  right:8%;
-  width:120px;
-}
-
-/* scaffolds */
-
-.scaffold{
-  position:absolute;
-  z-index:5;
-
-  bottom:18%;
-
-  width:95px;
-  height:200px;
-
-  opacity:.7;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 16px,
-      #8e672b 17px 20px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 25px,
-      #8e672b 26px 29px
-    );
-}
-
-.scaffold::after{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 23px,
-      rgba(166,118,49,.65) 24px 27px,
-      transparent 28px 50px
-    );
-}
-
-.scaffold.left{
-  left:5%;
-}
-
-.scaffold.right{
-  right:6%;
-  height:170px;
-}
-
-/* workers */
-
-.worker{
-  position:absolute;
-  z-index:8;
-
-  bottom:17%;
-
-  width:17px;
-  height:34px;
-
-  border-radius:
-    7px 7px 5px 5px;
-
-  background:#293442;
-
-  animation:
-    workerMove 3s ease-in-out infinite alternate;
-}
-
-.worker::before{
-  content:"";
-
-  position:absolute;
-
-  width:12px;
-  height:12px;
-
-  left:2.5px;
-  top:-10px;
-
-  border-radius:50%;
-
-  background:#d1a06e;
-}
-
-.worker::after{
-  content:"";
-
-  position:absolute;
-
-  width:22px;
-  height:6px;
-
-  left:-2px;
-  top:-13px;
-
-  border-radius:5px;
-
-  background:#e5ae32;
-}
-
-.worker.w1{
-  left:18%;
-}
-
-.worker.w2{
-  left:25%;
-  animation-delay:.7s;
-}
-
-.worker.w3{
-  right:20%;
-  animation-delay:1.2s;
-}
-
-@keyframes workerMove{
-  to{
-    transform:
-      translateX(9px);
-  }
-}
-
-/* =========================================================
-   CRANE
-========================================================= */
-
-.crane{
-  position:absolute;
-  z-index:7;
-
-  right:5%;
-  bottom:18%;
-
-  width:9px;
-  height:350px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #8d621e,
-      #d3a142,
-      #8c601d
-    );
-}
-
-.crane::before{
-  content:"";
-
-  position:absolute;
-
-  right:-3px;
-  top:0;
-
-  width:250px;
-  height:9px;
-
-  background:
-    linear-gradient(
-      #d5a243,
-      #8e641d
-    );
-
-  transform-origin:right center;
-
-  clip-path:
-    polygon(
-      0 25%,
-      100% 0,
-      100% 100%,
-      0 75%
-    );
-}
-
-.crane::after{
-  content:"";
-
-  position:absolute;
-
-  right:-23px;
-  top:-14px;
-
-  width:44px;
-  height:25px;
-
-  border:
-    4px solid #d4a042;
-
-  background:#3d3427;
-}
-
-.crane-cable{
-  position:absolute;
-  z-index:8;
-
-  right:calc(5% + 135px);
-
-  top:31%;
-
-  width:2px;
-  height:105px;
-
-  background:#4d4d4d;
-
-  transform-origin:top;
-
-  transition:
-    height .75s ease;
-}
-
-.crane-hook{
-  position:absolute;
-
-  left:-5px;
-  bottom:-9px;
-
-  width:12px;
-  height:12px;
-
-  border:
-    2px solid #777;
-
-  border-top:0;
-
-  border-radius:
-    0 0 9px 9px;
-}
-
-/* suspended truss */
-
-.crane-piece{
-  position:absolute;
-  z-index:9;
-
-  right:calc(5% + 78px);
-  top:45%;
-
-  width:120px;
-  height:48px;
-
-  opacity:0;
-
-  transform:
-    translateY(-40px)
-    rotate(-2deg);
-
-  transition:
-    transform .85s cubic-bezier(.2,.9,.25,1),
-    opacity .25s ease;
-}
-
-.crane-piece.show{
-  opacity:1;
-}
-
-.crane-piece.lower{
-  transform:
-    translateY(55px)
-    rotate(0);
-}
-
-.crane-piece.install{
-  transform:
-    translate(-115px,125px)
-    scale(.7);
-
-  opacity:.05;
-}
-
-.truss{
+.sceneVisual svg{
   width:100%;
   height:100%;
+
+  display:block;
 }
 
-.truss line,
-.truss rect{
-  stroke:#5a5145;
-  stroke-width:5;
-  fill:none;
-}
-
-.truss .thin{
-  stroke-width:2.5;
-  stroke:#83796a;
-}
-
-/* =========================================================
-   EIFFEL SVG
-========================================================= */
-
-.scene-ui{
+.sceneUI{
   position:relative;
-  z-index:20;
+
+  z-index:10;
 
   height:100%;
 
   padding:24px;
 
   display:flex;
+
   flex-direction:column;
+
+  pointer-events:none;
 }
 
-.scene-ui h1{
+.sceneUI h1{
   margin:5px 0 4px;
+
   font-size:38px;
+
+  text-shadow:
+    0 3px 12px rgba(0,0,0,.45);
 }
 
-.scene-subtitle{
-  color:#d8dee7;
+.scenesub{
   font-size:14px;
+
+  color:#e0e5eb;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.5);
 }
 
-.tower-zone{
+.towerzone{
   flex:1;
 
-  min-height:480px;
+  min-height:500px;
 
   display:flex;
+
   justify-content:center;
+
   align-items:flex-end;
 
   position:relative;
 }
 
 .eiffel{
-  width:min(390px,78%);
-  max-height:490px;
+  width:min(390px,77%);
+
+  max-height:500px;
 
   overflow:visible;
 
   filter:
     drop-shadow(
-      0 26px 18px rgba(0,0,0,.48)
+      0 25px 18px rgba(0,0,0,.45)
     );
 }
 
-.tower-stage{
-  opacity:.025;
+.towerStage{
+  opacity:.03;
 
   transition:
     opacity .5s ease,
     filter .5s ease;
 }
 
-.tower-stage.visible{
+.towerStage.visible{
   opacity:1;
 }
 
-.tower-stage.building{
-  opacity:.62;
+.towerStage.building{
+  opacity:.68;
 
   filter:
-    brightness(1.25)
+    brightness(1.28)
     drop-shadow(
-      0 0 10px rgba(255,191,74,.8)
+      0 0 10px rgba(255,191,74,.78)
     );
 }
 
-.metal{
+.metalStroke{
   fill:none;
 
-  stroke:#4b4944;
+  stroke:#3f3c37;
 
   stroke-width:8;
 
   stroke-linecap:round;
+
   stroke-linejoin:round;
 }
 
-.metal-light{
+.metalLight{
   fill:none;
 
-  stroke:#756e63;
+  stroke:#6d655a;
 
   stroke-width:4;
 
@@ -1337,56 +960,56 @@ button:disabled{
 .lattice{
   fill:none;
 
-  stroke:#625c52;
+  stroke:#565047;
 
   stroke-width:3;
 
-  opacity:.9;
+  opacity:.92;
 }
 
 .platform{
-  fill:#403e39;
+  fill:#3d3a35;
 
-  stroke:#6b655b;
+  stroke:#675f55;
 
   stroke-width:3;
 }
 
 .dark{
-  fill:#282925;
+  fill:#272724;
 }
 
-.stage-chip{
+.stagechip{
   position:absolute;
+
   bottom:7%;
 
   padding:7px 16px;
 
   border-radius:999px;
 
-  color:#eacb8f;
-
-  font-size:11px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-
   border:
     1px solid rgba(255,255,255,.12);
 
   background:
-    rgba(5,10,16,.8);
+    rgba(5,10,16,.82);
 
-  backdrop-filter:blur(8px);
+  backdrop-filter:
+    blur(8px);
+
+  color:#eacb8f;
+
+  font-size:11px;
+
+  letter-spacing:.15em;
+
+  text-transform:uppercase;
 }
 
-/* =========================================================
-   CONSTRUCTION TIMELINE
-========================================================= */
-
-.stage-line{
+.stagedots{
   position:absolute;
 
-  bottom:2.2%;
+  bottom:1.6%;
 
   left:50%;
 
@@ -1396,114 +1019,118 @@ button:disabled{
   width:52%;
 
   display:flex;
+
+  justify-content:
+    space-between;
+
   align-items:center;
-  justify-content:space-between;
 }
 
-.stage-line::before{
+.stagedots::before{
   content:"";
 
   position:absolute;
 
-  left:15px;
-  right:15px;
+  left:14px;
+  right:14px;
 
   top:50%;
 
   height:3px;
 
+  background:#475463;
+
   transform:
     translateY(-50%);
-
-  background:#4a5665;
 }
 
-.stage-dot{
+.dotStage{
   position:relative;
+
   z-index:2;
 
-  width:26px;
-  height:26px;
+  width:25px;
+  height:25px;
 
   border-radius:50%;
 
-  background:#33475c;
+  background:#33475b;
 
   border:
     3px solid #1c2937;
-
-  transition:.3s;
 }
 
-.stage-dot.active{
-  background:#f1b42d;
+.dotStage.done{
+  background:#9c7120;
+}
+
+.dotStage.active{
+  background:var(--gold);
 
   box-shadow:
     0 0 0 4px #182432,
-    0 0 0 6px #e9c371;
+    0 0 0 6px #e8c06d;
 }
 
-.stage-dot.done{
-  background:#b98522;
-}
-
-/* =========================================================
-   BOTTOM PROGRESS CARD
-========================================================= */
-
-.progress-card{
+.progresscard{
   margin-top:12px;
 
-  padding:16px;
-
-  border-radius:19px;
-
-  background:
-    rgba(5,10,17,.82);
+  padding:15px;
 
   border:
     1px solid rgba(255,255,255,.1);
 
-  backdrop-filter:blur(12px);
+  border-radius:18px;
+
+  background:
+    rgba(5,10,17,.84);
+
+  backdrop-filter:
+    blur(12px);
+
+  pointer-events:auto;
 }
 
-.progress-row{
+.progressrow{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+
+  justify-content:
+    space-between;
 
   font-size:13px;
 }
 
-.progress-name{
-  margin-top:10px;
+.progressname{
+  margin-top:9px;
+
   font-size:13px;
 }
 
-.resource-tip{
-  margin-top:13px;
+.tip{
+  margin-top:11px;
 
-  padding-top:12px;
+  padding-top:10px;
 
   border-top:
     1px solid rgba(255,255,255,.08);
 
-  color:#b7c1cf;
-
   font-size:12px;
+
+  color:#b7c1cf;
 }
 
-.resource-tip strong{
+.tip strong{
   color:#e2ac3f;
 }
 
-/* =========================================================
+/* =====================================================
    FX
-========================================================= */
+===================================================== */
 
 .spark{
   position:absolute;
-  z-index:100;
+
+  z-index:30;
 
   width:5px;
   height:5px;
@@ -1520,6 +1147,7 @@ button:disabled{
 }
 
 @keyframes spark{
+
   to{
     transform:
       translate(
@@ -1529,10 +1157,12 @@ button:disabled{
 
     opacity:0;
   }
+
 }
 
 .flash{
   position:fixed;
+
   z-index:1000;
 
   width:16px;
@@ -1552,10 +1182,14 @@ button:disabled{
 }
 
 @keyframes flash{
+
   to{
-    transform:scale(5);
+    transform:
+      scale(5);
+
     opacity:0;
   }
+
 }
 
 .toast{
@@ -1592,23 +1226,22 @@ button:disabled{
     translate(-50%,0);
 }
 
-/* =========================================================
-   MODAL
-========================================================= */
-
 .overlay{
   position:fixed;
+
   inset:0;
 
   z-index:1100;
 
   display:none;
+
   place-items:center;
 
   background:
     rgba(3,6,10,.78);
 
-  backdrop-filter:blur(9px);
+  backdrop-filter:
+    blur(9px);
 }
 
 .overlay.show{
@@ -1625,16 +1258,13 @@ button:disabled{
 
 .modal h2{
   margin:8px 0;
+
   font-size:36px;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
 @media(max-width:1050px){
 
-  .game-grid{
+  .gamegrid{
     grid-template-columns:1fr;
   }
 
@@ -1642,12 +1272,9 @@ button:disabled{
     min-height:700px;
   }
 
-}
-
-@media(max-width:800px){
-
-  .level-grid{
-    grid-template-columns:repeat(2,1fr);
+  .levels{
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
@@ -1659,10 +1286,11 @@ button:disabled{
   }
 
   .hud{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .level-grid{
+  .levels{
     grid-template-columns:1fr;
   }
 
@@ -1672,6 +1300,10 @@ button:disabled{
 
   .eiffel{
     width:300px;
+  }
+
+  .world{
+    height:570px;
   }
 
 }
@@ -1716,9 +1348,8 @@ MODERN <span>WONDERS</span>
 
 <p>
 Проходи уровни три-в-ряд,
-собирай строительные материалы
-и наблюдай за реальным процессом
-строительства каждого объекта.
+собирай материалы и постепенно
+возводи достопримечательности.
 </p>
 
 </div>
@@ -1727,13 +1358,15 @@ MODERN <span>WONDERS</span>
 
 <button
 id="parisPin"
-class="city open"
+class="citypin open"
 style="left:29%;top:34%"
 >
 
 <div class="dot"></div>
 
-<b>Париж</b>
+<b>
+Париж
+</b>
 
 <small>
 Эйфелева башня
@@ -1742,26 +1375,32 @@ style="left:29%;top:34%"
 </button>
 
 <button
-class="city locked"
+class="citypin locked"
 style="left:47%;top:43%"
 >
 
 <div class="dot"></div>
 
-<b>Торонто</b>
+<b>
+Торонто
+</b>
 
-<small>CN Tower</small>
+<small>
+CN Tower
+</small>
 
 </button>
 
 <button
-class="city locked"
+class="citypin locked"
 style="left:65%;top:39%"
 >
 
 <div class="dot"></div>
 
-<b>Москва</b>
+<b>
+Москва
+</b>
 
 <small>
 Собор Василия
@@ -1770,13 +1409,15 @@ style="left:65%;top:39%"
 </button>
 
 <button
-class="city locked"
+class="citypin locked"
 style="left:73%;top:59%"
 >
 
 <div class="dot"></div>
 
-<b>Дубай</b>
+<b>
+Дубай
+</b>
 
 <small>
 Burj Khalifa
@@ -1784,7 +1425,7 @@ Burj Khalifa
 
 </button>
 
-<div class="city-card">
+<div class="citycard">
 
 <div class="kicker">
 Глава 1
@@ -1832,7 +1473,7 @@ id="levelsScreen"
 class="screen mapbg"
 >
 
-<div class="level-wrap">
+<div class="levelwrap">
 
 <div class="topbar">
 
@@ -1844,7 +1485,9 @@ MODERN <span>WONDERS</span>
 id="backMap"
 class="secondary"
 >
+
 ← Карта
+
 </button>
 
 </div>
@@ -1867,7 +1510,7 @@ class="secondary"
 
 <div
 id="levels"
-class="level-grid"
+class="levels"
 ></div>
 
 </div>
@@ -1894,7 +1537,7 @@ class="muted"
 
 </div>
 
-<div class="game-grid">
+<div class="gamegrid">
 
 <section class="panel left">
 
@@ -1967,7 +1610,7 @@ id="goals"
 class="goals"
 ></div>
 
-<div class="board-box">
+<div class="boardbox">
 
 <div
 id="board"
@@ -1986,14 +1629,18 @@ class="board"
 id="backLevels"
 class="secondary"
 >
+
 Уровни
+
 </button>
 
 <button
 id="restart"
 class="secondary"
 >
+
 Заново
+
 </button>
 
 </div>
@@ -2002,106 +1649,441 @@ class="secondary"
 
 </section>
 
-<!-- CONSTRUCTION -->
-
 <section class="panel construction">
 
-<div class="construction-scene">
-
-<div class="scene-sky"></div>
-
-<div class="cloud c1"></div>
-<div class="cloud c2"></div>
-
-<div class="paris"></div>
-
-<div class="site-ground"></div>
-
-<div class="materials left"></div>
-<div class="materials right"></div>
-
-<div class="scaffold left"></div>
-<div class="scaffold right"></div>
-
-<div class="worker w1"></div>
-<div class="worker w2"></div>
-<div class="worker w3"></div>
-
-<div class="crane"></div>
-
-<div
-id="craneCable"
-class="crane-cable"
->
-
-<div class="crane-hook"></div>
-
-</div>
-
-<div
-id="cranePiece"
-class="crane-piece"
->
+<div class="sceneVisual">
 
 <svg
-class="truss"
-viewBox="0 0 120 48"
+viewBox="0 0 700 900"
+preserveAspectRatio="xMidYMid slice"
+aria-hidden="true"
+>
+
+<defs>
+
+<linearGradient
+id="skyGrad"
+x1="0"
+y1="0"
+x2="0"
+y2="1"
+>
+
+<stop
+offset="0"
+stop-color="#3d5873"
+/>
+
+<stop
+offset=".48"
+stop-color="#9a7568"
+/>
+
+<stop
+offset=".73"
+stop-color="#d29a6f"
+/>
+
+<stop
+offset="1"
+stop-color="#172334"
+/>
+
+</linearGradient>
+
+<radialGradient
+id="sunGlow"
+cx="75%"
+cy="30%"
+r="34%"
+>
+
+<stop
+offset="0"
+stop-color="#ffe7ae"
+stop-opacity=".95"
+/>
+
+<stop
+offset=".16"
+stop-color="#ffc979"
+stop-opacity=".32"
+/>
+
+<stop
+offset="1"
+stop-color="#ffc979"
+stop-opacity="0"
+/>
+
+</radialGradient>
+
+<linearGradient
+id="groundGrad"
+x1="0"
+y1="0"
+x2="0"
+y2="1"
+>
+
+<stop
+offset="0"
+stop-color="#4a3d31"
+/>
+
+<stop
+offset="1"
+stop-color="#17191d"
+/>
+
+</linearGradient>
+
+</defs>
+
+<rect
+width="700"
+height="900"
+fill="url(#skyGrad)"
+/>
+
+<rect
+width="700"
+height="900"
+fill="url(#sunGlow)"
+/>
+
+<g
+opacity=".18"
+fill="#fff"
+>
+
+<ellipse
+cx="130"
+cy="190"
+rx="120"
+ry="35"
+/>
+
+<ellipse
+cx="540"
+cy="150"
+rx="100"
+ry="28"
+/>
+
+<ellipse
+cx="390"
+cy="240"
+rx="135"
+ry="30"
+/>
+
+</g>
+
+<g
+transform="translate(0 560)"
+fill="#232e38"
+>
+
+<path
+d="
+M0 160
+V80
+H48
+V45
+H103
+V111
+H143
+V60
+H197
+V146
+H239
+V35
+H304
+V149
+H348
+V74
+H413
+V154
+H451
+V54
+H512
+V155
+H553
+V83
+H610
+V160
+H700
+V260
+H0
+Z
+"
+/>
+
+</g>
+
+<rect
+x="0"
+y="720"
+width="700"
+height="180"
+fill="url(#groundGrad)"
+/>
+
+<!-- scaffolding -->
+
+<g
+stroke="#806133"
+stroke-width="4"
+opacity=".72"
+>
+
+<path
+d="
+M60 790V615
+M85 790V615
+M110 790V615
+
+M45 650H125
+M45 690H125
+M45 730H125
+
+M585 795V645
+M610 795V645
+M635 795V645
+
+M570 680H650
+M570 720H650
+M570 760H650
+"
+/>
+
+<path
+d="
+M45 620L125 790
+M125 620L45 790
+
+M570 650L650 795
+M650 650L570 795
+"
+stroke-width="2.5"
+/>
+
+</g>
+
+<!-- crane -->
+
+<g
+transform="translate(515 260)"
+stroke="#b78231"
+fill="none"
+>
+
+<path
+d="M80 460V80"
+stroke-width="9"
+/>
+
+<path
+d="M80 82L-120 115"
+stroke-width="9"
+/>
+
+<path
+d="M82 80L135 115"
+stroke-width="7"
+/>
+
+<path
+d="
+M80 80L45 40
+M80 80L115 40
+"
+stroke-width="4"
+/>
+
+<path
+d="M55 460H105"
+stroke-width="12"
+/>
+
+</g>
+
+<!-- crane cable -->
+
+<g
+id="cableScene"
+stroke="#4b4b4b"
+stroke-width="2"
+>
+
+<line
+x1="452"
+y1="375"
+x2="452"
+y2="500"
+/>
+
+<path
+d="M446 500q6 12 12 0"
+/>
+
+</g>
+
+<!-- suspended truss -->
+
+<g
+id="pieceScene"
+transform="translate(395 500)"
+stroke="#665b4a"
+fill="none"
 >
 
 <rect
-x="3"
-y="5"
-width="114"
+x="0"
+y="0"
+width="115"
+height="42"
+stroke-width="5"
+/>
+
+<path
+d="
+M0 0L115 42
+M0 42L115 0
+
+M28 0V42
+M57 0V42
+M86 0V42
+"
+stroke-width="2.5"
+/>
+
+</g>
+
+<!-- workers -->
+
+<g fill="#283341">
+
+<g transform="translate(150 755)">
+
+<rect
+width="18"
 height="38"
-></rect>
+rx="7"
+/>
 
-<line
-class="thin"
-x1="3"
-y1="5"
-x2="117"
-y2="43"
-></line>
+<circle
+cx="9"
+cy="-5"
+r="7"
+fill="#c99667"
+/>
 
-<line
-class="thin"
-x1="3"
-y1="43"
-x2="117"
-y2="5"
-></line>
+<rect
+x="-2"
+y="-12"
+width="22"
+height="6"
+rx="3"
+fill="#e2a936"
+/>
 
-<line
-class="thin"
-x1="30"
-y1="5"
-x2="30"
-y2="43"
-></line>
+</g>
 
-<line
-class="thin"
-x1="60"
-y1="5"
-x2="60"
-y2="43"
-></line>
+<g transform="translate(205 770)">
 
-<line
-class="thin"
-x1="90"
-y1="5"
-x2="90"
-y2="43"
-></line>
+<rect
+width="18"
+height="38"
+rx="7"
+/>
+
+<circle
+cx="9"
+cy="-5"
+r="7"
+fill="#c99667"
+/>
+
+<rect
+x="-2"
+y="-12"
+width="22"
+height="6"
+rx="3"
+fill="#e2a936"
+/>
+
+</g>
+
+<g transform="translate(545 765)">
+
+<rect
+width="18"
+height="38"
+rx="7"
+/>
+
+<circle
+cx="9"
+cy="-5"
+r="7"
+fill="#c99667"
+/>
+
+<rect
+x="-2"
+y="-12"
+width="22"
+height="6"
+rx="3"
+fill="#e2a936"
+/>
+
+</g>
+
+</g>
+
+<!-- materials -->
+
+<g fill="#5a4937">
+
+<rect
+x="95"
+y="810"
+width="125"
+height="15"
+/>
+
+<rect
+x="480"
+y="820"
+width="150"
+height="15"
+/>
+
+<rect
+x="115"
+y="830"
+width="90"
+height="12"
+/>
+
+<rect
+x="500"
+y="842"
+width="110"
+height="12"
+/>
+
+</g>
 
 </svg>
 
 </div>
 
-</div>
-
-<div class="scene-ui">
+<div class="sceneUI">
 
 <div
 id="stageKicker"
@@ -2114,10 +2096,10 @@ class="kicker"
 
 <div
 id="stageSubtitle"
-class="scene-subtitle"
+class="scenesub"
 ></div>
 
-<div class="tower-zone">
+<div class="towerzone">
 
 <svg
 id="tower"
@@ -2125,10 +2107,8 @@ class="eiffel"
 viewBox="0 0 420 650"
 >
 
-<!-- 0 FOUNDATION -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="0"
 >
 
@@ -2151,116 +2131,67 @@ class="dark"
 
 </g>
 
-<!-- 1 LEGS -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="1"
 >
 
 <path
-d="M88 600 L154 332"
-class="metal"
+d="
+M88 600 L154 332
+M332 600 L266 332
+"
+class="metalStroke"
 />
 
 <path
-d="M332 600 L266 332"
-class="metal"
+d="
+M116 600 L171 332
+M304 600 L249 332
+"
+class="metalLight"
 />
 
 <path
-d="M116 600 L171 332"
-class="metal-light"
-/>
+d="
+M96 563L138 520
+M130 555L104 507
+M108 497L148 452
+M143 484L116 438
+M121 430L160 388
 
-<path
-d="M304 600 L249 332"
-class="metal-light"
-/>
-
-<path
-d="M96 563 L138 520"
-class="lattice"
-/>
-
-<path
-d="M130 555 L104 507"
-class="lattice"
-/>
-
-<path
-d="M108 497 L148 452"
-class="lattice"
-/>
-
-<path
-d="M143 484 L116 438"
-class="lattice"
-/>
-
-<path
-d="M121 430 L160 388"
-class="lattice"
-/>
-
-<path
-d="M324 563 L282 520"
-class="lattice"
-/>
-
-<path
-d="M290 555 L316 507"
-class="lattice"
-/>
-
-<path
-d="M312 497 L272 452"
-class="lattice"
-/>
-
-<path
-d="M277 484 L304 438"
-class="lattice"
-/>
-
-<path
-d="M299 430 L260 388"
+M324 563L282 520
+M290 555L316 507
+M312 497L272 452
+M277 484L304 438
+M299 430L260 388
+"
 class="lattice"
 />
 
 </g>
 
-<!-- 2 ARCH -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="2"
 >
 
 <path
 d="
 M117 478
-C143 398
-174 364
-210 364
-C246 364
-277 398
-303 478
+C143 398 174 364 210 364
+C246 364 277 398 303 478
 "
-class="metal"
+class="metalStroke"
 />
 
 <path
 d="
 M136 470
-C158 416
-181 389
-210 389
-C239 389
-262 416
-284 470
+C158 416 181 389 210 389
+C239 389 262 416 284 470
 "
-class="metal-light"
+class="metalLight"
 />
 
 <line
@@ -2273,10 +2204,8 @@ class="lattice"
 
 </g>
 
-<!-- 3 FIRST FLOOR -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="3"
 >
 
@@ -2299,71 +2228,41 @@ class="dark"
 
 </g>
 
-<!-- 4 MID -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="4"
 >
 
 <path
-d="M160 320 L193 156"
-class="metal"
+d="
+M160 320L193 156
+M260 320L227 156
+"
+class="metalStroke"
 />
 
 <path
-d="M260 320 L227 156"
-class="metal"
+d="
+M177 320L201 156
+M243 320L219 156
+"
+class="metalLight"
 />
 
 <path
-d="M177 320 L201 156"
-class="metal-light"
-/>
-
-<path
-d="M243 320 L219 156"
-class="metal-light"
-/>
-
-<line
-x1="173"
-y1="286"
-x2="247"
-y2="246"
-class="lattice"
-/>
-
-<line
-x1="247"
-y1="286"
-x2="173"
-y2="246"
-class="lattice"
-/>
-
-<line
-x1="181"
-y1="240"
-x2="239"
-y2="205"
-class="lattice"
-/>
-
-<line
-x1="239"
-y1="240"
-x2="181"
-y2="205"
+d="
+M173 286L247 246
+M247 286L173 246
+M181 240L239 205
+M239 240L181 205
+"
 class="lattice"
 />
 
 </g>
 
-<!-- 5 SECOND FLOOR -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="5"
 >
 
@@ -2386,46 +2285,32 @@ class="dark"
 
 </g>
 
-<!-- 6 TOP -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="6"
 >
 
 <path
-d="M194 145 L205 66"
-class="metal"
+d="
+M194 145L205 66
+M226 145L215 66
+"
+class="metalStroke"
 />
 
 <path
-d="M226 145 L215 66"
-class="metal"
+d="
+M201 145L208 66
+M219 145L212 66
+"
+class="metalLight"
 />
 
 <path
-d="M201 145 L208 66"
-class="metal-light"
-/>
-
-<path
-d="M219 145 L212 66"
-class="metal-light"
-/>
-
-<line
-x1="199"
-y1="120"
-x2="221"
-y2="100"
-class="lattice"
-/>
-
-<line
-x1="221"
-y1="120"
-x2="199"
-y2="100"
+d="
+M199 120L221 100
+M221 120L199 100
+"
 class="lattice"
 />
 
@@ -2440,10 +2325,8 @@ class="platform"
 
 </g>
 
-<!-- 7 SPIRE -->
-
 <g
-class="tower-stage"
+class="towerStage"
 data-stage="7"
 >
 
@@ -2452,7 +2335,7 @@ x1="210"
 y1="55"
 x2="210"
 y2="10"
-class="metal-light"
+class="metalLight"
 />
 
 <circle
@@ -2468,28 +2351,32 @@ fill="#ffc94f"
 
 <div
 id="stageChip"
-class="stage-chip"
+class="stagechip"
 >
+
 Фундамент
-</div>
-
-<div
-class="stage-line"
->
-
-<div class="stage-dot active"></div>
-<div class="stage-dot"></div>
-<div class="stage-dot"></div>
-<div class="stage-dot"></div>
-<div class="stage-dot"></div>
 
 </div>
 
+<div class="stagedots">
+
+<div class="dotStage active"></div>
+
+<div class="dotStage"></div>
+
+<div class="dotStage"></div>
+
+<div class="dotStage"></div>
+
+<div class="dotStage"></div>
+
 </div>
 
-<div class="progress-card">
+</div>
 
-<div class="progress-row">
+<div class="progresscard">
+
+<div class="progressrow">
 
 <b>
 Прогресс уровня
@@ -2512,19 +2399,18 @@ style="margin-top:10px"
 
 <div
 id="progressName"
-class="progress-name"
+class="progressname"
 >
+
 Подготовка материалов
+
 </div>
 
-<div
-id="resourceTip"
-class="resource-tip"
->
+<div class="tip">
 
 <strong>Совет:</strong>
-Собирайте металл —
-он понадобится для каркаса.
+комбинации из 4 и 5 плиток
+создают усилители.
 
 </div>
 
@@ -2561,7 +2447,7 @@ class="kicker"
 
 <div
 id="resultStars"
-class="level-stars"
+class="stars"
 ></div>
 
 <p id="resultText"></p>
@@ -2570,14 +2456,18 @@ class="level-stars"
 id="nextLevel"
 class="primary"
 >
+
 Следующий уровень
+
 </button>
 
 <button
 id="returnLevels"
 class="secondary"
 >
+
 К уровням
+
 </button>
 
 </div>
@@ -2609,51 +2499,53 @@ const RESOURCE_ICONS = [
 
 const LEVELS = [
 
-  {
-    title:'Фундамент',
-    moves:28,
-    target:[14,12,0,0,10,0],
-    hint:'Собери кирпич, металл и камень.',
-    subtitle:'Закладываем основание башни.'
-  },
+{
+  title:'Фундамент',
+  moves:28,
+  target:[14,12,0,0,10,0],
+  hint:'Собери кирпич, металл и камень.',
+  subtitle:'Закладываем основание башни.'
+},
 
-  {
-    title:'Нижние опоры',
-    moves:30,
-    target:[10,16,8,0,10,0],
-    hint:'Основной ресурс этапа — металл.',
-    subtitle:'Возводим нижние опоры.'
-  },
+{
+  title:'Нижние опоры',
+  moves:30,
+  target:[10,16,8,0,10,0],
+  hint:'Основной ресурс этапа — металл.',
+  subtitle:'Возводим нижние опоры.'
+},
 
-  {
-    title:'Арка и первый уровень',
-    moves:31,
-    target:[8,14,12,6,8,0],
-    hint:'Добавляются стекло и энергия.',
-    subtitle:'Соединяем опоры и строим первый этаж.'
-  },
+{
+  title:'Арка и первый уровень',
+  moves:31,
+  target:[8,14,12,6,8,0],
+  hint:'Добавляются стекло и энергия.',
+  subtitle:'Соединяем опоры и строим первый этаж.'
+},
 
-  {
-    title:'Центральная секция',
-    moves:32,
-    target:[0,16,14,10,8,8],
-    hint:'Металл и композит особенно важны.',
-    subtitle:'Башня набирает высоту.'
-  },
+{
+  title:'Центральная секция',
+  moves:32,
+  target:[0,16,14,10,8,8],
+  hint:'Металл и композит особенно важны.',
+  subtitle:'Башня набирает высоту.'
+},
 
-  {
-    title:'Шпиль и подсветка',
-    moves:34,
-    target:[0,14,16,14,0,12],
-    hint:'Последний этап строительства.',
-    subtitle:'Завершаем шпиль и освещение.'
-  }
+{
+  title:'Шпиль и подсветка',
+  moves:34,
+  target:[0,14,16,14,0,12],
+  hint:'Последний этап строительства.',
+  subtitle:'Завершаем шпиль и освещение.'
+}
 
 ];
 
 let save =
 JSON.parse(
-  localStorage.getItem('modern-wonders-save')
+  localStorage.getItem(
+    'modern-wonders-save'
+  )
   ||
   '{"paris":{"unlocked":1,"stars":[0,0,0,0,0]}}'
 );
@@ -2668,7 +2560,9 @@ if(!save.paris){
 }
 
 let board = [];
+
 let specials = [];
+
 let tileIds = [];
 
 let nextTileId = 1;
@@ -2683,9 +2577,8 @@ let moves = 0;
 
 let combo = 1;
 
-let collected = [
-  0,0,0,0,0,0
-];
+let collected =
+[0,0,0,0,0,0];
 
 let currentLevel = 0;
 
@@ -2708,7 +2601,9 @@ i => [
 const randomType =
 () =>
 Math.floor(
-  Math.random() * TYPE_COUNT
+  Math.random()
+  *
+  TYPE_COUNT
 );
 
 const wait =
@@ -2724,11 +2619,15 @@ function showScreen(id){
   .querySelectorAll('.screen')
   .forEach(
     element =>
-    element.classList.remove('active')
+    element.classList.remove(
+      'active'
+    )
   );
 
   $(id)
-  .classList.add('active');
+  .classList.add(
+    'active'
+  );
 
 }
 
@@ -2744,7 +2643,7 @@ function saveGame(){
 function iconHTML(type){
 
   return `
-    <div class="ico ${RESOURCE_ICONS[type]}"></div>
+  <div class="ico ${RESOURCE_ICONS[type]}"></div>
   `;
 
 }
@@ -2759,16 +2658,16 @@ function completedLevels(){
 
 function updateChapter(){
 
-  const finished =
+  const done =
   completedLevels();
 
   $('#chapterProgress')
   .style.width =
-  finished * 20 + '%';
+  done * 20 + '%';
 
   $('#chapterText')
   .textContent =
-  `${finished} из 5 уровней завершено`;
+  `${done} из 5 уровней завершено`;
 
 }
 
@@ -2780,20 +2679,23 @@ function renderLevels(){
   container.innerHTML = '';
 
   LEVELS.forEach(
-    (level,index)=>{
+    (level,i)=>{
 
       const unlocked =
-      index < save.paris.unlocked;
+      i
+      <
+      save.paris.unlocked;
 
       const stars =
-      save.paris.stars[index]
-      || 0;
+      save.paris.stars[i]
+      ||
+      0;
 
       const card =
       document.createElement('div');
 
       card.className =
-      'panel level-card'
+      'panel levelcard'
       +
       (
         unlocked
@@ -2805,43 +2707,43 @@ function renderLevels(){
 
       card.innerHTML = `
 
-        <div class="kicker">
-          Уровень ${index+1}
-        </div>
+      <div class="kicker">
+      Уровень ${i+1}
+      </div>
 
-        <h3>
-          ${level.title}
-        </h3>
+      <h3>
+      ${level.title}
+      </h3>
 
-        <p>
-          ${level.hint}
-        </p>
+      <p>
+      ${level.hint}
+      </p>
 
-        <div class="level-stars">
-          ${'★'.repeat(stars)}
-          ${'☆'.repeat(3-stars)}
-        </div>
+      <div class="stars">
+      ${'★'.repeat(stars)}
+      ${'☆'.repeat(3-stars)}
+      </div>
 
-        <button
-          class="${unlocked?'primary':'secondary'}"
-          ${unlocked?'':'disabled'}
-        >
+      <button
+      class="${unlocked?'primary':'secondary'}"
+      ${unlocked?'':'disabled'}
+      >
 
-          ${
-            unlocked
-            ?
-            (
-              stars
-              ?
-              'Играть снова'
-              :
-              'Играть'
-            )
-            :
-            'Закрыто'
-          }
+      ${
+        unlocked
+        ?
+        (
+          stars
+          ?
+          'Играть снова'
+          :
+          'Играть'
+        )
+        :
+        'Закрыто'
+      }
 
-        </button>
+      </button>
 
       `;
 
@@ -2851,11 +2753,12 @@ function renderLevels(){
         .querySelector('button')
         .onclick =
         () =>
-        startLevel(index);
+        startLevel(i);
 
       }
 
-      container.appendChild(card);
+      container
+      .appendChild(card);
 
     }
   );
@@ -2946,7 +2849,9 @@ function render(){
     (type,i)=>{
 
       const tile =
-      document.createElement('button');
+      document.createElement(
+        'button'
+      );
 
       tile.className =
       'tile c'
@@ -2975,11 +2880,14 @@ function render(){
       tile.innerHTML =
       iconHTML(type);
 
-      tile.onclick =
-      () =>
-      clickTile(i);
+      tile.addEventListener(
+        'click',
+        () =>
+        clickTile(i)
+      );
 
-      boardElement.appendChild(tile);
+      boardElement
+      .appendChild(tile);
 
     }
   );
@@ -3018,17 +2926,22 @@ function renderGoals(){
   .forEach(
     (target,type)=>{
 
-      if(!target)
-      return;
+      if(!target){
+        return;
+      }
 
       const element =
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
       element.className =
       'goal'
       +
       (
-        collected[type] >= target
+        collected[type]
+        >=
+        target
         ?
         ' done'
         :
@@ -3048,7 +2961,9 @@ function renderGoals(){
       </b>
       `;
 
-      goals.appendChild(element);
+      goals.appendChild(
+        element
+      );
 
     }
   );
@@ -3079,10 +2994,10 @@ function capturePositions(){
 
 async function animateBoard(
   before,
-  baseDuration = 260
+  base = 260
 ){
 
-  const animations = [];
+  const jobs = [];
 
   document
   .querySelectorAll('.tile')
@@ -3108,22 +3023,29 @@ async function animateBoard(
       if(old){
 
         dx =
-        old.left - now.left;
+        old.left
+        -
+        now.left;
 
         dy =
-        old.top - now.top;
+        old.top
+        -
+        now.top;
 
       }
 
       const distance =
-      Math.hypot(dx,dy);
+      Math.hypot(
+        dx,
+        dy
+      );
 
       const duration =
       Math.min(
         470,
         Math.max(
           180,
-          baseDuration
+          base
           +
           distance * .22
         )
@@ -3134,54 +3056,54 @@ async function animateBoard(
 
         [
 
-          {
-            transform:
-            `translate(${dx}px,${dy}px) scale(${old?1:.95})`
-          },
+        {
+          transform:
+          `translate(${dx}px,${dy}px) scale(${old?1:.95})`
+        },
 
-          {
-            transform:
-            'translate(0,0) scale(1.04)',
-            offset:.82
-          },
+        {
+          transform:
+          'translate(0,0) scale(1.04)',
 
-          {
-            transform:
-            'translate(0,0) scale(1)'
-          }
+          offset:.82
+        },
+
+        {
+          transform:
+          'translate(0,0) scale(1)'
+        }
 
         ],
 
         {
 
-          duration,
+        duration,
 
-          delay:
-          old
-          ?
-          0
-          :
-          (i % W) * 18,
+        delay:
+        old
+        ?
+        0
+        :
+        (i % W) * 18,
 
-          easing:
-          'cubic-bezier(.18,.78,.24,1)',
+        easing:
+        'cubic-bezier(.18,.78,.24,1)',
 
-          fill:'both'
+        fill:'both'
 
         }
 
       );
 
-      animations.push(
-        animation.finished.catch(()=>{})
+      jobs.push(
+        animation.finished
+        .catch(()=>{})
       );
 
     }
   );
 
-  await Promise.all(
-    animations
-  );
+  await Promise.all(jobs);
 
   document
   .querySelectorAll('.tile')
@@ -3199,7 +3121,7 @@ async function animateBoard(
 
 function findRuns(){
 
-  const result = [];
+  const output = [];
 
   for(
     let row = 0;
@@ -3221,27 +3143,30 @@ function findRuns(){
         board[index(row,col)]
         ===
         board[index(row,start)]
-      )
-      continue;
+      ){
+        continue;
+      }
 
       if(
         col - start
         >= 3
       ){
 
-        result.push(
+        output.push(
 
           Array.from(
+
             {
               length:
               col - start
             },
 
-            (_,offset)=>
+            (_,k)=>
             index(
               row,
-              start + offset
+              start + k
             )
+
           )
 
         );
@@ -3275,27 +3200,30 @@ function findRuns(){
         board[index(row,col)]
         ===
         board[index(start,col)]
-      )
-      continue;
+      ){
+        continue;
+      }
 
       if(
         row - start
         >= 3
       ){
 
-        result.push(
+        output.push(
 
           Array.from(
+
             {
               length:
               row - start
             },
 
-            (_,offset)=>
+            (_,k)=>
             index(
-              start + offset,
+              start + k,
               col
             )
+
           )
 
         );
@@ -3309,7 +3237,7 @@ function findRuns(){
 
   }
 
-  return result;
+  return output;
 
 }
 
@@ -3323,6 +3251,8 @@ function matches(){
 
 }
 
+/* THIS WAS BROKEN BEFORE */
+
 function adjacent(a,b){
 
   const [r1,c1] =
@@ -3331,13 +3261,11 @@ function adjacent(a,b){
   const [r2,c2] =
   coords(b);
 
-  return
-
-  Math.abs(r1-r2)
-  +
-  Math.abs(c1-c2)
-
-  === 1;
+  return (
+    Math.abs(r1-r2)
+    +
+    Math.abs(c1-c2)
+  ) === 1;
 
 }
 
@@ -3347,8 +3275,9 @@ async function clickTile(i){
     busy
     ||
     moves <= 0
-  )
-  return;
+  ){
+    return;
+  }
 
   if(
     selected === null
@@ -3398,9 +3327,15 @@ async function clickTile(i){
   selected = null;
 
   if(
-    specials[a] === 'rainbow'
+    specials[a]
+    ===
+    'rainbow'
+
     ||
-    specials[b] === 'rainbow'
+
+    specials[b]
+    ===
+    'rainbow'
   ){
 
     moves--;
@@ -3409,22 +3344,24 @@ async function clickTile(i){
 
     combo = 1;
 
-    const rainbowIndex =
-    specials[a] === 'rainbow'
+    const rainbow =
+    specials[a]
+    ===
+    'rainbow'
     ?
     a
     :
     b;
 
     const other =
-    rainbowIndex === a
+    rainbow === a
     ?
     b
     :
     a;
 
     await activateRainbow(
-      rainbowIndex,
+      rainbow,
       board[other]
     );
 
@@ -3481,7 +3418,7 @@ async function clickTile(i){
   );
 
   if(
-    !matches().length
+    matches().length === 0
   ){
 
     before =
@@ -3546,15 +3483,20 @@ async function clickTile(i){
 
 }
 
-async function resolveMatches(preferred){
+async function resolveMatches(
+  preferred
+){
 
   while(true){
 
     const runs =
     findRuns();
 
-    if(!runs.length)
-    break;
+    if(
+      runs.length === 0
+    ){
+      break;
+    }
 
     const clear =
     new Set(
@@ -3576,7 +3518,9 @@ async function resolveMatches(preferred){
           preferred
           :
           run[
-            Math.floor(run.length/2)
+            Math.floor(
+              run.length / 2
+            )
           ];
 
           create.push(
@@ -3598,7 +3542,9 @@ async function resolveMatches(preferred){
           preferred
           :
           run[
-            Math.floor(run.length/2)
+            Math.floor(
+              run.length / 2
+            )
           ];
 
           create.push(
@@ -3632,7 +3578,8 @@ async function resolveMatches(preferred){
           type === 'rainbow'
         ){
 
-          board[position] = 0;
+          board[position] =
+          0;
 
         }
 
@@ -3657,18 +3604,22 @@ async function resolveMatches(preferred){
 
     combo++;
 
-    preferred = null;
+    preferred =
+    null;
 
   }
 
 }
 
-async function clearTiles(indices){
+async function clearTiles(
+  indices
+){
 
   const expanded =
   new Set(indices);
 
-  let changed = true;
+  let changed =
+  true;
 
   while(changed){
 
@@ -3697,60 +3648,17 @@ async function clearTiles(indices){
             index(row,col);
 
             if(
-              !expanded.has(position)
+              !expanded.has(
+                position
+              )
             ){
 
-              expanded.add(position);
+              expanded.add(
+                position
+              );
 
-              changed = true;
-
-            }
-
-          }
-
-        }
-
-        if(
-          specials[i]
-          ===
-          'bomb'
-        ){
-
-          const [row,col] =
-          coords(i);
-
-          for(
-            let r =
-            Math.max(0,row-1);
-
-            r <=
-            Math.min(H-1,row+1);
-
-            r++
-          ){
-
-            for(
-              let c =
-              Math.max(0,col-1);
-
-              c <=
-              Math.min(W-1,col+1);
-
-              c++
-            ){
-
-              const position =
-              index(r,c);
-
-              if(
-                !expanded.has(position)
-              ){
-
-                expanded.add(position);
-
-                changed = true;
-
-              }
+              changed =
+              true;
 
             }
 
@@ -3797,7 +3705,8 @@ async function clearTiles(indices){
     i => {
 
       if(
-        board[i] != null
+        board[i]
+        != null
       ){
 
         collected[
@@ -3807,11 +3716,14 @@ async function clearTiles(indices){
         score +=
         100 * combo;
 
-        board[i] = null;
+        board[i] =
+        null;
 
-        specials[i] = null;
+        specials[i] =
+        null;
 
-        tileIds[i] = null;
+        tileIds[i] =
+        null;
 
       }
 
@@ -3834,7 +3746,8 @@ async function activateRainbow(
     (type,i)=>{
 
       if(
-        type === targetType
+        type ===
+        targetType
       ){
 
         cells.push(i);
@@ -3870,7 +3783,9 @@ async function settleBoard(){
     matches().length
   ){
 
-    await resolveMatches(null);
+    await resolveMatches(
+      null
+    );
 
   }
 
@@ -3884,10 +3799,11 @@ function gravity(){
     col++
   ){
 
-    const survivors = [];
+    const survivors =
+    [];
 
     for(
-      let row = H-1;
+      let row = H - 1;
       row >= 0;
       row--
     ){
@@ -3896,7 +3812,8 @@ function gravity(){
       index(row,col);
 
       if(
-        board[i] != null
+        board[i]
+        != null
       ){
 
         survivors.push(
@@ -3912,7 +3829,7 @@ function gravity(){
     }
 
     for(
-      let row = H-1,
+      let row = H - 1,
       k = 0;
 
       row >= 0;
@@ -3925,7 +3842,9 @@ function gravity(){
       index(row,col);
 
       if(
-        k < survivors.length
+        k
+        <
+        survivors.length
       ){
 
         [
@@ -3966,7 +3885,9 @@ function gravity(){
 function levelProgress(){
 
   const target =
-  LEVELS[currentLevel]
+  LEVELS[
+    currentLevel
+  ]
   .target;
 
   let total = 0;
@@ -3976,22 +3897,29 @@ function levelProgress(){
   target.forEach(
     (amount,type)=>{
 
-      if(!amount)
-      return;
+      if(
+        amount
+      ){
 
-      total +=
-      amount;
+        total +=
+        amount;
 
-      current +=
-      Math.min(
-        amount,
-        collected[type]
-      );
+        current +=
+        Math.min(
+          amount,
+          collected[type]
+        );
+
+      }
 
     }
   );
 
-  return current / total;
+  return total
+  ?
+  current / total
+  :
+  0;
 
 }
 
@@ -4018,11 +3946,11 @@ function renderConstruction(){
   [
     ...document
     .querySelectorAll(
-      '.tower-stage'
+      '.towerStage'
     )
   ];
 
-  const constructionStage =
+  const stageIndex =
   Math.min(
     stages.length - 1,
 
@@ -4042,12 +3970,12 @@ function renderConstruction(){
   percentage + '%';
 
   stages.forEach(
-    (stage,index)=>{
+    (stage,i)=>{
 
       stage.classList.toggle(
         'visible',
 
-        index < constructionStage
+        i < stageIndex
 
         ||
 
@@ -4057,7 +3985,7 @@ function renderConstruction(){
       stage.classList.toggle(
         'building',
 
-        index === constructionStage
+        i === stageIndex
 
         &&
         overall < 1
@@ -4069,7 +3997,7 @@ function renderConstruction(){
     }
   );
 
-  const stageNames = [
+  const names = [
 
     'Фундамент',
 
@@ -4100,27 +4028,25 @@ function renderConstruction(){
 
   :
 
-  stageNames[
-    constructionStage
+  names[
+    stageIndex
   ];
 
-  const dots =
   document
   .querySelectorAll(
-    '.stage-dot'
-  );
-
-  dots.forEach(
-    (dot,index)=>{
+    '.dotStage'
+  )
+  .forEach(
+    (dot,i)=>{
 
       dot.classList.toggle(
         'active',
-        index === currentLevel
+        i === currentLevel
       );
 
       dot.classList.toggle(
         'done',
-        index < currentLevel
+        i < currentLevel
       );
 
     }
@@ -4148,12 +4074,14 @@ function renderConstruction(){
   'Завершаем этап';
 
   if(
-    constructionStage
+    stageIndex
     >
     lastConstructionStage
 
     &&
-    lastConstructionStage >= 0
+    lastConstructionStage
+    >=
+    0
   ){
 
     playConstructionAnimation();
@@ -4161,88 +4089,141 @@ function renderConstruction(){
   }
 
   lastConstructionStage =
-  constructionStage;
+  stageIndex;
 
 }
 
 async function playConstructionAnimation(){
 
   const piece =
-  $('#cranePiece');
+  document.querySelector(
+    '#pieceScene'
+  );
 
   const cable =
-  $('#craneCable');
-
-  piece.className =
-  'crane-piece show';
-
-  cable.style.height =
-  '115px';
-
-  await wait(350);
-
-  piece.classList.add(
-    'lower'
+  document.querySelector(
+    '#cableScene line'
   );
 
-  cable.style.height =
-  '165px';
+  if(
+    !piece
+    ||
+    !cable
+  ){
+    return;
+  }
 
-  await wait(850);
+  piece.animate(
 
-  sparksAroundTower();
+    [
 
-  await wait(300);
+    {
+      transform:
+      'translate(395px,460px) rotate(-3deg)',
 
-  piece.classList.add(
-    'install'
+      opacity:.2
+    },
+
+    {
+      transform:
+      'translate(395px,520px) rotate(2deg)',
+
+      opacity:1,
+
+      offset:.45
+    },
+
+    {
+      transform:
+      'translate(300px,610px) scale(.65)',
+
+      opacity:.12
+    }
+
+    ],
+
+    {
+
+    duration:1200,
+
+    easing:
+    'cubic-bezier(.2,.8,.25,1)'
+
+    }
+
   );
 
-  cable.style.height =
-  '105px';
+  cable.animate(
+
+    [
+
+    {
+      y2:'460'
+    },
+
+    {
+      y2:'535'
+    },
+
+    {
+      y2:'455'
+    }
+
+    ],
+
+    {
+
+    duration:1200,
+
+    easing:
+    'ease-in-out'
+
+    }
+
+  );
+
+  await wait(700);
 
   sparksAroundTower();
-
-  await wait(850);
-
-  piece.className =
-  'crane-piece';
 
 }
 
 function sparksAroundTower(){
 
   const zone =
-  document.querySelector(
-    '.tower-zone'
+  document
+  .querySelector(
+    '.towerzone'
   );
 
   for(
     let i = 0;
-    i < 15;
+    i < 14;
     i++
   ){
 
     const spark =
-    document.createElement('span');
+    document.createElement(
+      'span'
+    );
 
     spark.className =
     'spark';
 
     spark.style.left =
     (
-      45
+      44
       +
-      Math.random() * 10
+      Math.random() * 12
     )
     +
     '%';
 
     spark.style.top =
     (
-      40
+      42
       +
-      Math.random() * 35
+      Math.random() * 30
     )
     +
     '%';
@@ -4282,7 +4263,6 @@ function sparksAroundTower(){
     setTimeout(
       () =>
       spark.remove(),
-
       750
     );
 
@@ -4296,7 +4276,9 @@ function flash(tile){
   tile.getBoundingClientRect();
 
   const effect =
-  document.createElement('span');
+  document.createElement(
+    'span'
+  );
 
   effect.className =
   'flash';
@@ -4329,7 +4311,6 @@ function flash(tile){
   setTimeout(
     () =>
     effect.remove(),
-
     500
   );
 
@@ -4337,21 +4318,23 @@ function flash(tile){
 
 function levelComplete(){
 
-  return
+  return (
+    LEVELS[
+      currentLevel
+    ]
+    .target
+    .every(
+      (target,type)=>
 
-  LEVELS[currentLevel]
-  .target
-  .every(
-    (target,type)=>
+      !target
 
-    !target
+      ||
 
-    ||
+      collected[type]
+      >=
+      target
 
-    collected[type]
-    >=
-    target
-
+    )
   );
 
 }
@@ -4360,28 +4343,37 @@ function calculateStars(){
 
   if(
     !levelComplete()
-  )
-  return 0;
+  ){
+    return 0;
+  }
 
   const initial =
-  LEVELS[currentLevel]
+  LEVELS[
+    currentLevel
+  ]
   .moves;
 
   const used =
-  initial - moves;
+  initial
+  -
+  moves;
 
   const ratio =
-  used / initial;
+  used
+  /
+  initial;
 
   if(
     ratio <= .55
-  )
-  return 3;
+  ){
+    return 3;
+  }
 
   if(
     ratio <= .8
-  )
-  return 2;
+  ){
+    return 2;
+  }
 
   return 1;
 
@@ -4407,7 +4399,9 @@ function checkEnd(){
 
 }
 
-function finishLevel(success){
+function finishLevel(
+  success
+){
 
   const stars =
   success
@@ -4419,18 +4413,27 @@ function finishLevel(success){
   if(success){
 
     save.paris
-    .stars[currentLevel] =
+    .stars[
+      currentLevel
+    ] =
 
     Math.max(
+
       save.paris
-      .stars[currentLevel]
-      || 0,
+      .stars[
+        currentLevel
+      ]
+      ||
+      0,
 
       stars
+
     );
 
     if(
-      currentLevel < 4
+      currentLevel
+      <
+      4
     ){
 
       save.paris
@@ -4441,7 +4444,9 @@ function finishLevel(success){
         save.paris
         .unlocked,
 
-        currentLevel + 2
+        currentLevel
+        +
+        2
 
       );
 
@@ -4466,9 +4471,13 @@ function finishLevel(success){
 
   (
     currentLevel === 4
+
     ?
+
     'Эйфелева башня завершена!'
+
     :
+
     'Этап построен!'
   )
 
@@ -4484,7 +4493,7 @@ function finishLevel(success){
   +
 
   '☆'.repeat(
-    3-stars
+    3 - stars
   );
 
   $('#resultText')
@@ -4522,15 +4531,15 @@ function finishLevel(success){
 
 }
 
-function startLevel(index){
+function startLevel(i){
 
   currentLevel =
-  index;
+  i;
 
   score = 0;
 
   moves =
-  LEVELS[index]
+  LEVELS[i]
   .moves;
 
   combo = 1;
@@ -4549,20 +4558,20 @@ function startLevel(index){
 
   $('#location')
   .textContent =
-  `Париж · Уровень ${index+1}`;
+  `Париж · Уровень ${i+1}`;
 
   $('#hint')
   .textContent =
-  LEVELS[index]
+  LEVELS[i]
   .hint;
 
   $('#stageKicker')
   .textContent =
-  `Этап строительства ${index+1} из 5`;
+  `Этап строительства ${i+1} из 5`;
 
   $('#stageSubtitle')
   .textContent =
-  LEVELS[index]
+  LEVELS[i]
   .subtitle;
 
   $('#overlay')
@@ -4595,82 +4604,116 @@ function toast(message){
     element.classList.remove(
       'show'
     ),
-
     950
   );
 
 }
 
-$('#openParis').onclick =
-$('#parisPin').onclick =
-()=>{
+/* BUTTONS */
 
-  renderLevels();
+$('#openParis')
+.addEventListener(
+  'click',
+  ()=>{
 
-  showScreen(
-    '#levelsScreen'
-  );
+    renderLevels();
 
-};
+    showScreen(
+      '#levelsScreen'
+    );
 
-$('#backMap').onclick =
-()=>{
+  }
+);
 
-  updateChapter();
+$('#parisPin')
+.addEventListener(
+  'click',
+  ()=>{
 
-  showScreen(
-    '#mapScreen'
-  );
+    renderLevels();
 
-};
+    showScreen(
+      '#levelsScreen'
+    );
 
-$('#backLevels').onclick =
-()=>{
+  }
+);
 
-  renderLevels();
+$('#backMap')
+.addEventListener(
+  'click',
+  ()=>{
 
-  showScreen(
-    '#levelsScreen'
-  );
+    updateChapter();
 
-};
+    showScreen(
+      '#mapScreen'
+    );
 
-$('#restart').onclick =
-()=>{
+  }
+);
 
-  startLevel(
-    currentLevel
-  );
+$('#backLevels')
+.addEventListener(
+  'click',
+  ()=>{
 
-};
+    renderLevels();
 
-$('#returnLevels').onclick =
-()=>{
+    showScreen(
+      '#levelsScreen'
+    );
 
-  $('#overlay')
-  .classList.remove(
-    'show'
-  );
+  }
+);
 
-  renderLevels();
+$('#restart')
+.addEventListener(
+  'click',
+  ()=>{
 
-  showScreen(
-    '#levelsScreen'
-  );
+    startLevel(
+      currentLevel
+    );
 
-};
+  }
+);
 
-$('#nextLevel').onclick =
-()=>{
+$('#returnLevels')
+.addEventListener(
+  'click',
+  ()=>{
 
-  startLevel(
-    currentLevel + 1
-  );
+    $('#overlay')
+    .classList.remove(
+      'show'
+    );
 
-};
+    renderLevels();
+
+    showScreen(
+      '#levelsScreen'
+    );
+
+  }
+);
+
+$('#nextLevel')
+.addEventListener(
+  'click',
+  ()=>{
+
+    startLevel(
+      currentLevel + 1
+    );
+
+  }
+);
 
 updateChapter();
+
 renderLevels();
+
 generateBoard();
 </script>
 
