@@ -11,40 +11,51 @@
   --panel:#111b2b;
   --panel2:#09121e;
   --text:#f5f7fb;
-  --muted:#96a5b9;
-  --gold:#ffd166;
+  --muted:#98a6b9;
+  --gold:#f3b83f;
+  --gold2:#ffd36a;
   --line:rgba(255,255,255,.09);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html,body{
   margin:0;
   min-height:100%;
   font-family:Inter,Segoe UI,Arial,sans-serif;
-  background:var(--bg);
+  background:#07101c;
   color:var(--text);
 }
 
-button{font:inherit}
+button{
+  font:inherit;
+}
+
+button:disabled{
+  cursor:default;
+}
 
 .screen{
   display:none;
   min-height:100vh;
 }
 
-.screen.active{display:block}
+.screen.active{
+  display:block;
+}
 
 .wrap{
-  width:min(1480px,96vw);
+  width:min(1500px,96vw);
   margin:auto;
   padding:20px;
 }
 
-.top{
+.topbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:16px;
 }
 
@@ -53,7 +64,9 @@ button{font:inherit}
   letter-spacing:.14em;
 }
 
-.brand span{color:var(--gold)}
+.brand span{
+  color:var(--gold);
+}
 
 .muted{
   color:var(--muted);
@@ -61,10 +74,26 @@ button{font:inherit}
 }
 
 .kicker{
-  font-size:11px;
-  letter-spacing:.17em;
+  color:#e4bd72;
   text-transform:uppercase;
-  color:#dfc19c;
+  letter-spacing:.16em;
+  font-size:11px;
+  font-weight:800;
+}
+
+.panel{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23,35,55,.98),
+      rgba(12,20,33,.98)
+    );
+
+  border:1px solid var(--line);
+  border-radius:26px;
+
+  box-shadow:
+    0 24px 65px rgba(0,0,0,.35);
 }
 
 .primary,
@@ -73,194 +102,256 @@ button{font:inherit}
   border-radius:13px;
   padding:11px 15px;
   cursor:pointer;
-  font-weight:800;
+  font-weight:850;
 }
 
 .primary{
-  background:linear-gradient(135deg,#ffd166,#ff9f1c);
-  color:#251700;
+  color:#271700;
+  background:
+    linear-gradient(
+      135deg,
+      #ffd36a,
+      #f0a51f
+    );
 }
 
 .secondary{
+  color:white;
   background:#111b2a;
-  color:#fff;
   border:1px solid var(--line);
 }
 
-.panel{
-  background:linear-gradient(180deg,#172338,#0d1624);
-  border:1px solid var(--line);
-  border-radius:25px;
-  box-shadow:0 25px 65px rgba(0,0,0,.32);
-}
-
-/* =====================================================
-   WORLD MAP
-===================================================== */
+/* =========================================================
+   WORLD
+========================================================= */
 
 .mapbg{
   background:
-    radial-gradient(circle at 75% 10%,#213a5a 0,transparent 28%),
-    linear-gradient(150deg,#07101c,#0d1b2f 58%,#07101c);
+    radial-gradient(
+      circle at 70% 10%,
+      #203855 0,
+      transparent 28%
+    ),
+    linear-gradient(
+      150deg,
+      #07101c,
+      #0d1b2f 58%,
+      #07101c
+    );
 }
 
 .hero{
   display:flex;
   justify-content:space-between;
-  align-items:end;
-  gap:24px;
+  align-items:flex-end;
+  gap:30px;
   margin:22px 0;
 }
 
 .hero h1{
-  font-size:clamp(46px,7vw,86px);
+  margin:3px 0;
+  font-size:clamp(48px,7vw,88px);
   line-height:.86;
-  margin:4px 0;
 }
 
 .hero p{
-  max-width:570px;
-  color:#aab6c6;
+  max-width:560px;
+  color:#aab7c8;
 }
 
 .world{
   height:640px;
-  border:1px solid var(--line);
-  border-radius:30px;
   position:relative;
   overflow:hidden;
+
+  border-radius:30px;
+  border:1px solid var(--line);
+
   background:
-    radial-gradient(circle at 28% 38%,rgba(91,125,83,.34) 0 10%,transparent 11%),
-    radial-gradient(circle at 48% 48%,rgba(91,125,83,.26) 0 10%,transparent 11%),
-    radial-gradient(circle at 69% 56%,rgba(91,125,83,.22) 0 8%,transparent 9%),
-    linear-gradient(#142943,#0a1728);
+    radial-gradient(
+      circle at 30% 38%,
+      rgba(87,123,82,.35) 0 10%,
+      transparent 11%
+    ),
+    radial-gradient(
+      circle at 53% 43%,
+      rgba(87,123,82,.25) 0 10%,
+      transparent 11%
+    ),
+    radial-gradient(
+      circle at 72% 57%,
+      rgba(87,123,82,.22) 0 8%,
+      transparent 9%
+    ),
+    linear-gradient(
+      #142942,
+      #0b1828
+    );
 }
 
 .city{
   position:absolute;
   transform:translate(-50%,-50%);
-  background:none;
+  background:transparent;
   border:0;
-  color:#fff;
+  color:white;
   text-align:center;
-  z-index:2;
 }
 
 .city .dot{
   width:24px;
   height:24px;
-  border-radius:50%;
   margin:auto;
-  background:#52667c;
-  border:5px solid rgba(255,255,255,.14);
+  border-radius:50%;
+
+  background:#4e6175;
+
+  border:
+    5px solid rgba(255,255,255,.13);
 }
 
-.city.open{cursor:pointer}
+.city.open{
+  cursor:pointer;
+}
 
 .city.open .dot{
-  background:#ffd166;
+  background:#ffc64d;
+
   box-shadow:
-    0 0 0 7px rgba(255,209,102,.12),
-    0 0 28px rgba(255,209,102,.5);
+    0 0 0 8px rgba(255,198,77,.1),
+    0 0 30px rgba(255,198,77,.5);
 }
 
-.city.locked{opacity:.35}
+.city.locked{
+  opacity:.32;
+}
 
 .city b,
-.city small{display:block}
+.city small{
+  display:block;
+}
 
-.city b{margin-top:7px}
+.city b{
+  margin-top:7px;
+}
 
-.city small{color:#9caabc}
+.city small{
+  color:#9eacbc;
+}
 
-.citycard{
+.city-card{
   position:absolute;
-  z-index:3;
   left:5%;
   bottom:6%;
+  z-index:5;
+
   width:min(420px,88%);
+
   padding:18px;
-  background:rgba(7,13,22,.84);
-  backdrop-filter:blur(12px);
+
+  border-radius:21px;
   border:1px solid var(--line);
-  border-radius:20px;
+
+  background:
+    rgba(7,13,22,.84);
+
+  backdrop-filter:blur(14px);
 }
 
-.citycard h2{
-  font-size:30px;
+.city-card h2{
   margin:4px 0;
+  font-size:30px;
 }
 
-.citycard p{
-  font-size:14px;
-  color:#aeb9c7;
+.city-card p{
+  color:#aab7c7;
 }
 
 .bar{
   height:10px;
-  background:#17202e;
-  border-radius:999px;
   overflow:hidden;
+  border-radius:999px;
+  background:#172333;
 }
 
-.bar>span{
+.bar span{
   display:block;
   height:100%;
-  background:linear-gradient(90deg,#ffd166,#ff9f1c);
-  transition:.35s;
+  width:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f5b72f,
+      #ffd766
+    );
+
+  transition:width .35s ease;
 }
 
-/* =====================================================
+/* =========================================================
    LEVEL SELECT
-===================================================== */
+========================================================= */
 
-.levelwrap{
+.level-wrap{
   width:min(1050px,94vw);
   margin:auto;
   padding:28px 0;
 }
 
-.levels{
+.level-grid{
   display:grid;
   grid-template-columns:repeat(5,1fr);
   gap:14px;
 }
 
-.level{
+.level-card{
   padding:17px;
   min-height:215px;
 }
 
-.level.locked{opacity:.38}
-
-.level h3{margin:8px 0}
-
-.level p{
-  font-size:13px;
-  color:#aab6c6;
-  min-height:55px;
+.level-card.locked{
+  opacity:.38;
 }
 
-.stars{
-  color:var(--gold);
+.level-card h3{
+  margin:8px 0;
+}
+
+.level-card p{
+  min-height:55px;
+  color:#aab6c6;
+  font-size:13px;
+}
+
+.level-stars{
+  margin:10px 0;
+  color:#ffd35f;
   font-size:20px;
   letter-spacing:4px;
-  margin:10px 0;
 }
 
-.level button{width:100%}
+.level-card button{
+  width:100%;
+}
 
-/* =====================================================
-   GAME
-===================================================== */
+/* =========================================================
+   GAME GRID
+========================================================= */
 
-.game{
+.game-grid{
   display:grid;
-  grid-template-columns:minmax(600px,760px) minmax(420px,1fr);
+
+  grid-template-columns:
+    minmax(590px,750px)
+    minmax(450px,1fr);
+
   gap:18px;
 }
 
-.left{padding:16px}
+.left{
+  padding:16px;
+}
 
 .hud{
   display:grid;
@@ -271,28 +362,32 @@ button{font:inherit}
 
 .stat{
   padding:10px 12px;
-  background:#0a1320;
-  border:1px solid var(--line);
+
   border-radius:14px;
+
+  background:#09131f;
+
+  border:
+    1px solid rgba(255,255,255,.07);
 }
 
 .label{
   font-size:10px;
-  letter-spacing:.12em;
-  color:var(--muted);
   text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#92a1b6;
 }
 
 .value{
+  margin-top:3px;
   font-size:21px;
   font-weight:950;
-  margin-top:3px;
 }
 
 .goals{
   display:flex;
-  gap:7px;
   flex-wrap:wrap;
+  gap:7px;
   margin-bottom:11px;
 }
 
@@ -300,54 +395,74 @@ button{font:inherit}
   display:flex;
   align-items:center;
   gap:7px;
-  background:#09111c;
-  border:1px solid var(--line);
+
   padding:7px 10px;
+
   border-radius:999px;
+
+  background:#08111c;
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
   font-size:12px;
 }
 
-.goal.done{opacity:.45}
+.goal.done{
+  opacity:.42;
+}
 
-/* =====================================================
-   MATCH 3 BOARD
-===================================================== */
+/* =========================================================
+   BOARD
+========================================================= */
 
-.boardbox{
-  position:relative;
-  background:#07101a;
-  border:1px solid var(--line);
-  border-radius:21px;
+.board-box{
   padding:10px;
+
+  border-radius:21px;
+
+  background:#06101a;
+
+  border:
+    1px solid rgba(255,255,255,.08);
 }
 
 .board{
   display:grid;
   grid-template-columns:repeat(8,1fr);
+
   gap:7px;
   aspect-ratio:1;
-  perspective:900px;
 }
 
 .tile{
   position:relative;
+
   border:0;
   border-radius:15px;
+
+  cursor:pointer;
+
   display:grid;
   place-items:center;
-  cursor:pointer;
+
   overflow:hidden;
-  will-change:transform,opacity;
+
+  will-change:
+    transform,
+    opacity;
 
   box-shadow:
     inset 0 1px rgba(255,255,255,.28),
-    0 6px 13px rgba(0,0,0,.28);
+    0 6px 13px rgba(0,0,0,.3);
 }
 
-.tile:before{
+.tile::before{
   content:"";
+
   position:absolute;
   inset:0;
+
   background:
     linear-gradient(
       145deg,
@@ -362,71 +477,112 @@ button{font:inherit}
 }
 
 .tile.selected{
-  outline:4px solid #fff;
+  outline:4px solid white;
   outline-offset:-4px;
 }
 
 .tile.pop{
-  animation:pop .18s ease forwards;
+  animation:
+    pop .18s ease forwards;
 }
 
 @keyframes pop{
   to{
-    transform:scale(.12) rotate(15deg);
     opacity:0;
+    transform:
+      scale(.12)
+      rotate(16deg);
+
     filter:brightness(2.2);
   }
 }
 
-.tile .ico{
+.ico{
   width:62%;
   height:62%;
   position:relative;
-  filter:drop-shadow(0 3px 3px rgba(0,0,0,.28));
+
+  filter:
+    drop-shadow(
+      0 3px 3px rgba(0,0,0,.3)
+    );
 }
 
-/* TILE COLORS */
-
 .c0{
-  background:linear-gradient(145deg,#d5524a,#902f2b);
+  background:
+    linear-gradient(
+      145deg,
+      #d5524a,
+      #8e302c
+    );
 }
 
 .c1{
-  background:linear-gradient(145deg,#d9a735,#9b6c13);
+  background:
+    linear-gradient(
+      145deg,
+      #d9a735,
+      #996b13
+    );
 }
 
 .c2{
-  background:linear-gradient(145deg,#4ebfba,#1c716e);
+  background:
+    linear-gradient(
+      145deg,
+      #4ebfba,
+      #1c716e
+    );
 }
 
 .c3{
-  background:linear-gradient(145deg,#4d9ce8,#25569d);
+  background:
+    linear-gradient(
+      145deg,
+      #4d9ce8,
+      #25569d
+    );
 }
 
 .c4{
-  background:linear-gradient(145deg,#9b76d9,#5d3b96);
+  background:
+    linear-gradient(
+      145deg,
+      #9b76d9,
+      #5d3b96
+    );
 }
 
 .c5{
-  background:linear-gradient(145deg,#cf7898,#8d405e);
+  background:
+    linear-gradient(
+      145deg,
+      #cf7898,
+      #8d405e
+    );
 }
 
-/* SPECIAL TILES */
-
-.tile.striped:after,
-.tile.bomb:after,
-.tile.rainbow:after{
+.tile.striped::after,
+.tile.bomb::after,
+.tile.rainbow::after{
   position:absolute;
   right:7px;
   top:5px;
-  color:#fff;
+
+  color:white;
   font-size:19px;
-  text-shadow:0 2px 5px #000;
+
+  text-shadow:
+    0 2px 5px black;
 }
 
-.tile.striped:after{content:"↔"}
+.tile.striped::after{
+  content:"↔";
+}
 
-.tile.bomb:after{content:"✹"}
+.tile.bomb::after{
+  content:"✹";
+}
 
 .tile.rainbow{
   background:
@@ -441,45 +597,58 @@ button{font:inherit}
     );
 }
 
-.tile.rainbow:after{content:"✦"}
+.tile.rainbow::after{
+  content:"✦";
+}
 
-/* =====================================================
-   RESOURCE ICONS
-===================================================== */
+/* resources */
 
-.brick:before{
+.brick::before{
   content:"";
+
   position:absolute;
   inset:14% 8%;
+
   background:
-    linear-gradient(#6f241e 0 0) 0 0/45% 44%,
-    linear-gradient(#6f241e 0 0) 100% 0/45% 44%,
-    linear-gradient(#6f241e 0 0) 18% 100%/45% 44%,
-    linear-gradient(#6f241e 0 0) 100% 100%/34% 44%;
+    linear-gradient(#70241e 0 0) 0 0/45% 44%,
+    linear-gradient(#70241e 0 0) 100% 0/45% 44%,
+    linear-gradient(#70241e 0 0) 18% 100%/45% 44%,
+    linear-gradient(#70241e 0 0) 100% 100%/34% 44%;
+
   background-repeat:no-repeat;
 }
 
-.metal:before{
+.metal::before{
   content:"";
+
   position:absolute;
   inset:8% 23%;
-  border:7px solid #dfe5eb;
+
+  border:
+    7px solid #dfe5eb;
+
   border-top-color:#a9b1ba;
   border-bottom-color:#838d97;
+
   transform:skew(-8deg);
 }
 
-.glass:before{
+.glass::before{
   content:"";
+
   position:absolute;
   inset:8%;
+
   background:
     linear-gradient(
       135deg,
       rgba(255,255,255,.75),
       rgba(181,242,255,.18)
     );
-  border:3px solid rgba(225,251,255,.7);
+
+  border:
+    3px solid rgba(225,251,255,.7);
+
   clip-path:
     polygon(
       50% 0,
@@ -490,14 +659,19 @@ button{font:inherit}
     );
 }
 
-.energy:before{
+.energy::before{
   content:"";
+
   position:absolute;
+
   left:33%;
   top:4%;
+
   width:35%;
   height:90%;
-  background:#fff;
+
+  background:white;
+
   clip-path:
     polygon(
       55% 0,
@@ -509,11 +683,19 @@ button{font:inherit}
     );
 }
 
-.stone:before{
+.stone::before{
   content:"";
+
   position:absolute;
   inset:13% 8%;
-  background:linear-gradient(145deg,#ddd9e2,#8f8b99);
+
+  background:
+    linear-gradient(
+      145deg,
+      #ddd9e2,
+      #8f8b99
+    );
+
   clip-path:
     polygon(
       15% 0,
@@ -525,698 +707,816 @@ button{font:inherit}
     );
 }
 
-.comp:before{
+.comp::before{
   content:"";
+
   position:absolute;
   inset:12%;
-  border:6px solid #f4d3df;
+
+  border:
+    6px solid #f4d3df;
+
   border-radius:50%;
 }
 
-.comp:after{
+.comp::after{
   content:"";
+
   position:absolute;
   left:44%;
   top:6%;
+
   width:12%;
   height:88%;
-  background:#f4d3df;
-  transform:rotate(45deg);
+
   border-radius:5px;
+
+  background:#f4d3df;
+
+  transform:rotate(45deg);
 }
 
 .controls{
+  margin-top:10px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-top:10px;
-  color:var(--muted);
+
+  color:#93a1b5;
   font-size:12px;
 }
 
-/* =====================================================
-   PARIS SCENE
-===================================================== */
+/* =========================================================
+   CONSTRUCTION CARD
+========================================================= */
 
-.right{
+.construction{
   min-height:760px;
+
   position:relative;
   overflow:hidden;
-  padding:22px;
+
+  padding:0;
+
+  background:#101925;
 }
 
-.sky{
+.construction-scene{
+  position:absolute;
+  inset:0;
+
+  overflow:hidden;
+}
+
+/* sky */
+
+.scene-sky{
   position:absolute;
   inset:0;
 
   background:
     radial-gradient(
-      circle at 50% 18%,
-      rgba(255,225,165,.5),
-      transparent 16%
+      circle at 83% 32%,
+      rgba(255,227,164,.95) 0 3%,
+      rgba(255,200,120,.23) 8%,
+      transparent 20%
     ),
     linear-gradient(
-      #59728f 0 28%,
-      #a56f65 40%,
-      #c99070 51%,
-      #314158 66%,
-      #0b131f 100%
+      180deg,
+      #496580 0%,
+      #6c8298 28%,
+      #d09a76 62%,
+      #81624f 78%,
+      #182334 100%
     );
 }
 
-.sky:after{
-  content:"";
+.cloud{
   position:absolute;
-  inset:0;
+
+  width:190px;
+  height:45px;
+
+  border-radius:50%;
+
+  filter:blur(10px);
 
   background:
-    radial-gradient(
-      ellipse at 18% 36%,
-      rgba(255,255,255,.09),
-      transparent 16%
-    ),
-    radial-gradient(
-      ellipse at 73% 29%,
-      rgba(255,255,255,.07),
-      transparent 13%
-    );
+    rgba(255,255,255,.11);
 
-  animation:drift 12s ease-in-out infinite alternate;
+  animation:
+    cloudMove 28s linear infinite;
 }
 
-@keyframes drift{
-  to{transform:translateX(2%)}
+.cloud.c1{
+  top:18%;
+  left:-25%;
 }
 
-.moon{
+.cloud.c2{
+  top:28%;
+  left:-35%;
+  animation-delay:9s;
+  animation-duration:36s;
+}
+
+@keyframes cloudMove{
+  to{
+    left:120%;
+  }
+}
+
+/* Paris */
+
+.paris{
   position:absolute;
-  right:10%;
-  top:8%;
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:#ffedc0;
-  box-shadow:0 0 36px rgba(255,225,165,.35);
-}
 
-.buildings{
-  position:absolute;
   left:0;
   right:0;
-  bottom:15%;
-  height:165px;
+
+  bottom:18%;
+
+  height:190px;
 
   background:
     linear-gradient(
       90deg,
 
       transparent 0 2%,
-      #192534 2% 9%,
+      #25313b 2% 9%,
 
-      transparent 9% 12%,
-      #182433 12% 20%,
+      transparent 9% 11%,
+      #1f2d38 11% 19%,
 
-      transparent 20% 23%,
-      #1a2635 23% 33%,
+      transparent 19% 21%,
+      #29333d 21% 31%,
 
-      transparent 33% 36%,
-      #172332 36% 47%,
+      transparent 31% 33%,
+      #202c37 33% 43%,
 
-      transparent 47% 50%,
-      #182433 50% 61%,
+      transparent 43% 46%,
+      #26323c 46% 56%,
 
-      transparent 61% 64%,
-      #1b2736 64% 75%,
+      transparent 56% 59%,
+      #1f2d38 59% 70%,
 
-      transparent 75% 79%,
-      #182433 79% 90%,
+      transparent 70% 73%,
+      #27333d 73% 82%,
 
-      transparent 90%
+      transparent 82% 85%,
+      #202d38 85% 97%,
+
+      transparent 97%
     );
 }
 
-.lights{
+.paris::after{
+  content:"";
+
   position:absolute;
-  left:0;
-  right:0;
-  bottom:16%;
-  height:140px;
+  inset:15% 0 0;
+
+  opacity:.5;
 
   background-image:
     radial-gradient(
       circle,
-      #ffd166 0 2px,
-      transparent 3px
+      #f4c66c 0 2px,
+      transparent 2.5px
     );
 
-  background-size:47px 31px;
-  opacity:.65;
+  background-size:
+    46px 31px;
 }
 
-.river{
+/* ground */
+
+.site-ground{
   position:absolute;
-  left:-10%;
-  right:-10%;
+
+  left:0;
+  right:0;
   bottom:0;
-  height:17%;
-  background:#122235;
-  transform:skewY(-2deg);
+
+  height:24%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #332c26,
+      #18181a
+    );
 }
 
-.river:before{
+.site-ground::before{
   content:"";
+
+  position:absolute;
+  inset:15% 4%;
+
+  background:
+    repeating-linear-gradient(
+      165deg,
+      transparent 0 26px,
+      rgba(255,255,255,.025) 27px 29px
+    );
+}
+
+/* timber stacks */
+
+.materials{
+  position:absolute;
+  z-index:4;
+
+  bottom:11%;
+
+  width:100px;
+  height:43px;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #665541 0 7px,
+      #342b22 8px 11px
+    );
+
+  box-shadow:
+    0 10px 16px rgba(0,0,0,.3);
+}
+
+.materials.left{
+  left:8%;
+}
+
+.materials.right{
+  right:8%;
+  width:120px;
+}
+
+/* scaffolds */
+
+.scaffold{
+  position:absolute;
+  z-index:5;
+
+  bottom:18%;
+
+  width:95px;
+  height:200px;
+
+  opacity:.7;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 16px,
+      #8e672b 17px 20px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 25px,
+      #8e672b 26px 29px
+    );
+}
+
+.scaffold::after{
+  content:"";
+
   position:absolute;
   inset:0;
 
   background:
     repeating-linear-gradient(
-      175deg,
-      transparent 0 10px,
-      rgba(255,205,126,.1) 11px 13px,
-      transparent 14px 29px
-    );
-
-  animation:water 7s linear infinite;
-}
-
-@keyframes water{
-  to{background-position:180px 0}
-}
-
-/* =====================================================
-   CONSTRUCTION SITE
-===================================================== */
-
-.ground{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:15%;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #1b2129 0 16px,
-      #171c23 16px 32px
-    );
-
-  z-index:2;
-}
-
-.scaffold{
-  position:absolute;
-  z-index:3;
-  bottom:14%;
-  width:95px;
-  height:285px;
-  opacity:.5;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 17px,
-      #c89f50 18px 21px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 28px,
-      #b88a37 29px 32px
+      45deg,
+      transparent 0 23px,
+      rgba(166,118,49,.65) 24px 27px,
+      transparent 28px 50px
     );
 }
 
-.scaffold.s1{left:5%}
+.scaffold.left{
+  left:5%;
+}
 
-.scaffold.s2{
+.scaffold.right{
   right:6%;
-  height:245px;
+  height:170px;
 }
 
-/* WORKERS */
+/* workers */
 
 .worker{
   position:absolute;
-  z-index:7;
-  bottom:12%;
-  width:18px;
-  height:35px;
-  border-radius:8px;
-  background:#27313f;
-  animation:bob 2.4s ease-in-out infinite;
+  z-index:8;
+
+  bottom:17%;
+
+  width:17px;
+  height:34px;
+
+  border-radius:
+    7px 7px 5px 5px;
+
+  background:#293442;
+
+  animation:
+    workerMove 3s ease-in-out infinite alternate;
 }
 
-.worker:before{
+.worker::before{
   content:"";
+
   position:absolute;
-  left:3px;
-  top:-10px;
+
   width:12px;
   height:12px;
+
+  left:2.5px;
+  top:-10px;
+
   border-radius:50%;
-  background:#d3a36f;
+
+  background:#d1a06e;
 }
 
-.worker:after{
+.worker::after{
   content:"";
+
   position:absolute;
-  left:-2px;
-  top:-13px;
+
   width:22px;
   height:6px;
+
+  left:-2px;
+  top:-13px;
+
   border-radius:5px;
-  background:#e6b84d;
+
+  background:#e5ae32;
 }
 
-.w1{left:19%}
-
-.w2{
-  left:27%;
-  animation-delay:.8s;
+.worker.w1{
+  left:18%;
 }
 
-.w3{
-  right:22%;
+.worker.w2{
+  left:25%;
+  animation-delay:.7s;
+}
+
+.worker.w3{
+  right:20%;
   animation-delay:1.2s;
 }
 
-@keyframes bob{
-  50%{transform:translateY(-2px)}
+@keyframes workerMove{
+  to{
+    transform:
+      translateX(9px);
+  }
 }
 
-/* CRANE */
+/* =========================================================
+   CRANE
+========================================================= */
 
 .crane{
   position:absolute;
-  z-index:4;
-  right:9%;
-  bottom:15%;
-  width:7px;
-  height:315px;
-  background:#c89435;
+  z-index:7;
+
+  right:5%;
+  bottom:18%;
+
+  width:9px;
+  height:350px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8d621e,
+      #d3a142,
+      #8c601d
+    );
 }
 
-.crane:before{
+.crane::before{
   content:"";
+
   position:absolute;
-  top:0;
+
   right:-3px;
-  width:215px;
-  height:7px;
-  background:#c89435;
+  top:0;
+
+  width:250px;
+  height:9px;
+
+  background:
+    linear-gradient(
+      #d5a243,
+      #8e641d
+    );
+
+  transform-origin:right center;
+
+  clip-path:
+    polygon(
+      0 25%,
+      100% 0,
+      100% 100%,
+      0 75%
+    );
 }
 
-.hook{
-  position:absolute;
-  z-index:5;
-  right:calc(9% + 82px);
-  bottom:calc(15% + 210px);
-  width:2px;
-  height:90px;
-  background:#6e747b;
-  animation:hook 5s ease-in-out infinite;
-}
-
-@keyframes hook{
-  50%{height:130px}
-}
-
-.hook:after{
+.crane::after{
   content:"";
+
   position:absolute;
-  bottom:-8px;
-  left:-4px;
-  width:10px;
-  height:10px;
-  border:2px solid #8b9197;
-  border-top:0;
-  border-radius:0 0 8px 8px;
+
+  right:-23px;
+  top:-14px;
+
+  width:44px;
+  height:25px;
+
+  border:
+    4px solid #d4a042;
+
+  background:#3d3427;
 }
 
-/* =====================================================
-   EIFFEL TOWER
-===================================================== */
-
-.scene{
-  position:relative;
+.crane-cable{
+  position:absolute;
   z-index:8;
+
+  right:calc(5% + 135px);
+
+  top:31%;
+
+  width:2px;
+  height:105px;
+
+  background:#4d4d4d;
+
+  transform-origin:top;
+
+  transition:
+    height .75s ease;
+}
+
+.crane-hook{
+  position:absolute;
+
+  left:-5px;
+  bottom:-9px;
+
+  width:12px;
+  height:12px;
+
+  border:
+    2px solid #777;
+
+  border-top:0;
+
+  border-radius:
+    0 0 9px 9px;
+}
+
+/* suspended truss */
+
+.crane-piece{
+  position:absolute;
+  z-index:9;
+
+  right:calc(5% + 78px);
+  top:45%;
+
+  width:120px;
+  height:48px;
+
+  opacity:0;
+
+  transform:
+    translateY(-40px)
+    rotate(-2deg);
+
+  transition:
+    transform .85s cubic-bezier(.2,.9,.25,1),
+    opacity .25s ease;
+}
+
+.crane-piece.show{
+  opacity:1;
+}
+
+.crane-piece.lower{
+  transform:
+    translateY(55px)
+    rotate(0);
+}
+
+.crane-piece.install{
+  transform:
+    translate(-115px,125px)
+    scale(.7);
+
+  opacity:.05;
+}
+
+.truss{
+  width:100%;
   height:100%;
+}
+
+.truss line,
+.truss rect{
+  stroke:#5a5145;
+  stroke-width:5;
+  fill:none;
+}
+
+.truss .thin{
+  stroke-width:2.5;
+  stroke:#83796a;
+}
+
+/* =========================================================
+   EIFFEL SVG
+========================================================= */
+
+.scene-ui{
+  position:relative;
+  z-index:20;
+
+  height:100%;
+
+  padding:24px;
+
   display:flex;
   flex-direction:column;
 }
 
-.scene h1{
+.scene-ui h1{
+  margin:5px 0 4px;
   font-size:38px;
-  margin:5px 0;
 }
 
-.subtitle{
+.scene-subtitle{
+  color:#d8dee7;
   font-size:14px;
-  color:#d7dee7;
 }
 
-.towerarea{
+.tower-zone{
   flex:1;
-  display:grid;
-  place-items:end center;
-  min-height:520px;
-}
 
-.tower{
+  min-height:480px;
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+
   position:relative;
-  width:310px;
-  height:515px;
+}
+
+.eiffel{
+  width:min(390px,78%);
+  max-height:490px;
+
+  overflow:visible;
 
   filter:
     drop-shadow(
-      0 24px 18px rgba(0,0,0,.42)
+      0 26px 18px rgba(0,0,0,.48)
     );
 }
 
-.stage{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%) translateY(10px);
-  opacity:.035;
-  transition:.45s;
+.tower-stage{
+  opacity:.025;
+
+  transition:
+    opacity .5s ease,
+    filter .5s ease;
 }
 
-.stage.on{
+.tower-stage.visible{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
 }
 
-.stage.building{
-  opacity:.65!important;
+.tower-stage.building{
+  opacity:.62;
 
   filter:
-    brightness(1.2)
+    brightness(1.25)
     drop-shadow(
-      0 0 12px rgba(255,210,126,.6)
+      0 0 10px rgba(255,191,74,.8)
     );
 }
 
-/* FOUNDATION */
+.metal{
+  fill:none;
 
-.foundation{
-  bottom:0;
-  width:286px;
-  height:24px;
+  stroke:#4b4944;
 
-  background:
-    linear-gradient(
-      #697078,
-      #444a51
-    );
+  stroke-width:8;
 
-  box-shadow:0 6px 0 #2e343a;
+  stroke-linecap:round;
+  stroke-linejoin:round;
 }
 
-/* LEGS */
+.metal-light{
+  fill:none;
 
-.legs{
-  bottom:18px;
-  width:265px;
-  height:235px;
+  stroke:#756e63;
+
+  stroke-width:4;
+
+  stroke-linecap:round;
 }
 
-.legs:before,
-.legs:after{
-  content:"";
+.lattice{
+  fill:none;
+
+  stroke:#625c52;
+
+  stroke-width:3;
+
+  opacity:.9;
+}
+
+.platform{
+  fill:#403e39;
+
+  stroke:#6b655b;
+
+  stroke-width:3;
+}
+
+.dark{
+  fill:#282925;
+}
+
+.stage-chip{
   position:absolute;
-  bottom:0;
-  width:42px;
-  height:245px;
+  bottom:7%;
 
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 13px,
-      rgba(24,27,31,.28) 14px 16px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #454a4f 0 5px,
-      #858a8f 5px 8px,
-      #4b5055 8px 13px
-    );
-}
-
-.legs:before{
-  left:30px;
-  transform:skew(-19deg);
-}
-
-.legs:after{
-  right:30px;
-  transform:skew(19deg);
-}
-
-/* ARCH */
-
-.arch{
-  bottom:116px;
-  width:190px;
-  height:105px;
-
-  border:24px solid #5c6166;
-  border-bottom:0;
-
-  border-radius:
-    100px 100px 0 0;
-}
-
-/* FIRST PLATFORM */
-
-.deck1{
-  bottom:223px;
-  width:230px;
-  height:18px;
-
-  background:
-    linear-gradient(
-      #7d8287,
-      #53585e
-    );
-
-  box-shadow:
-    0 4px 0 #3d4247;
-}
-
-/* MIDDLE STRUCTURE */
-
-.mid{
-  bottom:238px;
-  width:132px;
-  height:165px;
-
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 12px,
-      #5b6065 13px 17px,
-      transparent 18px 27px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0 12px,
-      #4b5055 13px 17px,
-      transparent 18px 27px
-    );
-
-  clip-path:
-    polygon(
-      8% 100%,
-      92% 100%,
-      66% 0,
-      34% 0
-    );
-}
-
-/* SECOND PLATFORM */
-
-.deck2{
-  bottom:389px;
-  width:116px;
-  height:15px;
-
-  background:
-    linear-gradient(
-      #7d8287,
-      #54595e
-    );
-}
-
-/* TOP */
-
-.topsec{
-  bottom:401px;
-  width:66px;
-  height:83px;
-
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 10px,
-      #5e6368 11px 14px,
-      transparent 15px 24px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0 10px,
-      #4f5459 11px 14px,
-      transparent 15px 24px
-    );
-
-  clip-path:
-    polygon(
-      10% 100%,
-      90% 100%,
-      62% 0,
-      38% 0
-    );
-}
-
-.spire{
-  bottom:482px;
-  width:6px;
-  height:31px;
-  background:#757b81;
-}
-
-/* METAL LATTICE */
-
-.ribs{
-  position:absolute;
-  z-index:5;
-
-  left:50%;
-  bottom:25px;
-
-  transform:translateX(-50%);
-
-  width:250px;
-  height:435px;
-
-  pointer-events:none;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 32px,
-      rgba(255,255,255,.08) 33px 35px,
-      transparent 36px 64px
-    );
-
-  clip-path:
-    polygon(
-      45% 0,
-      55% 0,
-      68% 45%,
-      97% 100%,
-      3% 100%,
-      32% 45%
-    );
-}
-
-/* FINAL LIGHTING */
-
-.towerglow{
-  position:absolute;
-
-  width:290px;
-  height:430px;
-
-  left:50%;
-  bottom:9%;
-
-  transform:translateX(-50%);
-
-  opacity:0;
-
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(255,193,92,.25),
-      transparent 58%
-    );
-
-  filter:blur(10px);
-
-  transition:.6s;
-}
-
-.towerglow.on{opacity:1}
-
-.stagetag{
-  position:absolute;
-  z-index:10;
-
-  left:50%;
-  bottom:20%;
-
-  transform:translateX(-50%);
-
-  background:
-    rgba(7,12,20,.72);
-
-  border:1px solid var(--line);
-
-  padding:6px 9px;
+  padding:7px 16px;
 
   border-radius:999px;
 
+  color:#eacb8f;
+
   font-size:11px;
-
-  letter-spacing:.12em;
-
+  letter-spacing:.15em;
   text-transform:uppercase;
 
-  color:#dbc5a4;
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    rgba(5,10,16,.8);
+
+  backdrop-filter:blur(8px);
 }
 
-/* =====================================================
-   PROGRESS
-===================================================== */
+/* =========================================================
+   CONSTRUCTION TIMELINE
+========================================================= */
 
-.progress{
-  background:rgba(7,12,20,.78);
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:14px;
+.stage-line{
+  position:absolute;
+
+  bottom:2.2%;
+
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  width:52%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.prow{
+.stage-line::before{
+  content:"";
+
+  position:absolute;
+
+  left:15px;
+  right:15px;
+
+  top:50%;
+
+  height:3px;
+
+  transform:
+    translateY(-50%);
+
+  background:#4a5665;
+}
+
+.stage-dot{
+  position:relative;
+  z-index:2;
+
+  width:26px;
+  height:26px;
+
+  border-radius:50%;
+
+  background:#33475c;
+
+  border:
+    3px solid #1c2937;
+
+  transition:.3s;
+}
+
+.stage-dot.active{
+  background:#f1b42d;
+
+  box-shadow:
+    0 0 0 4px #182432,
+    0 0 0 6px #e9c371;
+}
+
+.stage-dot.done{
+  background:#b98522;
+}
+
+/* =========================================================
+   BOTTOM PROGRESS CARD
+========================================================= */
+
+.progress-card{
+  margin-top:12px;
+
+  padding:16px;
+
+  border-radius:19px;
+
+  background:
+    rgba(5,10,17,.82);
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  backdrop-filter:blur(12px);
+}
+
+.progress-row{
   display:flex;
   justify-content:space-between;
+  align-items:center;
+
   font-size:13px;
 }
 
-.pname{
+.progress-name{
+  margin-top:10px;
   font-size:13px;
-  margin-top:8px;
 }
 
-/* =====================================================
-   EFFECTS
-===================================================== */
+.resource-tip{
+  margin-top:13px;
+
+  padding-top:12px;
+
+  border-top:
+    1px solid rgba(255,255,255,.08);
+
+  color:#b7c1cf;
+
+  font-size:12px;
+}
+
+.resource-tip strong{
+  color:#e2ac3f;
+}
+
+/* =========================================================
+   FX
+========================================================= */
 
 .spark{
   position:absolute;
-  z-index:20;
+  z-index:100;
 
   width:5px;
   height:5px;
 
   border-radius:50%;
 
-  background:#ffd166;
+  background:#ffd05b;
 
   box-shadow:
-    0 0 10px #ffd166;
+    0 0 10px #ffd05b;
 
   animation:
-    spark .7s ease-out forwards;
+    spark .65s ease-out forwards;
 }
 
 @keyframes spark{
@@ -1233,22 +1533,22 @@ button{font:inherit}
 
 .flash{
   position:fixed;
-  z-index:100;
+  z-index:1000;
 
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
 
   border-radius:50%;
 
-  background:#fff;
-
-  box-shadow:
-    0 0 24px 8px rgba(255,220,145,.7);
-
   pointer-events:none;
 
+  background:white;
+
+  box-shadow:
+    0 0 22px 7px rgba(255,220,145,.7);
+
   animation:
-    flash .42s ease-out forwards;
+    flash .4s ease-out forwards;
 }
 
 @keyframes flash{
@@ -1260,50 +1560,55 @@ button{font:inherit}
 
 .toast{
   position:fixed;
-  z-index:120;
 
-  left:50%;
+  z-index:1200;
+
   top:25px;
+  left:50%;
 
   transform:
-    translate(-50%,-15px);
+    translate(-50%,-14px);
 
   opacity:0;
 
-  background:#09111c;
-
-  border:
-    1px solid var(--line);
-
-  padding:
-    10px 16px;
+  padding:10px 16px;
 
   border-radius:13px;
+
+  color:white;
+
+  background:#08111b;
+
+  border:
+    1px solid rgba(255,255,255,.09);
 
   transition:.2s;
 }
 
 .toast.show{
   opacity:1;
-  transform:translate(-50%,0);
+
+  transform:
+    translate(-50%,0);
 }
 
-/* =====================================================
-   RESULT MODAL
-===================================================== */
+/* =========================================================
+   MODAL
+========================================================= */
 
 .overlay{
   position:fixed;
   inset:0;
-  z-index:110;
 
-  background:
-    rgba(4,7,11,.78);
-
-  backdrop-filter:blur(8px);
+  z-index:1100;
 
   display:none;
   place-items:center;
+
+  background:
+    rgba(3,6,10,.78);
+
+  backdrop-filter:blur(9px);
 }
 
 .overlay.show{
@@ -1312,75 +1617,77 @@ button{font:inherit}
 
 .modal{
   width:min(520px,92vw);
+
   padding:28px;
+
   text-align:center;
 }
 
 .modal h2{
-  font-size:36px;
   margin:8px 0;
+  font-size:36px;
 }
 
-/* =====================================================
+/* =========================================================
    RESPONSIVE
-===================================================== */
+========================================================= */
 
-@media(max-width:1000px){
+@media(max-width:1050px){
 
-  .levels{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .game{
+  .game-grid{
     grid-template-columns:1fr;
   }
 
-  .right{
-    min-height:650px;
+  .construction{
+    min-height:700px;
   }
 
-  .left{order:2}
+}
 
-  .right{order:1}
+@media(max-width:800px){
+
+  .level-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:620px){
 
-  .wrap{padding:10px}
+  .wrap{
+    padding:10px;
+  }
 
   .hud{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .board{gap:4px}
-
-  .levels{
+  .level-grid{
     grid-template-columns:1fr;
   }
 
-  .tower{
-    transform:scale(.82);
-    transform-origin:bottom center;
+  .board{
+    gap:4px;
   }
 
-  .world{
-    height:570px;
+  .eiffel{
+    width:300px;
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===================================================
-     WORLD MAP
-=================================================== -->
-
-<section id="map" class="screen active mapbg">
+<section
+id="mapScreen"
+class="screen active mapbg"
+>
 
 <div class="wrap">
 
-<div class="top">
+<div class="topbar">
 
 <div class="brand">
 MODERN <span>WONDERS</span>
@@ -1409,9 +1716,9 @@ MODERN <span>WONDERS</span>
 
 <p>
 Проходи уровни три-в-ряд,
-добывай материалы и наблюдай,
-как достопримечательности строятся
-прямо во время игры.
+собирай строительные материалы
+и наблюдай за реальным процессом
+строительства каждого объекта.
 </p>
 
 </div>
@@ -1419,8 +1726,8 @@ MODERN <span>WONDERS</span>
 <div class="world">
 
 <button
+id="parisPin"
 class="city open"
-id="paris"
 style="left:29%;top:34%"
 >
 
@@ -1449,7 +1756,7 @@ style="left:47%;top:43%"
 
 <button
 class="city locked"
-style="left:64%;top:39%"
+style="left:65%;top:39%"
 >
 
 <div class="dot"></div>
@@ -1464,7 +1771,7 @@ style="left:64%;top:39%"
 
 <button
 class="city locked"
-style="left:73%;top:58%"
+style="left:73%;top:59%"
 >
 
 <div class="dot"></div>
@@ -1477,23 +1784,24 @@ Burj Khalifa
 
 </button>
 
-<div class="citycard">
+<div class="city-card">
 
 <div class="kicker">
 Глава 1
 </div>
 
-<h2>Париж</h2>
+<h2>
+Париж
+</h2>
 
 <p>
-Пять уровней,
-пять этапов строительства
+Пять этапов строительства
 Эйфелевой башни.
 </p>
 
 <div class="bar">
 
-<span id="chapterBar"></span>
+<span id="chapterProgress"></span>
 
 </div>
 
@@ -1503,8 +1811,8 @@ class="muted"
 ></p>
 
 <button
-class="primary"
 id="openParis"
+class="primary"
 >
 
 Открыть Париж
@@ -1519,33 +1827,24 @@ id="openParis"
 
 </section>
 
-<!-- ===================================================
-     LEVEL SELECT
-=================================================== -->
-
 <section
-id="levels"
+id="levelsScreen"
 class="screen mapbg"
 >
 
-<div class="levelwrap">
+<div class="level-wrap">
 
-<div class="top">
+<div class="topbar">
 
 <div class="brand">
-
-MODERN
-<span>WONDERS</span>
-
+MODERN <span>WONDERS</span>
 </div>
 
 <button
-class="secondary"
 id="backMap"
+class="secondary"
 >
-
 ← Карта
-
 </button>
 
 </div>
@@ -1555,15 +1854,11 @@ id="backMap"
 <div>
 
 <div class="kicker">
-
 Глава 1 · Париж
-
 </div>
 
 <h1 style="font-size:64px">
-
 Эйфелева башня
-
 </h1>
 
 </div>
@@ -1571,32 +1866,25 @@ id="backMap"
 </div>
 
 <div
-class="levels"
-id="levelGrid"
+id="levels"
+class="level-grid"
 ></div>
 
 </div>
 
 </section>
 
-<!-- ===================================================
-     GAME
-=================================================== -->
-
 <section
-id="game"
+id="gameScreen"
 class="screen"
 >
 
 <div class="wrap">
 
-<div class="top">
+<div class="topbar">
 
 <div class="brand">
-
-MODERN
-<span>WONDERS</span>
-
+MODERN <span>WONDERS</span>
 </div>
 
 <div
@@ -1606,9 +1894,7 @@ class="muted"
 
 </div>
 
-<div class="game">
-
-<!-- MATCH 3 -->
+<div class="game-grid">
 
 <section class="panel left">
 
@@ -1621,8 +1907,8 @@ class="muted"
 </div>
 
 <div
-class="value"
 id="score"
+class="value"
 >
 0
 </div>
@@ -1636,8 +1922,8 @@ id="score"
 </div>
 
 <div
-class="value"
 id="moves"
+class="value"
 >
 0
 </div>
@@ -1651,8 +1937,8 @@ id="moves"
 </div>
 
 <div
-class="value"
 id="combo"
+class="value"
 >
 x1
 </div>
@@ -1666,8 +1952,8 @@ x1
 </div>
 
 <div
+id="levelNumber"
 class="value"
-id="levelNo"
 >
 1/5
 </div>
@@ -1677,15 +1963,15 @@ id="levelNo"
 </div>
 
 <div
-class="goals"
 id="goals"
+class="goals"
 ></div>
 
-<div class="boardbox">
+<div class="board-box">
 
 <div
-class="board"
 id="board"
+class="board"
 ></div>
 
 </div>
@@ -1697,15 +1983,15 @@ id="board"
 <div>
 
 <button
-class="secondary"
 id="backLevels"
+class="secondary"
 >
 Уровни
 </button>
 
 <button
-class="secondary"
 id="restart"
+class="secondary"
 >
 Заново
 </button>
@@ -1716,41 +2002,110 @@ id="restart"
 
 </section>
 
-<!-- PARIS -->
+<!-- CONSTRUCTION -->
 
-<section class="panel right">
+<section class="panel construction">
 
-<div class="sky"></div>
+<div class="construction-scene">
 
-<div class="moon"></div>
+<div class="scene-sky"></div>
 
-<div class="buildings"></div>
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
 
-<div class="lights"></div>
+<div class="paris"></div>
 
-<div class="river"></div>
+<div class="site-ground"></div>
 
-<div class="ground"></div>
+<div class="materials left"></div>
+<div class="materials right"></div>
 
-<div class="scaffold s1"></div>
+<div class="scaffold left"></div>
+<div class="scaffold right"></div>
 
-<div class="scaffold s2"></div>
+<div class="worker w1"></div>
+<div class="worker w2"></div>
+<div class="worker w3"></div>
 
 <div class="crane"></div>
 
-<div class="hook"></div>
+<div
+id="craneCable"
+class="crane-cable"
+>
 
-<div class="worker w1"></div>
+<div class="crane-hook"></div>
 
-<div class="worker w2"></div>
-
-<div class="worker w3"></div>
-
-<div class="scene">
+</div>
 
 <div
+id="cranePiece"
+class="crane-piece"
+>
+
+<svg
+class="truss"
+viewBox="0 0 120 48"
+>
+
+<rect
+x="3"
+y="5"
+width="114"
+height="38"
+></rect>
+
+<line
+class="thin"
+x1="3"
+y1="5"
+x2="117"
+y2="43"
+></line>
+
+<line
+class="thin"
+x1="3"
+y1="43"
+x2="117"
+y2="5"
+></line>
+
+<line
+class="thin"
+x1="30"
+y1="5"
+x2="30"
+y2="43"
+></line>
+
+<line
+class="thin"
+x1="60"
+y1="5"
+x2="60"
+y2="43"
+></line>
+
+<line
+class="thin"
+x1="90"
+y1="5"
+x2="90"
+y2="43"
+></line>
+
+</svg>
+
+</div>
+
+</div>
+
+<div class="scene-ui">
+
+<div
+id="stageKicker"
 class="kicker"
-id="stageKick"
 ></div>
 
 <h1>
@@ -1758,54 +2113,383 @@ id="stageKick"
 </h1>
 
 <div
-class="subtitle"
-id="subtitle"
+id="stageSubtitle"
+class="scene-subtitle"
 ></div>
 
-<div class="towerarea">
+<div class="tower-zone">
 
-<div
-class="tower"
+<svg
 id="tower"
+class="eiffel"
+viewBox="0 0 420 650"
 >
 
-<div class="stage foundation"></div>
+<!-- 0 FOUNDATION -->
 
-<div class="stage legs"></div>
+<g
+class="tower-stage"
+data-stage="0"
+>
 
-<div class="stage arch"></div>
+<rect
+x="44"
+y="602"
+width="332"
+height="22"
+rx="3"
+class="platform"
+/>
 
-<div class="stage deck1"></div>
+<rect
+x="62"
+y="624"
+width="296"
+height="9"
+class="dark"
+/>
 
-<div class="stage mid"></div>
+</g>
 
-<div class="stage deck2"></div>
+<!-- 1 LEGS -->
 
-<div class="stage topsec"></div>
+<g
+class="tower-stage"
+data-stage="1"
+>
 
-<div class="stage spire"></div>
+<path
+d="M88 600 L154 332"
+class="metal"
+/>
 
-<div class="ribs"></div>
+<path
+d="M332 600 L266 332"
+class="metal"
+/>
 
-</div>
+<path
+d="M116 600 L171 332"
+class="metal-light"
+/>
+
+<path
+d="M304 600 L249 332"
+class="metal-light"
+/>
+
+<path
+d="M96 563 L138 520"
+class="lattice"
+/>
+
+<path
+d="M130 555 L104 507"
+class="lattice"
+/>
+
+<path
+d="M108 497 L148 452"
+class="lattice"
+/>
+
+<path
+d="M143 484 L116 438"
+class="lattice"
+/>
+
+<path
+d="M121 430 L160 388"
+class="lattice"
+/>
+
+<path
+d="M324 563 L282 520"
+class="lattice"
+/>
+
+<path
+d="M290 555 L316 507"
+class="lattice"
+/>
+
+<path
+d="M312 497 L272 452"
+class="lattice"
+/>
+
+<path
+d="M277 484 L304 438"
+class="lattice"
+/>
+
+<path
+d="M299 430 L260 388"
+class="lattice"
+/>
+
+</g>
+
+<!-- 2 ARCH -->
+
+<g
+class="tower-stage"
+data-stage="2"
+>
+
+<path
+d="
+M117 478
+C143 398
+174 364
+210 364
+C246 364
+277 398
+303 478
+"
+class="metal"
+/>
+
+<path
+d="
+M136 470
+C158 416
+181 389
+210 389
+C239 389
+262 416
+284 470
+"
+class="metal-light"
+/>
+
+<line
+x1="140"
+y1="440"
+x2="280"
+y2="440"
+class="lattice"
+/>
+
+</g>
+
+<!-- 3 FIRST FLOOR -->
+
+<g
+class="tower-stage"
+data-stage="3"
+>
+
+<rect
+x="132"
+y="320"
+width="156"
+height="22"
+rx="3"
+class="platform"
+/>
+
+<rect
+x="145"
+y="342"
+width="130"
+height="10"
+class="dark"
+/>
+
+</g>
+
+<!-- 4 MID -->
+
+<g
+class="tower-stage"
+data-stage="4"
+>
+
+<path
+d="M160 320 L193 156"
+class="metal"
+/>
+
+<path
+d="M260 320 L227 156"
+class="metal"
+/>
+
+<path
+d="M177 320 L201 156"
+class="metal-light"
+/>
+
+<path
+d="M243 320 L219 156"
+class="metal-light"
+/>
+
+<line
+x1="173"
+y1="286"
+x2="247"
+y2="246"
+class="lattice"
+/>
+
+<line
+x1="247"
+y1="286"
+x2="173"
+y2="246"
+class="lattice"
+/>
+
+<line
+x1="181"
+y1="240"
+x2="239"
+y2="205"
+class="lattice"
+/>
+
+<line
+x1="239"
+y1="240"
+x2="181"
+y2="205"
+class="lattice"
+/>
+
+</g>
+
+<!-- 5 SECOND FLOOR -->
+
+<g
+class="tower-stage"
+data-stage="5"
+>
+
+<rect
+x="180"
+y="145"
+width="60"
+height="15"
+rx="2"
+class="platform"
+/>
+
+<rect
+x="188"
+y="160"
+width="44"
+height="7"
+class="dark"
+/>
+
+</g>
+
+<!-- 6 TOP -->
+
+<g
+class="tower-stage"
+data-stage="6"
+>
+
+<path
+d="M194 145 L205 66"
+class="metal"
+/>
+
+<path
+d="M226 145 L215 66"
+class="metal"
+/>
+
+<path
+d="M201 145 L208 66"
+class="metal-light"
+/>
+
+<path
+d="M219 145 L212 66"
+class="metal-light"
+/>
+
+<line
+x1="199"
+y1="120"
+x2="221"
+y2="100"
+class="lattice"
+/>
+
+<line
+x1="221"
+y1="120"
+x2="199"
+y2="100"
+class="lattice"
+/>
+
+<rect
+x="200"
+y="55"
+width="20"
+height="14"
+rx="2"
+class="platform"
+/>
+
+</g>
+
+<!-- 7 SPIRE -->
+
+<g
+class="tower-stage"
+data-stage="7"
+>
+
+<line
+x1="210"
+y1="55"
+x2="210"
+y2="10"
+class="metal-light"
+/>
+
+<circle
+cx="210"
+cy="9"
+r="4"
+fill="#ffc94f"
+/>
+
+</g>
+
+</svg>
 
 <div
-class="towerglow"
-id="towerGlow"
-></div>
-
-<div
-class="stagetag"
-id="stageTag"
+id="stageChip"
+class="stage-chip"
 >
 Фундамент
 </div>
 
+<div
+class="stage-line"
+>
+
+<div class="stage-dot active"></div>
+<div class="stage-dot"></div>
+<div class="stage-dot"></div>
+<div class="stage-dot"></div>
+<div class="stage-dot"></div>
+
 </div>
 
-<div class="progress">
+</div>
 
-<div class="prow">
+<div class="progress-card">
+
+<div class="progress-row">
 
 <b>
 Прогресс уровня
@@ -1817,79 +2501,83 @@ id="stageTag"
 
 </div>
 
-<div class="bar">
+<div
+class="bar"
+style="margin-top:10px"
+>
 
 <span id="progressBar"></span>
 
 </div>
 
 <div
-class="pname"
 id="progressName"
-></div>
-
+class="progress-name"
+>
+Подготовка материалов
 </div>
-
-</div>
-
-</section>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================================
-     TOAST
-=================================================== -->
 
 <div
-class="toast"
-id="toast"
-></div>
-
-<!-- ===================================================
-     RESULT MODAL
-=================================================== -->
-
-<div
-class="overlay"
-id="overlay"
+id="resourceTip"
+class="resource-tip"
 >
 
-<div class="modal panel">
+<strong>Совет:</strong>
+Собирайте металл —
+он понадобится для каркаса.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+</section>
 
 <div
+id="toast"
+class="toast"
+></div>
+
+<div
+id="overlay"
+class="overlay"
+>
+
+<div class="panel modal">
+
+<div
+id="resultKicker"
 class="kicker"
-id="resultKick"
 ></div>
 
 <h2 id="resultTitle"></h2>
 
 <div
-class="stars"
 id="resultStars"
+class="level-stars"
 ></div>
 
 <p id="resultText"></p>
 
 <button
+id="nextLevel"
 class="primary"
-id="next"
 >
-
 Следующий уровень
-
 </button>
 
 <button
-class="secondary"
 id="returnLevels"
+class="secondary"
 >
-
 К уровням
-
 </button>
 
 </div>
@@ -1897,18 +2585,11 @@ id="returnLevels"
 </div>
 
 <script>
-
-/* =====================================================
-   GAME CONSTANTS
-===================================================== */
-
 const W = 8;
-
 const H = 8;
+const TYPE_COUNT = 6;
 
-const T = 6;
-
-const names = [
+const RESOURCE_NAMES = [
   'Кирпич',
   'Металл',
   'Стекло',
@@ -1917,7 +2598,7 @@ const names = [
   'Композит'
 ];
 
-const icons = [
+const RESOURCE_ICONS = [
   'brick',
   'metal',
   'glass',
@@ -1926,126 +2607,53 @@ const icons = [
   'comp'
 ];
 
-/* =====================================================
-   PARIS LEVELS
-===================================================== */
-
 const LEVELS = [
 
-{
-  title:'Фундамент',
+  {
+    title:'Фундамент',
+    moves:28,
+    target:[14,12,0,0,10,0],
+    hint:'Собери кирпич, металл и камень.',
+    subtitle:'Закладываем основание башни.'
+  },
 
-  moves:28,
+  {
+    title:'Нижние опоры',
+    moves:30,
+    target:[10,16,8,0,10,0],
+    hint:'Основной ресурс этапа — металл.',
+    subtitle:'Возводим нижние опоры.'
+  },
 
-  target:[
-    14,
-    12,
-    0,
-    0,
-    10,
-    0
-  ],
+  {
+    title:'Арка и первый уровень',
+    moves:31,
+    target:[8,14,12,6,8,0],
+    hint:'Добавляются стекло и энергия.',
+    subtitle:'Соединяем опоры и строим первый этаж.'
+  },
 
-  hint:
-  'Собери кирпич, металл и камень.',
+  {
+    title:'Центральная секция',
+    moves:32,
+    target:[0,16,14,10,8,8],
+    hint:'Металл и композит особенно важны.',
+    subtitle:'Башня набирает высоту.'
+  },
 
-  sub:
-  'Закладываем основание башни.'
-},
-
-{
-  title:'Нижние опоры',
-
-  moves:30,
-
-  target:[
-    10,
-    16,
-    8,
-    0,
-    10,
-    0
-  ],
-
-  hint:
-  'Главная цель сейчас металл.',
-
-  sub:
-  'Возводим четыре массивные опоры.'
-},
-
-{
-  title:'Первый уровень',
-
-  moves:31,
-
-  target:[
-    8,
-    14,
-    12,
-    6,
-    8,
-    0
-  ],
-
-  hint:
-  'Добавляются стекло и энергия.',
-
-  sub:
-  'Строим арки и первый ярус.'
-},
-
-{
-  title:'Центральная секция',
-
-  moves:32,
-
-  target:[
-    0,
-    16,
-    14,
-    10,
-    8,
-    8
-  ],
-
-  hint:
-  'Используй композит для верхних секций.',
-
-  sub:
-  'Башня начинает расти вверх.'
-},
-
-{
-  title:'Шпиль и подсветка',
-
-  moves:34,
-
-  target:[
-    0,
-    14,
-    16,
-    14,
-    0,
-    12
-  ],
-
-  hint:
-  'Финальный этап строительства.',
-
-  sub:
-  'Завершаем шпиль и освещение.'
-}
+  {
+    title:'Шпиль и подсветка',
+    moves:34,
+    target:[0,14,16,14,0,12],
+    hint:'Последний этап строительства.',
+    subtitle:'Завершаем шпиль и освещение.'
+  }
 
 ];
 
-/* =====================================================
-   SAVE DATA
-===================================================== */
-
 let save =
 JSON.parse(
-  localStorage.getItem('mw-save')
+  localStorage.getItem('modern-wonders-save')
   ||
   '{"paris":{"unlocked":1,"stars":[0,0,0,0,0]}}'
 );
@@ -2059,17 +2667,11 @@ if(!save.paris){
 
 }
 
-/* =====================================================
-   GAME STATE
-===================================================== */
-
 let board = [];
+let specials = [];
+let tileIds = [];
 
-let special = [];
-
-let ids = [];
-
-let nextId = 1;
+let nextTileId = 1;
 
 let selected = null;
 
@@ -2082,53 +2684,47 @@ let moves = 0;
 let combo = 1;
 
 let collected = [
-  0,
-  0,
-  0,
-  0,
-  0,
-  0
+  0,0,0,0,0,0
 ];
 
-let level = 0;
+let currentLevel = 0;
 
-let lastStage = -1;
+let lastConstructionStage = -1;
 
-/* =====================================================
-   HELPERS
-===================================================== */
+const $ =
+selector =>
+document.querySelector(selector);
 
-const $ = s =>
-document.querySelector(s);
+const index =
+(row,col) =>
+row * W + col;
 
-const idx = (r,c) =>
-r * W + c;
-
-const rc = i => [
-  Math.floor(i / W),
+const coords =
+i => [
+  Math.floor(i/W),
   i % W
 ];
 
-const rnd = () =>
+const randomType =
+() =>
 Math.floor(
-  Math.random() * T
+  Math.random() * TYPE_COUNT
 );
 
-const sleep = ms =>
+const wait =
+ms =>
 new Promise(
-  r => setTimeout(r,ms)
+  resolve =>
+  setTimeout(resolve,ms)
 );
 
-/* =====================================================
-   SCREEN SYSTEM
-===================================================== */
-
-function screen(id){
+function showScreen(id){
 
   document
   .querySelectorAll('.screen')
   .forEach(
-    x => x.classList.remove('active')
+    element =>
+    element.classList.remove('active')
   );
 
   $(id)
@@ -2136,37 +2732,24 @@ function screen(id){
 
 }
 
-/* =====================================================
-   SAVE
-===================================================== */
-
-function persist(){
+function saveGame(){
 
   localStorage.setItem(
-    'mw-save',
+    'modern-wonders-save',
     JSON.stringify(save)
   );
 
 }
 
-/* =====================================================
-   ICON
-===================================================== */
-
-function icon(v){
+function iconHTML(type){
 
   return `
-  <div class="ico ${icons[v]}">
-  </div>
+    <div class="ico ${RESOURCE_ICONS[type]}"></div>
   `;
 
 }
 
-/* =====================================================
-   CHAPTER PROGRESS
-===================================================== */
-
-function doneCount(){
+function completedLevels(){
 
   return save.paris.stars
   .filter(Boolean)
@@ -2176,176 +2759,175 @@ function doneCount(){
 
 function updateChapter(){
 
-  let d = doneCount();
+  const finished =
+  completedLevels();
 
-  $('#chapterBar')
+  $('#chapterProgress')
   .style.width =
-  d * 20 + '%';
+  finished * 20 + '%';
 
   $('#chapterText')
   .textContent =
-  d +
-  ' из 5 уровней завершено';
+  `${finished} из 5 уровней завершено`;
 
 }
 
-/* =====================================================
-   LEVEL SELECT
-===================================================== */
-
 function renderLevels(){
 
-  let g =
-  $('#levelGrid');
+  const container =
+  $('#levels');
 
-  g.innerHTML = '';
+  container.innerHTML = '';
 
   LEVELS.forEach(
-    (l,i)=>{
+    (level,index)=>{
 
-      let open =
-      i < save.paris.unlocked;
+      const unlocked =
+      index < save.paris.unlocked;
 
-      let st =
-      save.paris.stars[i]
+      const stars =
+      save.paris.stars[index]
       || 0;
 
-      let d =
+      const card =
       document.createElement('div');
 
-      d.className =
-      'panel level'
+      card.className =
+      'panel level-card'
       +
       (
-        open
+        unlocked
         ?
         ''
         :
         ' locked'
       );
 
-      d.innerHTML = `
+      card.innerHTML = `
 
-      <div class="kicker">
-      Уровень ${i+1}
-      </div>
+        <div class="kicker">
+          Уровень ${index+1}
+        </div>
 
-      <h3>
-      ${l.title}
-      </h3>
+        <h3>
+          ${level.title}
+        </h3>
 
-      <p>
-      ${l.hint}
-      </p>
+        <p>
+          ${level.hint}
+        </p>
 
-      <div class="stars">
-      ${'★'.repeat(st)}
-      ${'☆'.repeat(3-st)}
-      </div>
+        <div class="level-stars">
+          ${'★'.repeat(stars)}
+          ${'☆'.repeat(3-stars)}
+        </div>
 
-      <button
-      class="${open?'primary':'secondary'}"
-      ${open?'':'disabled'}
-      >
+        <button
+          class="${unlocked?'primary':'secondary'}"
+          ${unlocked?'':'disabled'}
+        >
 
-      ${
-        open
-        ?
-        (
-          st
-          ?
-          'Играть снова'
-          :
-          'Играть'
-        )
-        :
-        'Закрыто'
-      }
+          ${
+            unlocked
+            ?
+            (
+              stars
+              ?
+              'Играть снова'
+              :
+              'Играть'
+            )
+            :
+            'Закрыто'
+          }
 
-      </button>
+        </button>
 
       `;
 
-      if(open){
+      if(unlocked){
 
-        d
+        card
         .querySelector('button')
         .onclick =
-        () => startLevel(i);
+        () =>
+        startLevel(index);
 
       }
 
-      g.appendChild(d);
+      container.appendChild(card);
 
     }
   );
 
 }
 
-/* =====================================================
-   BOARD GENERATION
-===================================================== */
-
-function freshBoard(){
+function generateBoard(){
 
   board =
-  Array(W * H);
+  Array(W*H);
 
-  special =
-  Array(W * H)
+  specials =
+  Array(W*H)
   .fill(null);
 
-  ids =
-  Array(W * H);
+  tileIds =
+  Array(W*H);
 
   for(
-    let r = 0;
-    r < H;
-    r++
+    let row = 0;
+    row < H;
+    row++
   ){
 
     for(
-      let c = 0;
-      c < W;
-      c++
+      let col = 0;
+      col < W;
+      col++
     ){
 
-      let v;
+      let type;
 
       do{
 
-        v = rnd();
+        type =
+        randomType();
 
       }
       while(
 
         (
-          c > 1
+          col >= 2
           &&
-          board[idx(r,c-1)] === v
+          board[index(row,col-1)]
+          === type
           &&
-          board[idx(r,c-2)] === v
+          board[index(row,col-2)]
+          === type
         )
 
         ||
 
         (
-          r > 1
+          row >= 2
           &&
-          board[idx(r-1,c)] === v
+          board[index(row-1,col)]
+          === type
           &&
-          board[idx(r-2,c)] === v
+          board[index(row-2,col)]
+          === type
         )
 
       );
 
-      let i =
-      idx(r,c);
+      const i =
+      index(row,col);
 
-      board[i] = v;
+      board[i] =
+      type;
 
-      ids[i] =
-      nextId++;
+      tileIds[i] =
+      nextTileId++;
 
     }
 
@@ -2353,27 +2935,23 @@ function freshBoard(){
 
 }
 
-/* =====================================================
-   RENDER
-===================================================== */
-
 function render(){
 
-  let b =
+  const boardElement =
   $('#board');
 
-  b.innerHTML = '';
+  boardElement.innerHTML = '';
 
   board.forEach(
-    (v,i)=>{
+    (type,i)=>{
 
-      let e =
+      const tile =
       document.createElement('button');
 
-      e.className =
+      tile.className =
       'tile c'
       +
-      v
+      type
       +
       (
         selected === i
@@ -2384,23 +2962,24 @@ function render(){
       )
       +
       (
-        special[i]
+        specials[i]
         ?
-        ' ' + special[i]
+        ' ' + specials[i]
         :
         ''
       );
 
-      e.dataset.id =
-      ids[i];
+      tile.dataset.tileId =
+      tileIds[i];
 
-      e.innerHTML =
-      icon(v);
+      tile.innerHTML =
+      iconHTML(type);
 
-      e.onclick =
-      () => pick(i);
+      tile.onclick =
+      () =>
+      clickTile(i);
 
-      b.appendChild(e);
+      boardElement.appendChild(tile);
 
     }
   );
@@ -2417,11 +2996,9 @@ function render(){
   .textContent =
   'x' + combo;
 
-  $('#levelNo')
+  $('#levelNumber')
   .textContent =
-  (level + 1)
-  +
-  '/5';
+  `${currentLevel+1}/5`;
 
   renderGoals();
 
@@ -2429,105 +3006,95 @@ function render(){
 
 }
 
-/* =====================================================
-   GOALS
-===================================================== */
-
 function renderGoals(){
 
-  let g =
+  const goals =
   $('#goals');
 
-  g.innerHTML = '';
+  goals.innerHTML = '';
 
-  LEVELS[level]
+  LEVELS[currentLevel]
   .target
   .forEach(
-    (t,i)=>{
+    (target,type)=>{
 
-      if(!t)
+      if(!target)
       return;
 
-      let e =
+      const element =
       document.createElement('div');
 
-      e.className =
+      element.className =
       'goal'
       +
       (
-        collected[i] >= t
+        collected[type] >= target
         ?
         ' done'
         :
         ''
       );
 
-      e.innerHTML =
+      element.innerHTML =
 
-      icon(i)
+      iconHTML(type)
 
       +
 
-      `${names[i]} 
+      `
+      ${RESOURCE_NAMES[type]}
       <b>
-      ${Math.min(collected[i],t)}/${t}
-      </b>`;
+      ${Math.min(collected[type],target)}/${target}
+      </b>
+      `;
 
-      g.appendChild(e);
+      goals.appendChild(element);
 
     }
   );
 
 }
 
-/* =====================================================
-   PHYSICS - CAPTURE POSITION
-===================================================== */
+function capturePositions(){
 
-function capture(){
-
-  let m =
+  const positions =
   new Map();
 
   document
   .querySelectorAll('.tile')
   .forEach(
-    e => {
+    tile => {
 
-      m.set(
-        e.dataset.id,
-        e.getBoundingClientRect()
+      positions.set(
+        tile.dataset.tileId,
+        tile.getBoundingClientRect()
       );
 
     }
   );
 
-  return m;
+  return positions;
 
 }
 
-/* =====================================================
-   PHYSICS - FALL / SWAP ANIMATION
-===================================================== */
-
-async function animate(
+async function animateBoard(
   before,
-  dur = 270
+  baseDuration = 260
 ){
 
-  let arr = [];
+  const animations = [];
 
   document
   .querySelectorAll('.tile')
   .forEach(
-    (e,i)=>{
+    (tile,i)=>{
 
-      let n =
-      e.getBoundingClientRect();
+      const now =
+      tile.getBoundingClientRect();
 
-      let o =
+      const old =
       before.get(
-        e.dataset.id
+        tile.dataset.tileId
       );
 
       let dx = 0;
@@ -2535,203 +3102,214 @@ async function animate(
       let dy =
       -Math.max(
         90,
-        n.height * 1.45
+        now.height * 1.5
       );
 
-      if(o){
+      if(old){
 
         dx =
-        o.left - n.left;
+        old.left - now.left;
 
         dy =
-        o.top - n.top;
+        old.top - now.top;
 
       }
 
-      let d =
+      const distance =
+      Math.hypot(dx,dy);
+
+      const duration =
       Math.min(
-        460,
+        470,
         Math.max(
           180,
-          dur
+          baseDuration
           +
-          Math.hypot(dx,dy)
-          *
-          .22
+          distance * .22
         )
       );
 
-      let a =
-      e.animate(
+      const animation =
+      tile.animate(
 
         [
 
-        {
-          transform:
-          `translate(${dx}px,${dy}px) scale(${o?1:.96})`
-        },
+          {
+            transform:
+            `translate(${dx}px,${dy}px) scale(${old?1:.95})`
+          },
 
-        {
-          transform:
-          'translate(0,0) scale(1.035)',
+          {
+            transform:
+            'translate(0,0) scale(1.04)',
+            offset:.82
+          },
 
-          offset:.82
-        },
-
-        {
-          transform:
-          'translate(0,0) scale(1)'
-        }
+          {
+            transform:
+            'translate(0,0) scale(1)'
+          }
 
         ],
 
         {
 
-        duration:d,
+          duration,
 
-        delay:
-        o
-        ?
-        0
-        :
-        (i % W) * 18,
+          delay:
+          old
+          ?
+          0
+          :
+          (i % W) * 18,
 
-        easing:
-        'cubic-bezier(.18,.78,.24,1)',
+          easing:
+          'cubic-bezier(.18,.78,.24,1)',
 
-        fill:'both'
+          fill:'both'
 
         }
 
       );
 
-      arr.push(
-        a.finished
-        .catch(()=>{})
+      animations.push(
+        animation.finished.catch(()=>{})
       );
 
     }
   );
 
-  await Promise.all(arr);
+  await Promise.all(
+    animations
+  );
 
   document
   .querySelectorAll('.tile')
   .forEach(
-    e =>
-    e.getAnimations()
+    tile =>
+    tile
+    .getAnimations()
     .forEach(
-      a => a.cancel()
+      animation =>
+      animation.cancel()
     )
   );
 
 }
 
-/* =====================================================
-   MATCH SEARCH
-===================================================== */
+function findRuns(){
 
-function runs(){
-
-  let o = [];
-
-  /* horizontal */
+  const result = [];
 
   for(
-    let r = 0;
-    r < H;
-    r++
+    let row = 0;
+    row < H;
+    row++
   ){
 
-    let s = 0;
+    let start = 0;
 
     for(
-      let c = 1;
-      c <= W;
-      c++
+      let col = 1;
+      col <= W;
+      col++
     ){
 
       if(
-        c < W
+        col < W
         &&
-        board[idx(r,c)]
+        board[index(row,col)]
         ===
-        board[idx(r,s)]
+        board[index(row,start)]
       )
       continue;
 
-      if(c - s >= 3){
+      if(
+        col - start
+        >= 3
+      ){
 
-        o.push(
+        result.push(
 
           Array.from(
+            {
+              length:
+              col - start
+            },
 
-            {length:c-s},
-
-            (_,k)=>
-            idx(r,s+k)
-
+            (_,offset)=>
+            index(
+              row,
+              start + offset
+            )
           )
 
         );
 
       }
 
-      s = c;
+      start =
+      col;
 
     }
 
   }
 
-  /* vertical */
-
   for(
-    let c = 0;
-    c < W;
-    c++
+    let col = 0;
+    col < W;
+    col++
   ){
 
-    let s = 0;
+    let start = 0;
 
     for(
-      let r = 1;
-      r <= H;
-      r++
+      let row = 1;
+      row <= H;
+      row++
     ){
 
       if(
-        r < H
+        row < H
         &&
-        board[idx(r,c)]
+        board[index(row,col)]
         ===
-        board[idx(s,c)]
+        board[index(start,col)]
       )
       continue;
 
-      if(r - s >= 3){
+      if(
+        row - start
+        >= 3
+      ){
 
-        o.push(
+        result.push(
 
           Array.from(
+            {
+              length:
+              row - start
+            },
 
-            {length:r-s},
-
-            (_,k)=>
-            idx(s+k,c)
-
+            (_,offset)=>
+            index(
+              start + offset,
+              col
+            )
           )
 
         );
 
       }
 
-      s = r;
+      start =
+      row;
 
     }
 
   }
 
-  return o;
+  return result;
 
 }
 
@@ -2739,23 +3317,19 @@ function matches(){
 
   return [
     ...new Set(
-      runs().flat()
+      findRuns().flat()
     )
   ];
 
 }
 
-/* =====================================================
-   ADJACENCY
-===================================================== */
-
 function adjacent(a,b){
 
-  let [r1,c1] =
-  rc(a);
+  const [r1,c1] =
+  coords(a);
 
-  let [r2,c2] =
-  rc(b);
+  const [r2,c2] =
+  coords(b);
 
   return
 
@@ -2767,11 +3341,7 @@ function adjacent(a,b){
 
 }
 
-/* =====================================================
-   PLAYER CLICK
-===================================================== */
-
-async function pick(i){
+async function clickTile(i){
 
   if(
     busy
@@ -2780,7 +3350,9 @@ async function pick(i){
   )
   return;
 
-  if(selected === null){
+  if(
+    selected === null
+  ){
 
     selected = i;
 
@@ -2790,7 +3362,9 @@ async function pick(i){
 
   }
 
-  if(selected === i){
+  if(
+    selected === i
+  ){
 
     selected = null;
 
@@ -2815,20 +3389,18 @@ async function pick(i){
 
   }
 
-  let a =
+  const a =
   selected;
 
-  let b =
+  const b =
   i;
 
   selected = null;
 
-  /* rainbow */
-
   if(
-    special[a] === 'rainbow'
+    specials[a] === 'rainbow'
     ||
-    special[b] === 'rainbow'
+    specials[b] === 'rainbow'
   ){
 
     moves--;
@@ -2837,33 +3409,30 @@ async function pick(i){
 
     combo = 1;
 
-    let p =
-    special[a] === 'rainbow'
+    const rainbowIndex =
+    specials[a] === 'rainbow'
     ?
     a
     :
     b;
 
-    let o =
-    p === a
+    const other =
+    rainbowIndex === a
     ?
     b
     :
     a;
 
-    let t =
-    board[o];
-
-    await rainbow(
-      p,
-      t
+    await activateRainbow(
+      rainbowIndex,
+      board[other]
     );
 
-    await settle();
+    await settleBoard();
 
     busy = false;
 
-    check();
+    checkEnd();
 
     return;
 
@@ -2872,7 +3441,7 @@ async function pick(i){
   busy = true;
 
   let before =
-  capture();
+  capturePositions();
 
   [
     board[a],
@@ -2885,40 +3454,38 @@ async function pick(i){
   ];
 
   [
-    special[a],
-    special[b]
+    specials[a],
+    specials[b]
   ]
   =
   [
-    special[b],
-    special[a]
+    specials[b],
+    specials[a]
   ];
 
   [
-    ids[a],
-    ids[b]
+    tileIds[a],
+    tileIds[b]
   ]
   =
   [
-    ids[b],
-    ids[a]
+    tileIds[b],
+    tileIds[a]
   ];
 
   render();
 
-  await animate(
+  await animateBoard(
     before,
     170
   );
-
-  /* invalid move */
 
   if(
     !matches().length
   ){
 
     before =
-    capture();
+    capturePositions();
 
     [
       board[a],
@@ -2931,28 +3498,28 @@ async function pick(i){
     ];
 
     [
-      special[a],
-      special[b]
+      specials[a],
+      specials[b]
     ]
     =
     [
-      special[b],
-      special[a]
+      specials[b],
+      specials[a]
     ];
 
     [
-      ids[a],
-      ids[b]
+      tileIds[a],
+      tileIds[b]
     ]
     =
     [
-      ids[b],
-      ids[a]
+      tileIds[b],
+      tileIds[a]
     ];
 
     render();
 
-    await animate(
+    await animateBoard(
       before,
       150
     );
@@ -2971,82 +3538,72 @@ async function pick(i){
 
   combo = 1;
 
-  await resolve(b);
+  await resolveMatches(b);
 
   busy = false;
 
-  check();
+  checkEnd();
 
 }
 
-/* =====================================================
-   RESOLVE MATCHES
-===================================================== */
-
-async function resolve(prefer){
+async function resolveMatches(preferred){
 
   while(true){
 
-    let rs =
-    runs();
+    const runs =
+    findRuns();
 
-    if(!rs.length)
+    if(!runs.length)
     break;
 
-    let clear =
+    const clear =
     new Set(
-      rs.flat()
+      runs.flat()
     );
 
-    let create = [];
+    const create = [];
 
-    rs.forEach(
-      r => {
+    runs.forEach(
+      run => {
 
-        /* five */
+        if(
+          run.length >= 5
+        ){
 
-        if(r.length >= 5){
-
-          let p =
-          r.includes(prefer)
+          const position =
+          run.includes(preferred)
           ?
-          prefer
+          preferred
           :
-          r[
-            Math.floor(
-              r.length / 2
-            )
+          run[
+            Math.floor(run.length/2)
           ];
 
           create.push(
             [
-              p,
+              position,
               'rainbow'
             ]
           );
 
         }
 
-        /* four */
-
         else if(
-          r.length === 4
+          run.length === 4
         ){
 
-          let p =
-          r.includes(prefer)
+          const position =
+          run.includes(preferred)
           ?
-          prefer
+          preferred
           :
-          r[
-            Math.floor(
-              r.length / 2
-            )
+          run[
+            Math.floor(run.length/2)
           ];
 
           create.push(
             [
-              p,
+              position,
               'striped'
             ]
           );
@@ -3057,59 +3614,59 @@ async function resolve(prefer){
     );
 
     create.forEach(
-      ([p]) =>
-      clear.delete(p)
+      ([position]) =>
+      clear.delete(position)
     );
 
-    await clearCells(
+    await clearTiles(
       [...clear]
     );
 
     create.forEach(
-      ([p,s])=>{
+      ([position,type])=>{
 
-        special[p] = s;
+        specials[position] =
+        type;
 
         if(
-          s === 'rainbow'
-        )
-        board[p] = 0;
+          type === 'rainbow'
+        ){
+
+          board[position] = 0;
+
+        }
 
       }
     );
 
     render();
 
-    await sleep(60);
+    await wait(70);
 
-    let before =
-    capture();
+    const before =
+    capturePositions();
 
-    collapse();
+    gravity();
 
     render();
 
-    await animate(
+    await animateBoard(
       before,
       280
     );
 
     combo++;
 
-    prefer = null;
+    preferred = null;
 
   }
 
 }
 
-/* =====================================================
-   DESTROY TILES
-===================================================== */
+async function clearTiles(indices){
 
-async function clearCells(cells){
-
-  let ex =
-  new Set(cells);
+  const expanded =
+  new Set(indices);
 
   let changed = true;
 
@@ -3117,33 +3674,33 @@ async function clearCells(cells){
 
     changed = false;
 
-    [...ex]
+    [...expanded]
     .forEach(
       i => {
 
-        /* striped */
-
         if(
-          special[i]
+          specials[i]
           ===
           'striped'
         ){
 
-          let [r] =
-          rc(i);
+          const [row] =
+          coords(i);
 
           for(
-            let c = 0;
-            c < W;
-            c++
+            let col = 0;
+            col < W;
+            col++
           ){
 
-            let n =
-            idx(r,c);
+            const position =
+            index(row,col);
 
-            if(!ex.has(n)){
+            if(
+              !expanded.has(position)
+            ){
 
-              ex.add(n);
+              expanded.add(position);
 
               changed = true;
 
@@ -3153,43 +3710,43 @@ async function clearCells(cells){
 
         }
 
-        /* bomb */
-
         if(
-          special[i]
+          specials[i]
           ===
           'bomb'
         ){
 
-          let [r,c] =
-          rc(i);
+          const [row,col] =
+          coords(i);
 
           for(
-            let rr =
-            Math.max(0,r-1);
+            let r =
+            Math.max(0,row-1);
 
-            rr <=
-            Math.min(H-1,r+1);
+            r <=
+            Math.min(H-1,row+1);
 
-            rr++
+            r++
           ){
 
             for(
-              let cc =
-              Math.max(0,c-1);
+              let c =
+              Math.max(0,col-1);
 
-              cc <=
-              Math.min(W-1,c+1);
+              c <=
+              Math.min(W-1,col+1);
 
-              cc++
+              c++
             ){
 
-              let n =
-              idx(rr,cc);
+              const position =
+              index(r,c);
 
-              if(!ex.has(n)){
+              if(
+                !expanded.has(position)
+              ){
 
-                ex.add(n);
+                expanded.add(position);
 
                 changed = true;
 
@@ -3209,29 +3766,34 @@ async function clearCells(cells){
   document
   .querySelectorAll('.tile')
   .forEach(
-    (e,i)=>{
+    (tile,i)=>{
 
-      if(ex.has(i)){
+      if(
+        expanded.has(i)
+      ){
 
-        e.classList.add(
+        tile.classList.add(
           'pop'
         );
 
         if(
           Math.random()
           <
-          .28
-        )
-        flash(e);
+          .25
+        ){
+
+          flash(tile);
+
+        }
 
       }
 
     }
   );
 
-  await sleep(150);
+  await wait(150);
 
-  ex.forEach(
+  expanded.forEach(
     i => {
 
       if(
@@ -3247,9 +3809,9 @@ async function clearCells(cells){
 
         board[i] = null;
 
-        special[i] = null;
+        specials[i] = null;
 
-        ids[i] = null;
+        tileIds[i] = null;
 
       }
 
@@ -3260,22 +3822,24 @@ async function clearCells(cells){
 
 }
 
-/* =====================================================
-   RAINBOW
-===================================================== */
-
-async function rainbow(
-  p,
-  t
+async function activateRainbow(
+  position,
+  targetType
 ){
 
-  let cells = [p];
+  const cells =
+  [position];
 
   board.forEach(
-    (v,i)=>{
+    (type,i)=>{
 
-      if(v === t)
-      cells.push(i);
+      if(
+        type === targetType
+      ){
+
+        cells.push(i);
+
+      }
 
     }
   );
@@ -3284,74 +3848,62 @@ async function rainbow(
     'Универсальная плитка!'
   );
 
-  await clearCells(
-    cells
-  );
+  await clearTiles(cells);
 
-  let before =
-  capture();
+  const before =
+  capturePositions();
 
-  collapse();
+  gravity();
 
   render();
 
-  await animate(
+  await animateBoard(
     before,
     300
   );
 
 }
 
-/* =====================================================
-   CASCADES
-===================================================== */
-
-async function settle(){
+async function settleBoard(){
 
   while(
     matches().length
   ){
 
-    await resolve(null);
+    await resolveMatches(null);
 
   }
 
 }
 
-/* =====================================================
-   GRAVITY
-===================================================== */
-
-function collapse(){
+function gravity(){
 
   for(
-    let c = 0;
-    c < W;
-    c++
+    let col = 0;
+    col < W;
+    col++
   ){
 
-    let vals = [];
-
-    /* collect surviving tiles */
+    const survivors = [];
 
     for(
-      let r = H-1;
-      r >= 0;
-      r--
+      let row = H-1;
+      row >= 0;
+      row--
     ){
 
-      let i =
-      idx(r,c);
+      const i =
+      index(row,col);
 
       if(
         board[i] != null
       ){
 
-        vals.push(
+        survivors.push(
           [
             board[i],
-            special[i],
-            ids[i]
+            specials[i],
+            tileIds[i]
           ]
         );
 
@@ -3359,41 +3911,39 @@ function collapse(){
 
     }
 
-    /* refill column */
-
     for(
-      let r = H-1,
+      let row = H-1,
       k = 0;
 
-      r >= 0;
+      row >= 0;
 
-      r--,
+      row--,
       k++
     ){
 
-      let i =
-      idx(r,c);
+      const i =
+      index(row,col);
 
       if(
-        k < vals.length
+        k < survivors.length
       ){
 
         [
           board[i],
-          special[i],
-          ids[i]
+          specials[i],
+          tileIds[i]
         ]
         =
-        vals[k];
+        survivors[k];
 
       }
 
       else{
 
         board[i] =
-        rnd();
+        randomType();
 
-        special[i] =
+        specials[i] =
         Math.random()
         <
         .012
@@ -3402,8 +3952,8 @@ function collapse(){
         :
         null;
 
-        ids[i] =
-        nextId++;
+        tileIds[i] =
+        nextTileId++;
 
       }
 
@@ -3413,144 +3963,119 @@ function collapse(){
 
 }
 
-/* =====================================================
-   LEVEL PROGRESS
-===================================================== */
+function levelProgress(){
 
-function progress(){
-
-  let t =
-  LEVELS[level]
+  const target =
+  LEVELS[currentLevel]
   .target;
 
   let total = 0;
 
-  let got = 0;
+  let current = 0;
 
-  t.forEach(
-    (n,i)=>{
+  target.forEach(
+    (amount,type)=>{
 
-      if(n){
+      if(!amount)
+      return;
 
-        total += n;
+      total +=
+      amount;
 
-        got +=
-        Math.min(
-          n,
-          collected[i]
-        );
-
-      }
+      current +=
+      Math.min(
+        amount,
+        collected[type]
+      );
 
     }
   );
 
-  return got / total;
+  return current / total;
 
 }
 
-/* =====================================================
-   CONSTRUCTION
-===================================================== */
-
 function renderConstruction(){
 
-  let p =
-  progress();
+  const progress =
+  levelProgress();
 
-  let pct =
+  const percentage =
   Math.floor(
-    p * 100
+    progress * 100
   );
 
-  let overall =
+  const overall =
   (
-    level
+    currentLevel
     +
-    p
+    progress
   )
   /
   5;
 
-  let st =
+  const stages =
   [
     ...document
     .querySelectorAll(
-      '.stage'
+      '.tower-stage'
     )
   ];
 
-  let active =
-  Math.floor(
+  const constructionStage =
+  Math.min(
+    stages.length - 1,
 
-    overall
-    *
-    st.length
-
-    +
-
-    (
-      overall > 0
-      ?
-      .12
-      :
-      0
+    Math.floor(
+      overall
+      *
+      stages.length
     )
-
   );
 
   $('#progressBar')
   .style.width =
-  pct + '%';
+  percentage + '%';
 
   $('#progressText')
   .textContent =
-  pct + '%';
+  percentage + '%';
 
-  st.forEach(
-    (e,i)=>{
+  stages.forEach(
+    (stage,index)=>{
 
-      e.classList.toggle(
-        'on',
+      stage.classList.toggle(
+        'visible',
 
-        i < active
+        index < constructionStage
+
         ||
+
         overall >= 1
       );
 
-      e.classList.toggle(
+      stage.classList.toggle(
         'building',
 
-        i === active
+        index === constructionStage
+
         &&
         overall < 1
+
         &&
-        p > .06
+        progress > .04
       );
 
     }
   );
 
-  if(
-    active > lastStage
-    &&
-    lastStage >= 0
-  ){
-
-    sparks();
-
-  }
-
-  lastStage =
-  active;
-
-  let stageNames = [
+  const stageNames = [
 
     'Фундамент',
 
     'Нижние опоры',
 
-    'Арки',
+    'Главная арка',
 
     'Первый уровень',
 
@@ -3564,7 +4089,7 @@ function renderConstruction(){
 
   ];
 
-  $('#stageTag')
+  $('#stageChip')
   .textContent =
 
   overall >= 1
@@ -3576,36 +4101,35 @@ function renderConstruction(){
   :
 
   stageNames[
-    Math.min(
-      active,
-      7
-    )
+    constructionStage
   ];
 
-  $('#towerGlow')
-  .classList.toggle(
-    'on',
-    overall > .92
-  );
-
+  const dots =
   document
   .querySelectorAll(
-    '.worker,.scaffold,.hook,.crane'
-  )
-  .forEach(
-    e =>
-    e.style.opacity =
-    overall >= 1
-    ?
-    '0'
-    :
-    ''
+    '.stage-dot'
+  );
+
+  dots.forEach(
+    (dot,index)=>{
+
+      dot.classList.toggle(
+        'active',
+        index === currentLevel
+      );
+
+      dot.classList.toggle(
+        'done',
+        index < currentLevel
+      );
+
+    }
   );
 
   $('#progressName')
   .textContent =
 
-  p < .33
+  progress < .33
 
   ?
 
@@ -3613,58 +4137,117 @@ function renderConstruction(){
 
   :
 
-  p < .72
+  progress < .72
 
   ?
 
-  'Основные работы'
+  'Монтаж конструкции'
 
   :
 
   'Завершаем этап';
 
+  if(
+    constructionStage
+    >
+    lastConstructionStage
+
+    &&
+    lastConstructionStage >= 0
+  ){
+
+    playConstructionAnimation();
+
+  }
+
+  lastConstructionStage =
+  constructionStage;
+
 }
 
-/* =====================================================
-   CONSTRUCTION SPARKS
-===================================================== */
+async function playConstructionAnimation(){
 
-function sparks(){
+  const piece =
+  $('#cranePiece');
 
-  let t =
-  $('#tower');
+  const cable =
+  $('#craneCable');
+
+  piece.className =
+  'crane-piece show';
+
+  cable.style.height =
+  '115px';
+
+  await wait(350);
+
+  piece.classList.add(
+    'lower'
+  );
+
+  cable.style.height =
+  '165px';
+
+  await wait(850);
+
+  sparksAroundTower();
+
+  await wait(300);
+
+  piece.classList.add(
+    'install'
+  );
+
+  cable.style.height =
+  '105px';
+
+  sparksAroundTower();
+
+  await wait(850);
+
+  piece.className =
+  'crane-piece';
+
+}
+
+function sparksAroundTower(){
+
+  const zone =
+  document.querySelector(
+    '.tower-zone'
+  );
 
   for(
     let i = 0;
-    i < 9;
+    i < 15;
     i++
   ){
 
-    let e =
-    document.createElement('i');
+    const spark =
+    document.createElement('span');
 
-    e.className =
+    spark.className =
     'spark';
 
-    e.style.left =
+    spark.style.left =
+    (
+      45
+      +
+      Math.random() * 10
+    )
+    +
+    '%';
+
+    spark.style.top =
     (
       40
       +
-      Math.random() * 20
+      Math.random() * 35
     )
     +
     '%';
 
-    e.style.top =
-    (
-      28
-      +
-      Math.random() * 58
-    )
-    +
-    '%';
-
-    e.style.setProperty(
+    spark.style.setProperty(
       '--x',
 
       (
@@ -3674,125 +4257,121 @@ function sparks(){
           .5
         )
         *
-        90
+        120
       )
       +
       'px'
     );
 
-    e.style.setProperty(
+    spark.style.setProperty(
       '--y',
 
       (
         -30
         -
-        Math.random()
-        *
-        85
+        Math.random() * 90
       )
       +
       'px'
     );
 
-    t.appendChild(e);
+    zone.appendChild(
+      spark
+    );
 
     setTimeout(
-      () => e.remove(),
-      800
+      () =>
+      spark.remove(),
+
+      750
     );
 
   }
 
 }
 
-/* =====================================================
-   MATCH FLASH
-===================================================== */
+function flash(tile){
 
-function flash(el){
+  const rect =
+  tile.getBoundingClientRect();
 
-  let r =
-  el.getBoundingClientRect();
+  const effect =
+  document.createElement('span');
 
-  let e =
-  document.createElement('i');
-
-  e.className =
+  effect.className =
   'flash';
 
-  e.style.left =
+  effect.style.left =
   (
-    r.left
+    rect.left
     +
-    r.width / 2
+    rect.width / 2
     -
-    9
+    8
   )
   +
   'px';
 
-  e.style.top =
+  effect.style.top =
   (
-    r.top
+    rect.top
     +
-    r.height / 2
+    rect.height / 2
     -
-    9
+    8
   )
   +
   'px';
 
   document.body
-  .appendChild(e);
+  .appendChild(effect);
 
   setTimeout(
-    () => e.remove(),
+    () =>
+    effect.remove(),
+
     500
   );
 
 }
 
-/* =====================================================
-   WIN CONDITION
-===================================================== */
-
-function win(){
+function levelComplete(){
 
   return
 
-  LEVELS[level]
+  LEVELS[currentLevel]
   .target
   .every(
-    (t,i)=>
+    (target,type)=>
 
-    !t
+    !target
+
     ||
-    collected[i] >= t
+
+    collected[type]
+    >=
+    target
 
   );
 
 }
 
-/* =====================================================
-   STAR CALCULATION
-===================================================== */
+function calculateStars(){
 
-function stars(){
-
-  if(!win())
+  if(
+    !levelComplete()
+  )
   return 0;
 
-  let ratio =
+  const initial =
+  LEVELS[currentLevel]
+  .moves;
 
-  (
-    LEVELS[level].moves
-    -
-    moves
-  )
+  const used =
+  initial - moves;
 
-  /
-
-  LEVELS[level].moves;
+  const ratio =
+  used / initial;
 
   if(
     ratio <= .55
@@ -3808,15 +4387,13 @@ function stars(){
 
 }
 
-/* =====================================================
-   CHECK END
-===================================================== */
+function checkEnd(){
 
-function check(){
+  if(
+    levelComplete()
+  ){
 
-  if(win()){
-
-    finish(true);
+    finishLevel(true);
 
   }
 
@@ -3824,42 +4401,37 @@ function check(){
     moves <= 0
   ){
 
-    finish(false);
+    finishLevel(false);
 
   }
 
 }
 
-/* =====================================================
-   END LEVEL
-===================================================== */
+function finishLevel(success){
 
-function finish(ok){
-
-  let st =
-  ok
+  const stars =
+  success
   ?
-  stars()
+  calculateStars()
   :
   0;
 
-  if(ok){
+  if(success){
 
     save.paris
-    .stars[level] =
+    .stars[currentLevel] =
 
     Math.max(
-
       save.paris
-      .stars[level]
-      ||
-      0,
+      .stars[currentLevel]
+      || 0,
 
-      st
-
+      stars
     );
 
-    if(level < 4){
+    if(
+      currentLevel < 4
+    ){
 
       save.paris
       .unlocked =
@@ -3869,37 +4441,35 @@ function finish(ok){
         save.paris
         .unlocked,
 
-        level + 2
+        currentLevel + 2
 
       );
 
     }
 
-    persist();
+    saveGame();
 
     updateChapter();
 
   }
 
-  $('#resultKick')
+  $('#resultKicker')
   .textContent =
-  'Париж · Уровень '
-  +
-  (level + 1);
+  `Париж · Уровень ${currentLevel+1}`;
 
   $('#resultTitle')
   .textContent =
 
-  ok
+  success
 
   ?
 
   (
-    level === 4
+    currentLevel === 4
     ?
-    'Париж завершён!'
+    'Эйфелева башня завершена!'
     :
-    'Уровень завершён!'
+    'Этап построен!'
   )
 
   :
@@ -3909,18 +4479,18 @@ function finish(ok){
   $('#resultStars')
   .textContent =
 
-  '★'.repeat(st)
+  '★'.repeat(stars)
 
   +
 
   '☆'.repeat(
-    3 - st
+    3-stars
   );
 
   $('#resultText')
   .textContent =
 
-  ok
+  success
 
   ?
 
@@ -3928,20 +4498,14 @@ function finish(ok){
 
   :
 
-  'Прогресс: '
-  +
-  Math.floor(
-    progress() * 100
-  )
-  +
-  '%';
+  `Прогресс этапа: ${Math.floor(levelProgress()*100)}%`;
 
-  $('#next')
+  $('#nextLevel')
   .style.display =
 
-  ok
+  success
   &&
-  level < 4
+  currentLevel < 4
 
   ?
 
@@ -3958,15 +4522,16 @@ function finish(ok){
 
 }
 
-/* =====================================================
-   START LEVEL
-===================================================== */
+function startLevel(index){
 
-function startLevel(i){
-
-  level = i;
+  currentLevel =
+  index;
 
   score = 0;
+
+  moves =
+  LEVELS[index]
+  .moves;
 
   combo = 1;
 
@@ -3974,96 +4539,77 @@ function startLevel(i){
 
   busy = false;
 
-  collected = [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ];
+  collected =
+  [0,0,0,0,0,0];
 
-  moves =
-  LEVELS[i]
-  .moves;
+  lastConstructionStage =
+  -1;
 
-  lastStage = -1;
-
-  freshBoard();
+  generateBoard();
 
   $('#location')
   .textContent =
-  'Париж · Уровень '
-  +
-  (i + 1);
+  `Париж · Уровень ${index+1}`;
 
   $('#hint')
   .textContent =
-  LEVELS[i]
+  LEVELS[index]
   .hint;
 
-  $('#stageKick')
+  $('#stageKicker')
   .textContent =
-  'Этап строительства '
-  +
-  (i + 1)
-  +
-  ' из 5';
+  `Этап строительства ${index+1} из 5`;
 
-  $('#subtitle')
+  $('#stageSubtitle')
   .textContent =
-  LEVELS[i]
-  .sub;
+  LEVELS[index]
+  .subtitle;
 
   $('#overlay')
   .classList.remove(
     'show'
   );
 
-  screen('#game');
+  showScreen(
+    '#gameScreen'
+  );
 
   render();
 
 }
 
-/* =====================================================
-   TOAST
-===================================================== */
+function toast(message){
 
-function toast(t){
-
-  let e =
+  const element =
   $('#toast');
 
-  e.textContent =
-  t;
+  element.textContent =
+  message;
 
-  e.classList.add(
+  element.classList.add(
     'show'
   );
 
   setTimeout(
     () =>
-    e.classList.remove(
+    element.classList.remove(
       'show'
     ),
 
-    900
+    950
   );
 
 }
 
-/* =====================================================
-   BUTTONS
-===================================================== */
-
 $('#openParis').onclick =
-$('#paris').onclick =
+$('#parisPin').onclick =
 ()=>{
 
   renderLevels();
 
-  screen('#levels');
+  showScreen(
+    '#levelsScreen'
+  );
 
 };
 
@@ -4072,7 +4618,9 @@ $('#backMap').onclick =
 
   updateChapter();
 
-  screen('#map');
+  showScreen(
+    '#mapScreen'
+  );
 
 };
 
@@ -4081,14 +4629,18 @@ $('#backLevels').onclick =
 
   renderLevels();
 
-  screen('#levels');
+  showScreen(
+    '#levelsScreen'
+  );
 
 };
 
 $('#restart').onclick =
 ()=>{
 
-  startLevel(level);
+  startLevel(
+    currentLevel
+  );
 
 };
 
@@ -4102,29 +4654,24 @@ $('#returnLevels').onclick =
 
   renderLevels();
 
-  screen('#levels');
-
-};
-
-$('#next').onclick =
-()=>{
-
-  startLevel(
-    level + 1
+  showScreen(
+    '#levelsScreen'
   );
 
 };
 
-/* =====================================================
-   INIT
-===================================================== */
+$('#nextLevel').onclick =
+()=>{
+
+  startLevel(
+    currentLevel + 1
+  );
+
+};
 
 updateChapter();
-
 renderLevels();
-
-freshBoard();
-
+generateBoard();
 </script>
 
 </body>
